@@ -7,11 +7,13 @@ import java.awt.event.ActionListener;
 public class TheGUI extends JFrame {
     //Tiles_____
     Tiles[][] tiles = new Tiles[9][9];
+    //Queue______
+    QueueModel[][] queue = new QueueModel[1][7];
     //Listeners_____
     TileListener tileHandler;
     //Panels____
     JPanel tilePanel;
-    //JPanel queuePanel;
+    JPanel queuePanel;
     //JPanel buttonsPanel;
 
     //constructor
@@ -27,14 +29,19 @@ public class TheGUI extends JFrame {
         Math.random();
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-                tiles[i][j] = new Tiles(1,true);
+                tiles[i][j] = new Tiles(1,true, null);
                 tileHandler = new TileListener(tiles[i][j]);
                 //tiles[i][j].setSize(new Dimension(5,5));
                 tiles[i][j].addActionListener(tileHandler);
                 tilePanel.add(tiles[i][j]);
             }
         }
+        queuePanel = new JPanel();
+        queuePanel.setPreferredSize(new Dimension(150,300));
+        queuePanel.setLayout(new GridLayout(1,7));
+
         add(tilePanel, BorderLayout.WEST);
+        add(queuePanel, BorderLayout.EAST);
         pack();
         setVisible(true);
 
@@ -49,6 +56,7 @@ public class TheGUI extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             t = (Tiles) e.getSource();
+            t.setColor(Color.GREEN);
         }
     }
 

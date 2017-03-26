@@ -1,14 +1,17 @@
 package com;
 import javax.swing.*;
+import java.awt.*;
 
 
 public class Tiles extends JButton{
     private int value;
     private boolean isEmpty;
+    private Color color_;
     //constructor
-    public Tiles(int val, boolean isEmpty_){
+    public Tiles(int val, boolean isEmpty_, Color c){
         this.value = val;
         this.isEmpty = isEmpty_;
+        this.color_ = c;
         setText(value + "");
 
     }
@@ -24,6 +27,10 @@ public class Tiles extends JButton{
     public void setNumber(int number){
         this.value = number;
         setText(number + "");
+    }
+    public void setColor(Color color){
+        this.color_ = color;
+        setBackground(color);
     }
     //will be used to set the boolean
     public void setBoolean(boolean empty){
