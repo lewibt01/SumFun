@@ -34,6 +34,8 @@ public class TheGUI extends JFrame {
                 tilePanel.add(tiles[i][j]);
             }
         }
+        add(tilePanel, BorderLayout.WEST);
+        pack();
         setVisible(true);
 
     }
