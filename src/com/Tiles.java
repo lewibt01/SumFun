@@ -1,9 +1,7 @@
 package com;
 import javax.swing.*;
 
-/**
- * Created by Aaron on 3/26/2017.
- */
+
 public class Tiles extends JButton{
     private int value;
     private boolean isEmpty;

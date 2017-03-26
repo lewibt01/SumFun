@@ -2,9 +2,7 @@ package com;
 import javax.swing.*;
 import java.awt.event.*;
 
-/**
- * Created by Aaron on 3/26/2017.
- */
+
 public class TheGUI {
     //Tiles_____
     Tiles[][] tiles = new Tiles[9][9];
