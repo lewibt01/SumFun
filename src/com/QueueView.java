@@ -4,7 +4,7 @@ public class QueueView {
     private QueueModel data;
 
     public QueueView(){
-        data=new QueueModel();
+        data = new QueueModel();
     }
 
 }
