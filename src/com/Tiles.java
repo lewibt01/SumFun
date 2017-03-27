@@ -5,12 +5,12 @@ import java.awt.*;
 
 public class Tiles extends JButton{
     private int value;
-    private boolean isEmpty;
+    private boolean flag;
     private Color color_;
     //constructor
     public Tiles(int val, boolean isEmpty_, Color c){
         this.value = val;
-        this.isEmpty = isEmpty_;
+        this.flag = isEmpty_;
         this.color_ = c;
         setText(value + "");
 
@@ -21,7 +21,7 @@ public class Tiles extends JButton{
     }
     //will be used to grab the boolean
     public boolean getBool(){
-        return isEmpty;
+        return flag;
     }
     //will be used to create numbers
     public void setNumber(int number){
@@ -34,6 +34,6 @@ public class Tiles extends JButton{
     }
     //will be used to set the boolean
     public void setBoolean(boolean empty){
-        this.isEmpty = empty;
+        this.flag = empty;
     }
 }
