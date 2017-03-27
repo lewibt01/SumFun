@@ -8,9 +8,9 @@ public class Tiles extends JButton{
     private boolean flag;
     private Color color_;
     //constructor
-    public Tiles(int val, boolean isEmpty_, Color c){
+    public Tiles(int val, boolean flag_, Color c){
         this.value = val;
-        this.flag = isEmpty_;
+        this.flag = flag_;
         this.color_ = c;
         setText(value + "");
 
@@ -33,7 +33,7 @@ public class Tiles extends JButton{
         setBackground(color);
     }
     //will be used to set the boolean
-    public void setBoolean(boolean empty){
-        this.flag = empty;
+    public void setBoolean(boolean flag_){
+        this.flag = flag_;
     }
 }
