@@ -5,39 +5,37 @@ import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
 
-public class QueueView extends JFrame implements Observer{
+public class QueueView extends JPanel implements Observer{
     private QueueModel model;
     private Tiles display[];
 
 
-    public QueueView(boolean visible){
+    public QueueView(){
         super();
         model=new QueueModel();
         //should add itself as an observer to its own model
         model.addObserver(this);
 
 
-        Container pane = getContentPane();
+
+
         //generate a gridlayout for the number of elements in the view
-        pane.setLayout(new GridLayout(model.getNumElements(),1));
+        this.setLayout(new GridLayout(model.getNumElements(),1));
 
         display = new Tiles[5];
         //initialize some dummy tiles for the display
-        for(int i=0;i<display.length;i++){
-            Tiles tmp = new Tiles(0,false,new Color(150,170,170));
+        for(int i=display.length;i>0;i++) {//count backwards to ensure correct ordering
+            Tiles tmp = new Tiles(0, false, new Color(150, 170, 170));
             tmp.setText("");
-            display[i]=tmp;
+            display[i] = tmp;
+            this.add(tmp);
         }
-    }
 
-    public QueueView(int x, int y, int w, int h){
-        super();
-        model=new QueueModel();
-
+        setVisible(true);
     }
 
     public void addObserver(Observer o){
-
+        //register a model with this view...
     }
 
     public void update(Observable o, Object arg){
