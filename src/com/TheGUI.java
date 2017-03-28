@@ -35,7 +35,9 @@ public class TheGUI extends JFrame {
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                tiles[i][j] = new Tiles(0, false, Color.blue);
+                tileHandler = new TileListener(tiles[i][j]);
+                tiles[i][j] = new Tiles(0, false, null);
+                tiles[i][j].addActionListener(tileHandler);
                 tilePanel.add(tiles[i][j]);
                 tiles[i][j].setText(" ");
 
@@ -47,7 +49,7 @@ public class TheGUI extends JFrame {
                 int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
                 tiles[x][y].setNumber(randomVal);
                 tiles[x][y].setBoolean(true);
-                tiles[x][y].setColor(Color.green);
+                tiles[x][y].setColor(null);
             }
         }
 

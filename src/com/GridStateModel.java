@@ -17,7 +17,7 @@ public class GridStateModel {
                 int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
                 grid[i][j].setNumber(randomVal);
                 grid[i][j].setBoolean(true);
-                grid[i][j].setColor(green);
+                grid[i][j].setColor(null);
             }
         }
     }
