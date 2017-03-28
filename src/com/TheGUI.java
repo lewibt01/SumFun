@@ -3,10 +3,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TheGUI extends JFrame {
     //Tiles_____
     Tiles[][] tiles = new Tiles[9][9];
+    //Grid______
+    GridStateModel grid;
     //Queue______
     QueueModel[][] queue = new QueueModel[1][7];
     //Listeners_____
@@ -16,17 +19,40 @@ public class TheGUI extends JFrame {
     JPanel queuePanel;
     //JPanel buttonsPanel;
 
+
+
     //constructor
     public TheGUI() {
         setTitle("Sum Fun!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        //grid = new GridStateModel();
 
         //build tile panel
         tilePanel = new JPanel();
         tilePanel.setPreferredSize(new Dimension(800, 800));
         tilePanel.setLayout(new GridLayout(9, 9));
-        Math.random();
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                tiles[i][j] = new Tiles(0, false, Color.blue);
+                tilePanel.add(tiles[i][j]);
+                tiles[i][j].setText(" ");
+
+            }
+        }
+
+        for (int x = 1; x < 8; x++){
+            for(int y=1;y< 8;y++){
+                int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
+                tiles[x][y].setNumber(randomVal);
+                tiles[x][y].setBoolean(true);
+                tiles[x][y].setColor(Color.green);
+            }
+        }
+
+
+/*
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
                 tiles[i][j] = new Tiles(1,true, null);
@@ -36,6 +62,8 @@ public class TheGUI extends JFrame {
                 tilePanel.add(tiles[i][j]);
             }
         }
+*/
+
         queuePanel = new JPanel();
         queuePanel.setPreferredSize(new Dimension(150,300));
         queuePanel.setLayout(new GridLayout(1,7));
