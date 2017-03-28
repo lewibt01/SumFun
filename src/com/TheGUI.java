@@ -41,6 +41,19 @@ public class TheGUI extends JFrame {
                 tilePanel.add(tiles[i][j]);
                 tiles[i][j].setText(" ");
 
+                if(i == 0 || j == 0){
+                    for(int k = 0; k < 9;k++){
+                        tiles[i][j].setEnabled(false);
+                    }
+
+                }
+                if(i == 8 || j == 8){
+                    for(int l = 0; l< 9; l++){
+                        tiles[i][j].setEnabled(false);
+                    }
+                }
+
+
             }
         }
 
