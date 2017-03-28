@@ -40,23 +40,18 @@ public class TheGUI extends JFrame {
                 tiles[i][j].addActionListener(tileHandler);
                 tilePanel.add(tiles[i][j]);
                 tiles[i][j].setText(" ");
-
-                if(i == 0 || j == 0){
+                //sets border to disabled initially
+                if((i == 0 || j == 0)||(i==8 ||j==8)){
                     for(int k = 0; k < 9;k++){
                         tiles[i][j].setEnabled(false);
                     }
 
                 }
-                if(i == 8 || j == 8){
-                    for(int l = 0; l< 9; l++){
-                        tiles[i][j].setEnabled(false);
-                    }
-                }
 
 
             }
         }
-
+        //used to populate values to game board
         for (int x = 1; x < 8; x++){
             for(int y=1;y< 8;y++){
                 int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
@@ -100,7 +95,8 @@ public class TheGUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             t = (Tiles) e.getSource();
             t.setColor(Color.GREEN);
+
+
+            }
         }
     }
-
-}
