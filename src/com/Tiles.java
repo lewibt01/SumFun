@@ -23,6 +23,9 @@ public class Tiles extends JButton{
     public boolean getBool(){
         return occupied;
     }
+    public Color getColor(){
+        return this.color_;
+    }
     //will be used to create numbers
     public void setNumber(int number){
         this.value = number;
