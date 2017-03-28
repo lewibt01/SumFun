@@ -1,54 +1,43 @@
 package com;
 
-import java.util.ArrayList;
+import java.util.*;
 
-public class QueueModel {
-    private static ArrayList<Integer> queue;
+public class QueueModel extends Observable {
+    private LinkedList<Integer> queue;
+    private int numElements;//number of elements for the queue to actively display
+    private int visibleNumbers[] = new int[5];//where the visible numbers in the queue are stored
+
 
     public QueueModel(){
-        queue=new ArrayList<>();
-        initializeQueue();
+        super();
+        queue = new LinkedList<>();
+        numElements=5;
     }
 
-    //populate the queue with random values
-    public void initializeQueue(){
-        //generate random numbers here
+    //set the number of queue elements that should be visible to the user
+    public void setNumberElements(int input){
+        numElements=input;
     }
 
-    public ArrayList<Integer> getQueue() {
-        return queue;
-    }
-
-    public void setQueue(ArrayList<Integer> queue) {
-        QueueModel.queue = queue;
-    }
-
-    //push a new value to the queue
-    public void push(int value){
-        //ensure only single digit numbers...
-        if(!(value<0 || value>9)){
-            queue.add(value);
-        }
-    }
-
-    //pull a value from the bottom of the queue
-    public void pop(){
-        queue.get(queue.size()-1);
-        queue.remove((int)queue.size()-1);
-    }
-
-    //view the last 5 values in the queue
-    public int[] peek(){
-        int tmp[] = new int[5];
-        //store the values in an array to return in a batch
-        //  the first value in the array will be 5 from the end,
-        //  and the last value will be the end of the queue
-        if(queue.size()>=5) {
-            for (int i = 4; i >= 0; i--) {
-                tmp[i] = queue.get((int) (queue.size() - i));
-            }
-        }
+    //return the number of elements that are allowed to be visible to the user
+    public int getNumElements(){
+        int tmp = numElements; //no intellij, this is not redundant
         return tmp;
+    }
+
+    //push a value into the queue
+    public void add(Integer i){
+        queue.addFirst(i);
+    }
+
+    //pulls the value out of the end of the queue
+    public Integer retrieve(){
+        return queue.getLast();
+    }
+
+    //update attached views
+    public void update(Observable o, Object arg){
+
     }
 
 
