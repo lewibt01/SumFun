@@ -24,7 +24,7 @@ public class QueueView extends JPanel implements Observer{
 
         display = new Tiles[5];
         //initialize some dummy tiles for the display
-        for(int i=display.length;i>0;i++) {//count backwards to ensure correct ordering
+        for(int i = 0;i < display.length;i++) {//count backwards to ensure correct ordering
             Tiles tmp = new Tiles(0, false, new Color(150, 170, 170));
             tmp.setText("");
             display[i] = tmp;
