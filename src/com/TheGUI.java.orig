@@ -11,9 +11,10 @@ public class TheGUI extends JFrame {
     //Grid______
     GridStateModel grid;
     //Queue______
-    QueueModel[][] queue = new QueueModel[1][7];
+    QueueModel queue = new QueueModel();
     //Listeners_____
     TileListener tileHandler;
+    //QueueListener queueHandler;
     //Panels____
     JPanel tilePanel;
     JPanel queuePanel;
@@ -67,6 +68,12 @@ public class TheGUI extends JFrame {
         queuePanel = new JPanel();
         queuePanel.setPreferredSize(new Dimension(150,300));
         queuePanel.setLayout(new GridLayout(1,7));
+       /* for(int q = 0; q < queue. q++){
+            queue = new QueueModel();
+            queueHandler = new QueueListener(queue);
+            queue.addActionListener(queueHandler);
+            queuePanel.add(queue);*/
+   // }
 
         add(tilePanel, BorderLayout.WEST);
         add(queuePanel, BorderLayout.EAST);

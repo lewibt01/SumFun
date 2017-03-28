@@ -1,8 +1,9 @@
 package com;
 
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static java.awt.Color.green;
 
 public class GridStateModel {
     private Tiles[][] grid;
@@ -16,9 +17,18 @@ public class GridStateModel {
                 int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
                 grid[i][j].setNumber(randomVal);
                 grid[i][j].setBoolean(true);
+                grid[i][j].setColor(green);
             }
         }
     }
 
-    
+    //takes values from neighboring tiles and performs game logic calculation
+    public void performCalc(){
+
+    }
+
+    //
+    public void updateGrid() {
+
+    }
 }
