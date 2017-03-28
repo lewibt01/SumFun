@@ -21,7 +21,7 @@ public class QueueModel extends Observable {
 
     //return the number of elements that are allowed to be visible to the user
     public int getNumElements(){
-        int tmp = numElements; //no intellij, this is not redundant
+        int tmp = numElements; //no intellij, this is not redundant, It's art
         return tmp;
     }
 
@@ -30,14 +30,43 @@ public class QueueModel extends Observable {
         queue.addFirst(i);
     }
 
+    //randomly reshuffle the elements of the queue
+    public void shuffle(){
+        Random r = new Random();
+        ArrayList<Integer> tmp = new ArrayList<>();
+
+        //collect all queue elements
+        for(int el:queue){
+            tmp.add(retrieve());
+            System.out.println(el);
+        }
+
+        //ensure queue is empty
+        queue.clear();
+
+        //re-add elements to the queue
+        for(int i=0;i<tmp.size();i++){
+            int tmpInt = r.nextInt(tmp.size());//generate random index
+            queue.addFirst(tmp.get((int)tmpInt));//grab index and add to queue, ensure search by index not by value
+            tmp.remove((int)tmpInt);//make absolutely sure it removes the index not the value
+        }
+
+        //tell everybody we updated the queue
+        this.notifyObservers();
+    }
+
     //pulls the value out of the end of the queue
     public Integer retrieve(){
-        return queue.getLast();
+        return queue.pollLast();
+    }
+
+    public Integer peek(){
+        return queue.peekLast();
     }
 
     //update attached views
     public void update(Observable o, Object arg){
-
+        o.notifyObservers();//tell the views they are being updated?
     }
 
 
