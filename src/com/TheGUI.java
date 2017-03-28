@@ -78,7 +78,7 @@ public class TheGUI extends JFrame {
 
         queuePanel = new JPanel();
         queuePanel.setPreferredSize(new Dimension(150,300));
-        queuePanel.setLayout(new GridLayout(1,5));
+        queuePanel.setLayout(new GridLayout(5,1));
         queuePanel.add(view);
 
         add(tilePanel, BorderLayout.WEST);
