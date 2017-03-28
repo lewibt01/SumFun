@@ -83,7 +83,7 @@ public class TheGUI extends JFrame {
 
         add(tilePanel, BorderLayout.WEST);
         add(queuePanel, BorderLayout.EAST);
-        add(buttonsPanel, BorderLayout.SOUTH);
+        //add(buttonsPanel, BorderLayout.SOUTH);
         pack();
         setVisible(true);
 
