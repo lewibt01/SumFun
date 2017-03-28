@@ -23,6 +23,7 @@ public class QueueView extends JPanel implements Observer{
         this.setLayout(box);
         this.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
         this.setAlignmentY(CENTER_ALIGNMENT);
+        this.setBackground(new Color(123,255, 24));
 
 
 
@@ -32,7 +33,7 @@ public class QueueView extends JPanel implements Observer{
         //initialize some dummy tiles for the display
         for(int i = 0;i < display.length;i++) {//count backwards to ensure correct ordering
             Tiles tmp = new Tiles(0, false, new Color(38, 170, 160));
-            tmp.setPreferredSize(new Dimension(70,50));
+            tmp.setPreferredSize(new Dimension(100,100));
 
             display[i] = tmp;
             this.add(tmp);

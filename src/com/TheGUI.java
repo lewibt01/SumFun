@@ -79,11 +79,13 @@ public class TheGUI extends JFrame {
         queuePanel = new JPanel();
         queuePanel.setPreferredSize(new Dimension(150,300));
         queuePanel.setLayout(new GridLayout(5,1));
+        queuePanel.setBackground(new Color(255, 137, 39));
         queuePanel.add(view);
 
         add(tilePanel, BorderLayout.WEST);
         add(queuePanel, BorderLayout.EAST);
         //add(buttonsPanel, BorderLayout.SOUTH);
+
         pack();
         setVisible(true);
 
