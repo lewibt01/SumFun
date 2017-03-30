@@ -1,4 +1,4 @@
-package com;
+package model;
 
 import java.util.*;
 
@@ -12,6 +12,9 @@ public class QueueModel extends Observable {
         super();
         queue = new LinkedList<>();
         numElements=5;
+    }
+    public int[] getQueue(){
+        return visibleNumbers;
     }
 
     //set the number of queue elements that should be visible to the user
@@ -52,6 +55,7 @@ public class QueueModel extends Observable {
         }
 
         //tell everybody we updated the queue
+        this.setChanged();
         this.notifyObservers();
     }
 
@@ -64,10 +68,6 @@ public class QueueModel extends Observable {
         return queue.peekLast();
     }
 
-    //update attached views
-    public void update(Observable o, Object arg){
-        o.notifyObservers();//tell the views they are being updated?
-    }
 
 
 }

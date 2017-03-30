@@ -1,19 +1,18 @@
-package com;
-import javax.swing.*;
+package model;
 import java.awt.*;
+import java.util.Observable;
+import javax.swing.*;
 
-
-public class Tiles extends JButton{
-    private int value;
-    private boolean occupied;
+//view class
+public class TileModel extends Observable{
+    //fields
+    private int value = 0;
+    private boolean occupied = false;
     private Color color_;
 
     //constructors
-    public Tiles(int val, boolean occupied_, Color c){
-        this.value = val;
-        this.occupied = occupied_;
+    public TileModel(Color c){
         this.color_ = c;
-        setText(value + "");
     }
     //used to grab integer value
     public int getInt(){
@@ -23,17 +22,21 @@ public class Tiles extends JButton{
     public boolean getBool(){
         return occupied;
     }
+    //used to grab current color (used when user clicks and tile is removed)
     public Color getColor(){
         return this.color_;
     }
     //will be used to create numbers
-    public void setNumber(int number){
+    public void setNumber(int number) {
         this.value = number;
-        setText(number + "");
+        setChanged();
+        notifyObservers();
     }
+    //will change background color of tile
     public void setColor(Color color){
         this.color_ = color;
-        setBackground(color);
+        setChanged();
+        notifyObservers();
     }
     //will be used to set the boolean
     public void setBoolean(boolean occupied){

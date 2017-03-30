@@ -1,4 +1,4 @@
-package com;
+package model;
 
 public class CurrentScoreModel {
 }
