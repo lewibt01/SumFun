@@ -9,10 +9,11 @@ public class TheGUI extends JFrame {
     //Tiles_____
     Tiles[][] tiles = new Tiles[9][9];
     //Grid______
-    GridStateModel grid;
+    GridModel grid;
     //Queue______
     //QueueModel[] queue = new QueueModel[5];
-    QueueView view = new QueueView();
+    QueueView Qview = new QueueView();
+    GridView Gview = new GridView();
     //Listeners_____
     TileListener tileHandler;
     //Panels____
@@ -28,40 +29,11 @@ public class TheGUI extends JFrame {
         setTitle("Sum Fun!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        //grid = new GridStateModel();
 
         //build tile panel
         tilePanel = new JPanel();
         tilePanel.setPreferredSize(new Dimension(800, 800));
-        tilePanel.setLayout(new GridLayout(9, 9));
-
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                tileHandler = new TileListener(tiles[i][j]);
-                tiles[i][j] = new Tiles(0, false, null);
-                tiles[i][j].addActionListener(tileHandler);
-                tilePanel.add(tiles[i][j]);
-                tiles[i][j].setText(" ");
-                //sets border to disabled initially
-                if((i == 0 || j == 0)||(i==8 ||j==8)){
-                    for(int k = 0; k < 9;k++){
-                        tiles[i][j].setEnabled(false);
-                    }
-
-                }
-
-
-            }
-        }
-        //used to populate values to game board
-        for (int x = 1; x < 8; x++){
-            for(int y=1;y< 8;y++){
-                int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
-                tiles[x][y].setNumber(randomVal);
-                tiles[x][y].setBoolean(true);
-                tiles[x][y].setColor(null);
-            }
-        }
+        tilePanel.add(Gview);
 
 
 /*
@@ -80,7 +52,7 @@ public class TheGUI extends JFrame {
         queuePanel.setPreferredSize(new Dimension(150,300));
         queuePanel.setLayout(new GridLayout(5,1));
         queuePanel.setBackground(new Color(255, 137, 39));
-        queuePanel.add(view);
+        queuePanel.add(Qview);
 
         add(tilePanel, BorderLayout.WEST);
         add(queuePanel, BorderLayout.EAST);
@@ -103,6 +75,6 @@ public class TheGUI extends JFrame {
             t.setColor(Color.GREEN);
 
 
-            }
         }
     }
+}
