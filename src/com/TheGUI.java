@@ -33,25 +33,13 @@ public class TheGUI extends JFrame {
         //build tile panel
         tilePanel = new JPanel();
         tilePanel.setPreferredSize(new Dimension(800, 800));
+        tilePanel.setBackground(new Color(123,255,24));
         tilePanel.add(Gview);
-
-
-/*
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                tiles[i][j] = new Tiles(1,true, null);
-                tileHandler = new TileListener(tiles[i][j]);
-                //tiles[i][j].setSize(new Dimension(5,5));
-                tiles[i][j].addActionListener(tileHandler);
-                tilePanel.add(tiles[i][j]);
-            }
-        }
-*/
 
         queuePanel = new JPanel();
         queuePanel.setPreferredSize(new Dimension(150,300));
-        queuePanel.setLayout(new GridLayout(5,1));
-        queuePanel.setBackground(new Color(255, 137, 39));
+        //queuePanel.setLayout(new GridLayout(5,1));
+        queuePanel.setBackground(new Color(123, 255, 24));
         queuePanel.add(Qview);
 
         add(tilePanel, BorderLayout.WEST);

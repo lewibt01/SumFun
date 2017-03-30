@@ -27,7 +27,7 @@ public class QueueView extends JPanel implements Observer{
 
 
 
-        this.setPreferredSize(new Dimension(50,50));
+        this.setPreferredSize(new Dimension(50,350));
 
         display = new Tiles[5];
         //initialize some dummy tiles for the display

@@ -19,6 +19,7 @@ public class GridView extends JPanel implements Observer{
         this.setLayout(grid);
         this.setBorder(BorderFactory.createEmptyBorder());
         this.setPreferredSize(new Dimension(800,800));
+        this.setBackground(new Color(123,255,24));
 
         display = new Tiles[9][9];
         //grid initialization logic
@@ -34,6 +35,7 @@ public class GridView extends JPanel implements Observer{
                 if((i == 0 || j == 0)||(i==8 ||j==8)){
                     for(int k = 0; k < 9;k++){
                         display[i][j].setEnabled(false);
+                        //display[i][j].setColor(Color.blue);
                     }
 
                 }
