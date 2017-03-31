@@ -11,6 +11,7 @@ import java.util.Observer;
  * Created by Aaron on 3/30/2017.
  */
 public class CurrentScoreView extends JPanel implements Observer {
+    private Font font = new Font("SansSerif", Font.BOLD, 20);
     private JTextField scoreTextField, movesRemaining;
     private JLabel scoreLabel;
     private JLabel movesLabel;
@@ -29,6 +30,8 @@ public class CurrentScoreView extends JPanel implements Observer {
         add(scoreLabel);
         scoreTextField = new JTextField();
         scoreTextField.setText(currentScore.getCurrentScore() +"");
+        scoreTextField.setFont(font);
+        scoreTextField.setHorizontalAlignment(JTextField.CENTER);
         scoreTextField.setEditable(false);
         add(scoreTextField);
         movesLabel = new JLabel();
@@ -36,6 +39,8 @@ public class CurrentScoreView extends JPanel implements Observer {
         add(movesLabel);
         movesRemaining= new JTextField();
         movesRemaining.setText(currentScore.getNumberMoves() + "");
+        movesRemaining.setFont(font);
+        movesRemaining.setHorizontalAlignment(JTextField.CENTER);
         movesRemaining.setEditable(false);
         add(movesRemaining);
     }
