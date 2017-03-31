@@ -29,7 +29,7 @@ public class QueueModel extends Observable {
     }
 
     //push a value into the queue
-    public void add(Integer i){
+    public void add(int i){
         queue.addFirst(i);
     }
 
@@ -50,8 +50,8 @@ public class QueueModel extends Observable {
         //re-add elements to the queue
         for(int i=0;i<tmp.size();i++){
             int tmpInt = r.nextInt(tmp.size());//generate random index
-            queue.addFirst(tmp.get((int)tmpInt));//grab index and add to queue, ensure search by index not by value
-            tmp.remove((int)tmpInt);//make absolutely sure it removes the index not the value
+            queue.addFirst(tmp.get(tmpInt));//grab index and add to queue, ensure search by index not by value
+            tmp.remove(tmpInt);//make absolutely sure it removes the index not the value
         }
 
         //tell everybody we updated the queue
