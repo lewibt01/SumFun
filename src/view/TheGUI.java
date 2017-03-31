@@ -14,26 +14,30 @@ public class TheGUI extends JFrame implements Observer {
     GridView gridView;
     QueueView queueView;
     CurrentScoreView currentScoreView;
-    JPanel buttonsPanel;
 
     //make an array of buttons then in the update method update all of the values to the tile array
 
 
     //constructor
     public TheGUI() {
+        // used to combine currentScore view and queue view via the same panel
+        JPanel sidePanel = new JPanel();
         setTitle("Sum Fun!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900,900);
+        setSize(1000,1000);
         setLayout(new BorderLayout());
 
         gridView = new GridView();
         add(gridView, BorderLayout.CENTER);
         queueView = new QueueView();
         //queueView.setSize(300,300);
-        queueView.setMinimumSize(new Dimension(100,0));
-        queueView.setPreferredSize(queueView.getMinimumSize());
-        add(queueView, BorderLayout.EAST);
-
+       // queueView.setMinimumSize(new Dimension(100,0));
+        //queueView.setPreferredSize(queueView.getMinimumSize());
+        sidePanel.setLayout(new GridLayout(2,1,0,0));
+        sidePanel.add(queueView);
+        currentScoreView = new CurrentScoreView();
+        sidePanel.add(currentScoreView);
+        add(sidePanel, BorderLayout.EAST);
         setVisible(true);
 
     }

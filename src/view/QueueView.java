@@ -17,6 +17,11 @@ public class QueueView extends JPanel implements Observer {
         //BoxLayout box = new BoxLayout(this,BoxLayout.Y_AXIS);
         //this.setLayout(box);
         this.setLayout(new GridLayout(5, 1, 0, 0));
+        this.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder("Available Moves"),
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createEtchedBorder(0),
+                        BorderFactory.createBevelBorder(0))));
         this.setAlignmentY(CENTER_ALIGNMENT);
         //this.setBackground(new Color(123, 255, 24));
         for (int i = 0; i < 5; i++) {

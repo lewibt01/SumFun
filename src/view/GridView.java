@@ -18,7 +18,7 @@ public class GridView extends JPanel implements Observer {
 
         GridLayout grid = new GridLayout(9, 9, 0, 0);
         this.setLayout(grid);
-        this.setBorder(BorderFactory.createEmptyBorder());
+        this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(0),BorderFactory.createBevelBorder(0)));
         //this.setBackground(new Color(123, 255, 24));
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
