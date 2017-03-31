@@ -1,5 +1,6 @@
 package view;
 
+import com.GameController;
 import model.QueueModel;
 import model.TileModel;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class QueueView extends JPanel implements Observer {
     private JButton display[] = new JButton[5];
@@ -24,6 +26,7 @@ public class QueueView extends JPanel implements Observer {
                         BorderFactory.createBevelBorder(0))));
         this.setAlignmentY(CENTER_ALIGNMENT);
         //this.setBackground(new Color(123, 255, 24));
+/*
         for (int i = 0; i < 5; i++) {
 
             //TileModel tmp = new TileModel(new Color(38, 170, 160));
@@ -34,6 +37,25 @@ public class QueueView extends JPanel implements Observer {
             add(display[i]);
             display[i].addMouseListener(new ButtonListener());
         }
+*/
+        JButton[] queuebtns= new JButton[5];
+        for(int i = 0; i < 5; i++){
+            int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
+            queuebtns[i] = new JButton();
+            queuebtns[i].setText(randomVal+"");
+            queuebtns[i].setTransferHandler(new GameController.ValueExportTransferHandler(queuebtns[i].getText()));
+
+            queuebtns[i].addMouseMotionListener(new MouseAdapter() {
+                @Override
+                public void mouseDragged(MouseEvent e) {
+                    JButton btn = (JButton) e.getSource();
+                    TransferHandler handle = btn.getTransferHandler();
+                    handle.exportAsDrag(btn, e, TransferHandler.MOVE);
+                }
+            });
+            add(queuebtns[i]);
+        }
+
     }
 
     //register a model with this view...
@@ -47,9 +69,9 @@ public class QueueView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
 
         if (o.getClass().getSimpleName().equals("QueueModel")) {
-            TileModel[] model = ((QueueModel) o).getQueue();
+            JButton[] model = ((QueueModel) o).getQueue();
             for (int i = 0; i < 5; i++) {
-                display[i].setText(model[i].getInt() + "");
+                display[i].setText(model[i].getText());
                 display[i].setBackground(Color.CYAN);
                 display[i].setForeground(Color.BLACK);
             }

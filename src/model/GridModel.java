@@ -18,9 +18,11 @@ public class GridModel extends Observable {
                 if (!((i == 0 || j == 0) || (i == 8 || j == 8))) {
                     grid[i][j].setNumber(randomVal);
                     grid[i][j].setBoolean(true);
+
                 }
             }
         }
+
         updateGrid();
     }
 

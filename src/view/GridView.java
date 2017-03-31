@@ -1,9 +1,12 @@
 package view;
 
+import com.GameController;
 import model.GridModel;
 import model.TileModel;
 
 import javax.swing.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -23,8 +26,13 @@ public class GridView extends JPanel implements Observer {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 boardButtons[i][j] = new JButton();
-                add(boardButtons[i][j]);
                 boardButtons[i][j].addMouseListener(new ButtonListener());
+                TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
+                GameController.ValueImportTransferHandler handle = new GameController.ValueImportTransferHandler();
+                handle.canImport(support);
+                boardButtons[i][j].setTransferHandler(handle);
+                //boardButtons[i][j].
+                add(boardButtons[i][j]);
             }
         }
 

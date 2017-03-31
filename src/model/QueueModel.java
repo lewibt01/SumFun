@@ -1,11 +1,17 @@
 package model;
 
+import com.GameController;
+
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class QueueModel extends Observable {
     //private LinkedList<Integer> queue;
     private TileModel[] tileModel;
+    private JButton[] queuebtns;
     //private int numElements;//number of elements for the queue to actively display
     //private int visibleNumbers[] = new int[5];//where the visible numbers in the queue are stored
 
@@ -13,20 +19,41 @@ public class QueueModel extends Observable {
     public QueueModel() {
 
         tileModel = new TileModel[5];
+        queuebtns= new JButton[5];
         //queue = new LinkedList<>();
         //numElements = 5;
         for(int i = 0; i < 5; i++){
             int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
+/*
             tileModel[i] = new TileModel();
             tileModel[i].setNumber(randomVal);
             tileModel[i].setBoolean(true);
+*/
+            queuebtns[i] = new JButton();
+            queuebtns[i].setText(randomVal+"");
+            queuebtns[i].setTransferHandler(new GameController.ValueExportTransferHandler(queuebtns[i].getText()));
+
+            queuebtns[i].addMouseMotionListener(new MouseAdapter() {
+                @Override
+                public void mouseDragged(MouseEvent e) {
+                    JButton btn = (JButton) e.getSource();
+                    TransferHandler handle = btn.getTransferHandler();
+                    handle.exportAsDrag(btn, e, TransferHandler.COPY);
+                }
+            });
         }
         updateQueue();
     }
 
+/*
     public TileModel[] getQueue() {
         return tileModel;
     }
+*/
+    public JButton[] getQueue() {
+        return queuebtns;
+    }
+
     public void updateQueue() {
         setChanged();
         notifyObservers();
