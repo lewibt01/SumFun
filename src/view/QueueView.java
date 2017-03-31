@@ -27,6 +27,7 @@ public class QueueView extends JPanel implements Observer {
 
             display[i] = new JButton();
             add(display[i]);
+            display[i].addMouseListener(new ButtonListener());
         }
     }
 
@@ -50,21 +51,20 @@ public class QueueView extends JPanel implements Observer {
         }
     }
 
-    private class TinyController implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            switch (e.getActionCommand()) {
-                case "FUBAR":
-                    System.exit(0);
-                    break;
-                case "RETRIEVE":
-                    //model.retrieve();
-                    break;
-                case "SHUFFLE":
-                    //model.shuffle();
-                    //update();
-            }
+    private class ButtonListener extends MouseAdapter {
+        public void mouseEntered(MouseEvent e) {
+            JButton buttonPress = (JButton) e.getSource();
+            buttonPress.setBackground(Color.RED);
+        }
+
+        public void mouseExited(MouseEvent e) {
+            JButton buttonPress = (JButton) e.getSource();
+            buttonPress.setBackground(Color.CYAN);
+            buttonPress.setForeground(Color.BLACK);
         }
     }
+
+
 
 
 }

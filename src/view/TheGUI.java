@@ -1,5 +1,6 @@
 package view;
 
+import model.CurrentScoreModel;
 import model.TileModel;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ public class TheGUI extends JFrame implements Observer {
     //Panels____
     GridView gridView;
     QueueView queueView;
+    CurrentScoreView currentScoreView;
     JPanel buttonsPanel;
 
     //make an array of buttons then in the update method update all of the values to the tile array
@@ -41,6 +43,9 @@ public class TheGUI extends JFrame implements Observer {
     }
     public QueueView getQueueView(){
         return queueView;
+    }
+    public CurrentScoreView getCurrentScoreView(){
+        return currentScoreView;
     }
     @Override
     public void update(Observable o, Object arg) {
