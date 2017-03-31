@@ -9,7 +9,7 @@ import java.util.*;
 import java.awt.event.*;
 
 public class QueueView extends JPanel implements Observer {
-    private JButton display[];
+    private JButton display[] = new JButton[5];
 
     public QueueView() {
         super();
@@ -19,18 +19,13 @@ public class QueueView extends JPanel implements Observer {
         this.setLayout(new GridLayout(5, 1, 0, 0));
         this.setAlignmentY(CENTER_ALIGNMENT);
         //this.setBackground(new Color(123, 255, 24));
-
-
-        display = new JButton[5];
-        //initialize some dummy tiles for the display
-        for (int i = 0; i < display.length; i++) {
+        for (int i = 0; i < 5; i++) {
 
             //TileModel tmp = new TileModel(new Color(38, 170, 160));
             //tile model no longer has buttons therefore all view components do not work
             //tmp.setPreferredSize(new Dimension(100,100));
 
             display[i] = new JButton();
-            display[i].setMinimumSize(new Dimension(100, 100));
             add(display[i]);
         }
     }
@@ -46,9 +41,11 @@ public class QueueView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
 
         if (o.getClass().getSimpleName().equals("QueueModel")) {
-            int[] model = ((QueueModel) o).getQueue();
-            for (int i = 0; i < model.length; i++) {
-                display[i].setText(model[i] + "");
+            TileModel[] model = ((QueueModel) o).getQueue();
+            for (int i = 0; i < 5; i++) {
+                display[i].setText(model[i].getInt() + "");
+                display[i].setBackground(Color.CYAN);
+                display[i].setForeground(Color.BLACK);
             }
         }
     }

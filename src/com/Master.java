@@ -2,7 +2,6 @@ package com;
 
 import model.GridModel;
 import model.QueueModel;
-import view.GridView;
 import view.TheGUI;
 
 public class Master {
@@ -18,6 +17,7 @@ public class Master {
         gui.getGridView().addObserver(gridModel);
         gui.getQueueView().addObserver(queueModel);
         gridModel.updateGrid();
+        queueModel.updateQueue();
 
     }
 }

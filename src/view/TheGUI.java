@@ -25,10 +25,9 @@ public class TheGUI extends JFrame implements Observer {
         setLayout(new BorderLayout());
 
         gridView = new GridView();
-
         add(gridView, BorderLayout.CENTER);
         queueView = new QueueView();
-        queueView.setSize(300,300);
+        //queueView.setSize(300,300);
         queueView.setMinimumSize(new Dimension(100,0));
         queueView.setPreferredSize(queueView.getMinimumSize());
         add(queueView, BorderLayout.EAST);
@@ -48,7 +47,7 @@ public class TheGUI extends JFrame implements Observer {
 
     }
 
-    private class TileListener implements ActionListener {
+/*    private class TileListener implements ActionListener {
         TileModel t;
 
         public TileListener(TileModel tile) {
@@ -61,5 +60,5 @@ public class TheGUI extends JFrame implements Observer {
 
 
         }
-    }
+    }*/
 }

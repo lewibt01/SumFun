@@ -20,10 +20,8 @@ public class GridView extends JPanel implements Observer {
         this.setLayout(grid);
         this.setBorder(BorderFactory.createEmptyBorder());
         //this.setBackground(new Color(123, 255, 24));
-
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-
                 boardButtons[i][j] = new JButton();
                 add(boardButtons[i][j]);
                 boardButtons[i][j].addMouseListener(new ButtonListener());
