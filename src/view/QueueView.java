@@ -38,14 +38,14 @@ public class QueueView extends JPanel implements Observer {
             display[i].addMouseListener(new ButtonListener());
         }
 */
-        JButton[] queuebtns= new JButton[5];
         for(int i = 0; i < 5; i++){
             int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
-            queuebtns[i] = new JButton();
-            queuebtns[i].setText(randomVal+"");
-            queuebtns[i].setTransferHandler(new GameController.ValueExportTransferHandler(queuebtns[i].getText()));
+            display[i] = new JButton();
+            display[i].setText(randomVal+"");
+            display[i].addMouseListener(new ButtonListener());
+            display[i].setTransferHandler(new GameController.ValueExportTransferHandler(display[i].getText()));
 
-            queuebtns[i].addMouseMotionListener(new MouseAdapter() {
+            display[i].addMouseMotionListener(new MouseAdapter() {
                 @Override
                 public void mouseDragged(MouseEvent e) {
                     JButton btn = (JButton) e.getSource();
@@ -53,7 +53,7 @@ public class QueueView extends JPanel implements Observer {
                     handle.exportAsDrag(btn, e, TransferHandler.MOVE);
                 }
             });
-            add(queuebtns[i]);
+            add(display[i]);
         }
 
     }
