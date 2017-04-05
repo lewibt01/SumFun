@@ -39,17 +39,16 @@ public class QueueView extends JPanel implements Observer {
         }
 */
         for(int i = 0; i < 5; i++){
-            int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
+            //int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
             display[i] = new JButton();
-            display[i].setText(randomVal+"");
+            //display[i].setText(randomVal+"");
             //initially set to false so that user cannot interact with the queue
             display[i].setEnabled(false);
-
             //when the tile is the first in the queue
             if(i == 0) {
                 display[i].setEnabled(true);
                 display[i].addMouseListener(new ButtonListener());
-                //moved overidden method to the ButtonListnener for cleaner code
+                //moved overidden method to the ButtonListener for cleaner code
                 display[i].addMouseMotionListener(new ButtonListener());
                 display[i].setTransferHandler(new GameController.ValueExportTransferHandler(display[i].getText()));
             }
@@ -66,7 +65,6 @@ public class QueueView extends JPanel implements Observer {
     }
 
     //grab data from the model to update what is seen on the view
-    //this is probably the wrong way to do this...
     public void update(Observable o, Object arg) {
 
         if (o.getClass().getSimpleName().equals("QueueModel")) {

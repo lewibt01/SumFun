@@ -44,6 +44,7 @@ public class GridView extends JPanel implements Observer {
     }
 
     @Override
+    //this method will update the observers with the values populated on the grid
     public void update(Observable o, Object arg) {
         //TODO
 
