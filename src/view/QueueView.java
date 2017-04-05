@@ -42,17 +42,16 @@ public class QueueView extends JPanel implements Observer {
             int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
             display[i] = new JButton();
             display[i].setText(randomVal+"");
-            display[i].addMouseListener(new ButtonListener());
-            display[i].setTransferHandler(new GameController.ValueExportTransferHandler(display[i].getText()));
+            //initially set to false so that user cannot interact with the queue
+            display[i].setEnabled(false);
 
-            display[i].addMouseMotionListener(new MouseAdapter() {
-                @Override
-                public void mouseDragged(MouseEvent e) {
-                    JButton btn = (JButton) e.getSource();
-                    TransferHandler handle = btn.getTransferHandler();
-                    handle.exportAsDrag(btn, e, TransferHandler.MOVE);
-                }
-            });
+            //when the tile is the first in the queue
+            if(i == 0) {
+                display[i].setEnabled(true);
+                display[i].addMouseListener(new ButtonListener());
+                display[i].setTransferHandler(new GameController.ValueExportTransferHandler(display[i].getText()));
+            }
+            //adds the display of JButtons to the JPanel
             add(display[i]);
         }
 
@@ -80,14 +79,20 @@ public class QueueView extends JPanel implements Observer {
 
     private class ButtonListener extends MouseAdapter {
         public void mouseEntered(MouseEvent e) {
-            JButton buttonPress = (JButton) e.getSource();
-            buttonPress.setBackground(Color.RED);
+            JButton btnEnt = (JButton) e.getSource();
+            btnEnt.setBackground(Color.RED);
         }
 
         public void mouseExited(MouseEvent e) {
-            JButton buttonPress = (JButton) e.getSource();
-            buttonPress.setBackground(Color.CYAN);
-            buttonPress.setForeground(Color.BLACK);
+            JButton btnEx = (JButton) e.getSource();
+            btnEx.setBackground(Color.CYAN);
+            btnEx.setForeground(Color.BLACK);
+        }
+        public void mouseDragged(MouseEvent e) {
+            JButton btn = (JButton) e.getSource();
+            TransferHandler handle = btn.getTransferHandler();
+            handle.exportAsDrag(btn, e, TransferHandler.MOVE);
+
         }
     }
 
