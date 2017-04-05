@@ -13,11 +13,15 @@ import java.awt.event.*;
 
 public class GridView extends JPanel implements Observer {
 
-    private JButton[][] boardButtons = new JButton[9][9];
+    private JButton[][] boardButtons;
+    private GridModel gridMod;
+    private TileModel cellData;
 
     public GridView() {
-
         super();
+
+        gridMod = new GridModel();
+        boardButtons  = new JButton[9][9];
 
         GridLayout grid = new GridLayout(9, 9, 0, 0);
         this.setLayout(grid);
@@ -25,7 +29,10 @@ public class GridView extends JPanel implements Observer {
         //this.setBackground(new Color(123, 255, 24));
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
+                cellData = gridMod.getGrid()[i][j];
                 boardButtons[i][j] = new JButton();
+                boardButtons[i][j].setText(cellData.getInt()+"");
+
                 boardButtons[i][j].addMouseListener(new ButtonListener());
                 /*TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
                 GameController.ValueImportTransferHandler handle = new GameController.ValueImportTransferHandler();

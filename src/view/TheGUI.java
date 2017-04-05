@@ -1,5 +1,7 @@
 package view;
 
+import model.GridModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -9,6 +11,8 @@ public class TheGUI extends JFrame implements Observer {
     GridView gridView;
     QueueView queueView;
     CurrentScoreView currentScoreView;
+
+    GridModel gridMod;
 
     //make an array of buttons then in the update method update all of the values to the tile array
 
