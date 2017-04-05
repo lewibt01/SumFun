@@ -3,7 +3,7 @@ package model;
 
 import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
-
+//Grid Model used to make the grid of the game board
 public class GridModel extends Observable {
     private TileModel[][] grid;
 
@@ -25,7 +25,7 @@ public class GridModel extends Observable {
 
         updateGrid();
     }
-
+    //returns the grid for the gameBoard
     public TileModel[][] getGrid() {
         return grid;
     }

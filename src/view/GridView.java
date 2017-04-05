@@ -27,11 +27,11 @@ public class GridView extends JPanel implements Observer {
             for (int j = 0; j < 9; j++) {
                 boardButtons[i][j] = new JButton();
                 boardButtons[i][j].addMouseListener(new ButtonListener());
-                TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
+                /*TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
                 GameController.ValueImportTransferHandler handle = new GameController.ValueImportTransferHandler();
                 handle.canImport(support);
                 boardButtons[i][j].setTransferHandler(handle);
-                //boardButtons[i][j].
+                //boardButtons[i][j].*/
                 add(boardButtons[i][j]);
             }
         }

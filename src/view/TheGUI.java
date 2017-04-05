@@ -1,12 +1,7 @@
 package view;
 
-import model.CurrentScoreModel;
-import model.TileModel;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 
 public class TheGUI extends JFrame implements Observer {
@@ -16,7 +11,6 @@ public class TheGUI extends JFrame implements Observer {
     CurrentScoreView currentScoreView;
 
     //make an array of buttons then in the update method update all of the values to the tile array
-
 
     //constructor
     public TheGUI() {

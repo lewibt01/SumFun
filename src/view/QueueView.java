@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class QueueView extends JPanel implements Observer {
     private JButton display[] = new JButton[5];
-
+    //will be used to show the queue
     public QueueView() {
         super();
         //create a boxlayout with vertically stacked components
@@ -70,9 +70,9 @@ public class QueueView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
 
         if (o.getClass().getSimpleName().equals("QueueModel")) {
-            JButton[] model = ((QueueModel) o).getQueue();
+            TileModel[] model = ((QueueModel) o).getQueue();
             for (int i = 0; i < 5; i++) {
-                display[i].setText(model[i].getText());
+                display[i].setText(model[i].getInt() + "");
                 display[i].setBackground(Color.CYAN);
                 display[i].setForeground(Color.BLACK);
             }

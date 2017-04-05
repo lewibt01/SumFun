@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Observable;
 import javax.swing.*;
 
-//view class
+//Model class used to help the grid model and the queue model to store its respective values
 public class TileModel extends Observable {
     //fields
     private int value = 0;

@@ -12,7 +12,7 @@ public class Master {
     public static void main(String args[]) {
         //test_case____
         //GameController.Test test = new GameController.Test();
-        
+
         TheGUI gui = new TheGUI();
         gridModel = new GridModel();
         queueModel = new QueueModel();
