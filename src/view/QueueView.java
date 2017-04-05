@@ -49,6 +49,8 @@ public class QueueView extends JPanel implements Observer {
             if(i == 0) {
                 display[i].setEnabled(true);
                 display[i].addMouseListener(new ButtonListener());
+                //moved overidden method to the ButtonListnener for cleaner code
+                display[i].addMouseMotionListener(new ButtonListener());
                 display[i].setTransferHandler(new GameController.ValueExportTransferHandler(display[i].getText()));
             }
             //adds the display of JButtons to the JPanel
@@ -92,7 +94,6 @@ public class QueueView extends JPanel implements Observer {
             JButton btn = (JButton) e.getSource();
             TransferHandler handle = btn.getTransferHandler();
             handle.exportAsDrag(btn, e, TransferHandler.MOVE);
-
         }
     }
 
