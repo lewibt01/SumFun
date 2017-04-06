@@ -14,11 +14,11 @@ import java.awt.event.*;
 public class GridView extends JPanel implements Observer {
 
     private JButton[][] boardButtons;
-    private GridModel gridMod;
-    private TileModel cellData;
 
-    public GridView() {
+    GridView() {
         super();
+        GridModel gridMod;
+        TileModel cellData;
 
         gridMod = new GridModel();
         boardButtons  = new JButton[9][9];

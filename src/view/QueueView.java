@@ -10,9 +10,10 @@ import java.util.*;
 import java.awt.event.*;
 
 public class QueueView extends JPanel implements Observer {
-    private JButton display[] = new JButton[5];
+    private JButton[] display = new JButton[5];
+
     //will be used to show the queue
-    public QueueView() {
+    QueueView() {
         super();
         //create a boxlayout with vertically stacked components
         //BoxLayout box = new BoxLayout(this,BoxLayout.Y_AXIS);
@@ -37,14 +38,14 @@ public class QueueView extends JPanel implements Observer {
             display[i].addMouseListener(new ButtonListener());
         }
 */
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             //int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
             display[i] = new JButton();
             //display[i].setText(randomVal+"");
             //initially set to false so that user cannot interact with the queue
             display[i].setEnabled(false);
             //when the tile is the first in the queue
-            if(i == 0) {
+            if (i == 0) {
                 display[i].setEnabled(true);
                 display[i].addMouseListener(new ButtonListener());
                 //moved overridden method to the ButtonListener for cleaner code
@@ -93,8 +94,6 @@ public class QueueView extends JPanel implements Observer {
             handle.exportAsDrag(btn, e, TransferHandler.MOVE);
         }*/
     }
-
-
 
 
 }
