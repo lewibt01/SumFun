@@ -18,9 +18,19 @@ public class CurrentScoreModel extends Observable{
         setChanged();
         notifyObservers();
     }
+    public void setNumberMoves(int moves){
+        this.numberMoves = moves;
+        setChanged();
+        notifyObservers();
+    }
+    public int scoreCh(int num){
+        num = currentScore;
+        return num;
+    }
     public int move(int num){
-       num = numberMoves -1;
-       return num;
+        num = numberMoves;
+       numberMoves = num - 1;
+       return numberMoves;
     }
 
 }

@@ -32,7 +32,6 @@ public class GridView extends JPanel implements Observer {
                 cellData = gridMod.getGrid()[i][j];
                 boardButtons[i][j] = new JButton();
                 boardButtons[i][j].setText(cellData.getInt()+"");
-
                 boardButtons[i][j].addMouseListener(new ButtonListener());
                 /*TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
                 GameController.ValueImportTransferHandler handle = new GameController.ValueImportTransferHandler();
@@ -54,7 +53,6 @@ public class GridView extends JPanel implements Observer {
     //this method will update the observers with the values populated on the grid
     public void update(Observable o, Object arg) {
         //TODO
-
         if (o.getClass().getSimpleName().equals("GridModel")) {
             TileModel[][] model = ((GridModel) o).getGrid();
 
@@ -62,8 +60,6 @@ public class GridView extends JPanel implements Observer {
                 for (int j = 0; j < 9; j++) {
                     boardButtons[i][j].setText(model[i][j].getInt() + "");
                     boardButtons[i][j].setBackground(model[i][j].getColor());
-
-
                 }
             }
         }

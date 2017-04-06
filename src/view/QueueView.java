@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class QueueView extends JPanel implements Observer {
     private JButton display[] = new JButton[5];
@@ -48,9 +47,9 @@ public class QueueView extends JPanel implements Observer {
             if(i == 0) {
                 display[i].setEnabled(true);
                 display[i].addMouseListener(new ButtonListener());
-                //moved overidden method to the ButtonListener for cleaner code
+                //moved overridden method to the ButtonListener for cleaner code
                 display[i].addMouseMotionListener(new ButtonListener());
-                display[i].setTransferHandler(new GameController.ValueExportTransferHandler(display[i].getText()));
+                //display[i].setTransferHandler(new GameController.ValueExportTransferHandler(display[i].getText()));
             }
             //adds the display of JButtons to the JPanel
             add(display[i]);
@@ -88,11 +87,11 @@ public class QueueView extends JPanel implements Observer {
             btnEx.setBackground(Color.CYAN);
             btnEx.setForeground(Color.BLACK);
         }
-        public void mouseDragged(MouseEvent e) {
+        /*public void mouseDragged(MouseEvent e) {
             JButton btn = (JButton) e.getSource();
             TransferHandler handle = btn.getTransferHandler();
             handle.exportAsDrag(btn, e, TransferHandler.MOVE);
-        }
+        }*/
     }
 
 
