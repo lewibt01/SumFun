@@ -1,12 +1,8 @@
 package model;
 
-import com.GameController;
-
-import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.*;
+import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
+
 //will populate the values needed into the view
 public class QueueModel extends Observable {
     //private LinkedList<Integer> queue;
@@ -18,16 +14,18 @@ public class QueueModel extends Observable {
 
 
     public QueueModel() {
-
-        tileModel = new TileModel[5];
+        final int max = 5;
+        int randomVal;
+        tileModel = new TileModel[max];
         //queuebtns= new JButton[5];
         //queue = new LinkedList<>();
         //numElements = 5;
-        for(int i = 0; i < 5; i++){
-            int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
+        for (int i = 0; i < max; i++) {
+            randomVal = ThreadLocalRandom.current().nextInt(0, 10);
             tileModel[i] = new TileModel();
             tileModel[i].setNumber(randomVal);
             tileModel[i].setBoolean(true);
+
 
 /*            queuebtns[i] = new JButton();
             queuebtns[i].setText(randomVal+"");
@@ -45,19 +43,23 @@ public class QueueModel extends Observable {
         updateQueue();
     }
 
-/*
-    public TileModel[] getQueue() {
-        return tileModel;
-    }
-*/
+    /*
+        public TileModel[] getQueue() {
+            return tileModel;
+        }
+    */
     //returns the queue of buttons to the gui
     public TileModel[] getQueue() {
         return tileModel;
     }
 
     public void updateQueue() {
+
         setChanged();
         notifyObservers();
+    }
+    int getQValue(){
+        return tileModel[0].getInt();
     }
 
     /*//set the number of queue elements that should be visible to the user

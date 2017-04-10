@@ -24,8 +24,7 @@ public class GameController implements EventListener {
     //TEST
     ///////////
     public static class Test {
-        public Test()
-        {
+        public Test() {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -44,6 +43,7 @@ public class GameController implements EventListener {
                 }
             });
         }
+
         public class TestPane extends JPanel {
 
             public TestPane() {

@@ -1,13 +1,17 @@
 package view;
-
-import com.GameController;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+//model Imports
 import model.QueueModel;
 import model.TileModel;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
-import java.awt.event.*;
 
 public class QueueView extends JPanel implements Observer {
     private JButton[] display = new JButton[5];
@@ -87,6 +91,12 @@ public class QueueView extends JPanel implements Observer {
             JButton btnEx = (JButton) e.getSource();
             btnEx.setBackground(Color.CYAN);
             btnEx.setForeground(Color.BLACK);
+        }
+        public void mouseClicked(MouseEvent e){
+            if(display[0] == e.getSource()){
+                System.out.println("You clicked on the queue");
+
+            }
         }
         /*public void mouseDragged(MouseEvent e) {
             JButton btn = (JButton) e.getSource();

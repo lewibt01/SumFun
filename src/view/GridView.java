@@ -1,38 +1,47 @@
 package view;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
-import com.GameController;
 import model.GridModel;
 import model.TileModel;
-
-import javax.swing.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
 
 public class GridView extends JPanel implements Observer {
 
     private JButton[][] boardButtons;
+    private GridModel gridMod;
 
     GridView() {
         super();
-        GridModel gridMod;
-        TileModel cellData;
 
+        TileModel cellData;
         gridMod = new GridModel();
-        boardButtons  = new JButton[9][9];
+        int maxRow = gridMod.getMaxRow();
+        int maxCol = gridMod.getMaxCol();
+
+
+        //gridMod = new GridModel();
+        boardButtons = new JButton[maxCol][maxRow];
 
         GridLayout grid = new GridLayout(9, 9, 0, 0);
         this.setLayout(grid);
-        this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(0),BorderFactory.createBevelBorder(0)));
+        this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(0), BorderFactory.createBevelBorder(0)));
         //this.setBackground(new Color(123, 255, 24));
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < maxCol; i++) {
+            for (int j = 0; j < maxRow; j++) {
                 cellData = gridMod.getGrid()[i][j];
                 boardButtons[i][j] = new JButton();
-                boardButtons[i][j].setText(cellData.getInt()+"");
-                boardButtons[i][j].addMouseListener(new ButtonListener());
+                boardButtons[i][j].setText(cellData.getInt() + "");
+                boardButtons[i][j].addMouseListener(new ButtonListener(i, j));
                 /*TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
                 GameController.ValueImportTransferHandler handle = new GameController.ValueImportTransferHandler();
                 handle.canImport(support);
@@ -55,15 +64,21 @@ public class GridView extends JPanel implements Observer {
         //TODO
         if (o.getClass().getSimpleName().equals("GridModel")) {
             TileModel[][] model = ((GridModel) o).getGrid();
-
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
-                    boardButtons[i][j].setText(model[i][j].getInt() + "");
                     boardButtons[i][j].setBackground(model[i][j].getColor());
+                    if(model[i][j].getBool()){
+                        boardButtons[i][j].setText(model[i][j].getInt() + "");
+
+                    }else{
+                        boardButtons[i][j].setText("");
+                    }
                 }
+
             }
         }
     }
+
 
     private class GMController implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -82,7 +97,16 @@ public class GridView extends JPanel implements Observer {
         }
     }
 
-    private class ButtonListener extends MouseAdapter {
+
+    private class ButtonListener extends MouseAdapter implements MouseListener {
+        int row;
+        int col;
+
+        ButtonListener(int c, int r) {
+            this.col = c;
+            this.row = r;
+        }
+
         public void mouseEntered(MouseEvent e) {
             JButton buttonPress = (JButton) e.getSource();
             buttonPress.setBackground(Color.GREEN);
@@ -92,6 +116,14 @@ public class GridView extends JPanel implements Observer {
             JButton buttonPress = (JButton) e.getSource();
             buttonPress.setBackground(Color.WHITE);
         }
+
+        public void mouseClicked(MouseEvent e) {
+            if (boardButtons[col][row].getText().equals("")) {
+                System.out.println("This is unoccupied");
+        }
+        }
     }
 
+
 }
+

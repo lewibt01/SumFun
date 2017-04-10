@@ -1,37 +1,40 @@
 package view;
 
-import model.GridModel;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
 
-public class TheGUI extends JFrame implements Observer {
+public class TheGui extends JFrame implements Observer {
     //Panels____
-    GridView gridView;
-    QueueView queueView;
-    CurrentScoreView currentScoreView;
-
-    GridModel gridMod;
+    private GridView gridView;
+    private QueueView queueView;
+    private CurrentScoreView currentScoreView;
 
     //make an array of buttons then in the update method update all of the values to the tile array
 
     //constructor
-    public TheGUI() {
+    public TheGui() {
+        super();
+
         // used to combine currentScore view and queue view via the same panel
         JPanel sidePanel = new JPanel();
         setTitle("Sum Fun!!");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000,1000);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(1000, 1000);
         setLayout(new BorderLayout());
 
         gridView = new GridView();
         add(gridView, BorderLayout.CENTER);
         queueView = new QueueView();
         //queueView.setSize(300,300);
-       // queueView.setMinimumSize(new Dimension(100,0));
+        // queueView.setMinimumSize(new Dimension(100,0));
         //queueView.setPreferredSize(queueView.getMinimumSize());
-        sidePanel.setLayout(new GridLayout(2,1,0,0));
+        sidePanel.setLayout(new GridLayout(2, 1, 0, 0));
         sidePanel.add(queueView);
         currentScoreView = new CurrentScoreView();
         sidePanel.add(currentScoreView);
@@ -40,19 +43,24 @@ public class TheGUI extends JFrame implements Observer {
 
     }
 
-    public GridView getGridView(){
+    public GridView getGridView() {
         return gridView;
     }
-    public QueueView getQueueView(){
+
+    public QueueView getQueueView() {
         return queueView;
     }
-    public CurrentScoreView getCurrentScoreView(){
+
+    public CurrentScoreView getCurrentScoreView() {
         return currentScoreView;
     }
+
     @Override
     public void update(Observable o, Object arg) {
 
     }
+
+}
 
 /*    private class TileListener implements ActionListener {
         TileModel t;
@@ -68,4 +76,3 @@ public class TheGUI extends JFrame implements Observer {
 
         }
     }*/
-}
