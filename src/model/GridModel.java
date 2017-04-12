@@ -1,7 +1,5 @@
 package model;
 
-//
-
 import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -20,7 +18,7 @@ public class GridModel extends Observable {
 
                 val = ThreadLocalRandom.current().nextInt(0, 10);
                 grid[i][j] = new TileModel();
-
+                grid[i][j].setBoolean(false);
                 if (!((i == 0 || j == 0) || (i == colMax - 1 || j == rowMax - 1))) {
 
                     grid[i][j].setNumber(val);
@@ -69,7 +67,7 @@ public class GridModel extends Observable {
 
     //need to change number from queue and take it and move it to the grid's unoccupied tile
     //need to change number of queue to move up one when this happens
-    // need to change value of occupied to true if placed
+    //need to change value of occupied to true if placed
     public void changeNum(TileModel grid, QueueModel queue) {
         int queueVal = queue.getQValue();
         boolean occupied = grid.getBool();

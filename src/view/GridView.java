@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,18 +12,17 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
+//class imports
 import model.GridModel;
 import model.TileModel;
 
 public class GridView extends JPanel implements Observer {
 
     private JButton[][] boardButtons;
-    private GridModel gridMod;
 
     GridView() {
         super();
-
+        GridModel gridMod;
         TileModel cellData;
         gridMod = new GridModel();
         int maxRow = gridMod.getMaxRow();
@@ -67,10 +67,10 @@ public class GridView extends JPanel implements Observer {
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
                     boardButtons[i][j].setBackground(model[i][j].getColor());
-                    if(model[i][j].getBool()){
+                    if (model[i][j].getBool()) {
                         boardButtons[i][j].setText(model[i][j].getInt() + "");
 
-                    }else{
+                    } else {
                         boardButtons[i][j].setText("");
                     }
                 }
@@ -78,6 +78,7 @@ public class GridView extends JPanel implements Observer {
             }
         }
     }
+/*
 
     private class GMController implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -85,16 +86,16 @@ public class GridView extends JPanel implements Observer {
                 case "FUBAR":
                     System.exit(0);
                     break;
-/*
+*//*
                 case "RETRIEVE":
                     model.retrieve();
                     break;
                 case "SHUFFLE":
                     model.shuffle();
-*/
+*//*
             }
         }
-    }
+    }*/
 
 
     private class ButtonListener extends MouseAdapter implements MouseListener {
@@ -119,7 +120,9 @@ public class GridView extends JPanel implements Observer {
         public void mouseClicked(MouseEvent e) {
             if (boardButtons[col][row].getText().equals("")) {
                 System.out.println("This is unoccupied");
-        }
+            }
+
+
         }
     }
 

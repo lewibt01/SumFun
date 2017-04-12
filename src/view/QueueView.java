@@ -29,19 +29,7 @@ public class QueueView extends JPanel implements Observer {
                         BorderFactory.createEtchedBorder(0),
                         BorderFactory.createBevelBorder(0))));
         this.setAlignmentY(CENTER_ALIGNMENT);
-        //this.setBackground(new Color(123, 255, 24));
-/*
-        for (int i = 0; i < 5; i++) {
-
-            //TileModel tmp = new TileModel(new Color(38, 170, 160));
-            //tile model no longer has buttons therefore all view components do not work
-            //tmp.setPreferredSize(new Dimension(100,100));
-
-            display[i] = new JButton();
-            add(display[i]);
-            display[i].addMouseListener(new ButtonListener());
-        }
-*/
+        //for loop used to iterate through the 5 queue buttons
         for (int i = 0; i < 5; i++) {
             //int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
             display[i] = new JButton();

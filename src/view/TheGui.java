@@ -39,7 +39,7 @@ public class TheGui extends JFrame implements Observer {
         currentScoreView = new CurrentScoreView();
         sidePanel.add(currentScoreView);
         add(sidePanel, BorderLayout.EAST);
-        setVisible(true);
+        //setVisible(true);
 
     }
 
