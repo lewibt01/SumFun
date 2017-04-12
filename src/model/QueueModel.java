@@ -8,11 +8,6 @@ public class QueueModel extends Observable {
     //private LinkedList<Integer> queue;
     private TileModel[] tileModel;
 
-    //private JButton[] queuebtns;
-    //private int numElements;//number of elements for the queue to actively display
-    //private int visibleNumbers[] = new int[5];//where the visible numbers in the queue are stored
-
-
     public QueueModel() {
         final int max = 5;
         int randomVal;
@@ -25,20 +20,6 @@ public class QueueModel extends Observable {
             tileModel[i] = new TileModel();
             tileModel[i].setNumber(randomVal);
             tileModel[i].setBoolean(true);
-
-
-/*            queuebtns[i] = new JButton();
-            queuebtns[i].setText(randomVal+"");
-            queuebtns[i].setTransferHandler(new GameController.ValueExportTransferHandler(queuebtns[i].getText()));
-
-            queuebtns[i].addMouseMotionListener(new MouseAdapter() {
-                @Override
-                public void mouseDragged(MouseEvent e) {
-                    JButton btn = (JButton) e.getSource();
-                    TransferHandler handle = btn.getTransferHandler();
-                    handle.exportAsDrag(btn, e, TransferHandler.COPY);
-                }
-            });*/
         }
         updateQueue();
     }
