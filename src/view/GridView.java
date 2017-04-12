@@ -79,7 +79,6 @@ public class GridView extends JPanel implements Observer {
         }
     }
 
-
     private class GMController implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             switch (e.getActionCommand()) {

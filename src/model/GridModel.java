@@ -45,6 +45,27 @@ public class GridModel extends Observable {
         return rowMax;
     }
 
+    //stores all neighbors (and the tile in question : 9 values max) in an array
+    public void getNeighbors(TileModel tm, GridModel gm, Position pos) {
+        int[] arr = new int[9];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (gm.getGrid()[pos.getRow()-1][pos.getCol()].getInt());
+
+        }
+        arr[0] = gm.getGrid()[pos.getRow()-1][pos.getCol()].getInt();
+    }
+
+    public Position getTilePosition(TileModel tm, GridModel gm) {
+        Position pos = new Position(0,0);
+        for (int i = 0; i < getMaxRow(); i++) {
+            for (int j = 0; j < getMaxCol(); j++) {
+                if (tm == gm.getGrid()[i][j]) {
+                    pos = new Position(i,j);
+                }
+            }
+        }
+        return pos;
+    }
 
     //need to change number from queue and take it and move it to the grid's unoccupied tile
     //need to change number of queue to move up one when this happens
@@ -75,5 +96,20 @@ public class GridModel extends Observable {
     public void updateGrid() {
         setChanged();
         notifyObservers();
+    }
+
+    //helper class to get the position of the tile in the grid
+    //helps with getNeighbors()
+    private class Position {
+        private int row;
+        private int col;
+
+        Position(int r, int c) {
+            row = r;
+            col = c;
+        }
+
+        public int getRow() {return row;}
+        public int getCol() {return col;}
     }
 }
