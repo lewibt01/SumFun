@@ -177,8 +177,8 @@ public class GridModel extends Observable {
     //takes values from neighboring tiles and performs game logic calculation
     public void performCalc(TileModel[] neighbors, TileModel tile) {
         int result = 0;
-        for (TileModel tile : neighbors) {
-            result = result + tile.getInt();
+        for (TileModel t : neighbors) {
+            result = result + t.getInt();
         }
 
         setChanged();
