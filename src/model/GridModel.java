@@ -44,15 +44,104 @@ public class GridModel extends Observable {
     }
 
     //stores all neighbors (and the tile in question : 9 values max) in an array
-    public void getNeighbors(TileModel tm, GridModel gm, Position pos) {
-        int[] arr = new int[9];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = (gm.getGrid()[pos.getRow()-1][pos.getCol()].getInt());
-
+    //the value from the queue will need to be set in the new tile before this function is called
+    public void getNeighbors(GridModel gm, Position pos) {
+        TileModel[] neighbors = new TileModel[9];
+        ////////////
+        //CORNERS
+        ////////////
+        //TOP LEFT
+        if (pos.getRow()==0 && pos.getCol()==0) {
+            //neighbors[0] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
+            neighbors[0] = (gm.getGrid()[pos.getRow()][pos.getCol()+1]);
+            neighbors[1] = (gm.getGrid()[pos.getRow()+1][pos.getCol()]);
+            neighbors[2] = (gm.getGrid()[pos.getRow()+1][pos.getCol()+1]);
         }
-        arr[0] = gm.getGrid()[pos.getRow()-1][pos.getCol()].getInt();
+        //TOP RIGHT
+        else if (pos.getRow()==0 && pos.getCol()==9) {
+            neighbors[0] = (gm.getGrid()[pos.getRow()][pos.getCol()-1]);
+            //neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
+            neighbors[1] = (gm.getGrid()[pos.getRow()+1][pos.getCol()-1]);
+            neighbors[2] = (gm.getGrid()[pos.getRow()+1][pos.getCol()]);
+        }
+        //BOTTOM LEFT
+        else if (pos.getRow()==9 && pos.getCol()==0) {
+            neighbors[0] = (gm.getGrid()[pos.getRow()-1][pos.getCol()]);
+            neighbors[1] = (gm.getGrid()[pos.getRow()-1][pos.getCol()+1]);
+            //neighbors[2] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
+            neighbors[2] = (gm.getGrid()[pos.getRow()][pos.getCol()+1]);
+        }
+        //BOTTOM RIGHT
+        else if (pos.getRow()==9 && pos.getCol()==9) {
+            neighbors[0] = (gm.getGrid()[pos.getRow()-1][pos.getCol()-1]);
+            neighbors[1] = (gm.getGrid()[pos.getRow()-1][pos.getCol()]);
+            neighbors[2] = (gm.getGrid()[pos.getRow()][pos.getCol()-1]);
+            //neighbors[3] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
+        }
+        ////////////
+        //BORDERS
+        ///////////
+        //NORTH BORDER
+        else if (pos.getRow()==0) {
+            neighbors[0] = (gm.getGrid()[pos.getRow()][pos.getCol()-1]);
+            //neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
+            neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()+1]);
+            neighbors[2] = (gm.getGrid()[pos.getRow()+1][pos.getCol()-1]);
+            neighbors[3] = (gm.getGrid()[pos.getRow()+1][pos.getCol()]);
+            neighbors[4] = (gm.getGrid()[pos.getRow()+1][pos.getCol()+1]);
+        }
+        //SOUTH BORDER
+        else if (pos.getRow()==9) {
+            neighbors[0] = (gm.getGrid()[pos.getRow()-1][pos.getCol()-1]);
+            neighbors[1] = (gm.getGrid()[pos.getRow()-1][pos.getCol()]);
+            neighbors[2] = (gm.getGrid()[pos.getRow()-1][pos.getCol()+1]);
+            neighbors[3] = (gm.getGrid()[pos.getRow()][pos.getCol()-1]);
+            //neighbors[4] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
+            neighbors[4] = (gm.getGrid()[pos.getRow()][pos.getCol()+1]);
+        }
+        //WEST BORDER
+        else if (pos.getCol()==0) {
+            neighbors[0] = (gm.getGrid()[pos.getRow()-1][pos.getCol()]);
+            //neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
+            neighbors[1] = (gm.getGrid()[pos.getRow()+1][pos.getCol()]);
+            neighbors[2] = (gm.getGrid()[pos.getRow()-1][pos.getCol()+1]);
+            neighbors[3] = (gm.getGrid()[pos.getRow()][pos.getCol()+1]);
+            neighbors[4] = (gm.getGrid()[pos.getRow()+1][pos.getCol()+1]);
+        }
+        //EAST BORDER
+        else if (pos.getCol()==9) {
+            neighbors[0] = (gm.getGrid()[pos.getRow()-1][pos.getCol()-1]);
+            neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()-1]);
+            neighbors[2] = (gm.getGrid()[pos.getRow()+1][pos.getCol()-1]);
+            neighbors[3] = (gm.getGrid()[pos.getRow()-1][pos.getCol()]);
+            //neighbors[4] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
+            neighbors[4] = (gm.getGrid()[pos.getRow()+1][pos.getCol()]);
+        }
+        ///////////
+        //INTERIOR
+        ///////////
+        else {
+            for (int i = 0; i < neighbors.length; i++) {
+                neighbors[i] = (gm.getGrid()[pos.getRow()-1][pos.getCol()-1]);
+                neighbors[i] = (gm.getGrid()[pos.getRow()-1][pos.getCol()]);
+                neighbors[i] = (gm.getGrid()[pos.getRow()-1][pos.getCol()+1]);
+
+                neighbors[i] = (gm.getGrid()[pos.getRow()][pos.getCol()-1]);
+                //neighbors[i] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
+                neighbors[i] = (gm.getGrid()[pos.getRow()][pos.getCol()+1]);
+
+                neighbors[i] = (gm.getGrid()[pos.getRow()+1][pos.getCol()-1]);
+                neighbors[i] = (gm.getGrid()[pos.getRow()+1][pos.getCol()]);
+                neighbors[i] = (gm.getGrid()[pos.getRow()+1][pos.getCol()+1]);
+            }
+        }
+        //for testing purposes
+        for (TileModel tile : neighbors) {
+            System.out.println(tile.getInt());
+        }
     }
 
+    //gets the [i][j] for the clicked tile so it can be found in the grid
     public Position getTilePosition(TileModel tm, GridModel gm) {
         Position pos = new Position(0,0);
         for (int i = 0; i < getMaxRow(); i++) {
@@ -86,7 +175,12 @@ public class GridModel extends Observable {
     }
 
     //takes values from neighboring tiles and performs game logic calculation
-    public void performCalc() {
+    public void performCalc(TileModel[] neighbors, TileModel tile) {
+        int result = 0;
+        for (TileModel tile : neighbors) {
+            result = result + tile.getInt();
+        }
+
         setChanged();
         notifyObservers();
     }
@@ -96,7 +190,7 @@ public class GridModel extends Observable {
         notifyObservers();
     }
 
-    //helper class to get the position of the tile in the grid
+    //helper class to store the position of the tile in the grid
     //helps with getNeighbors()
     private class Position {
         private int row;

@@ -1,5 +1,7 @@
 package com;
 
+//import model.TileModel;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +11,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
+//import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.EventListener;
@@ -18,7 +21,6 @@ public class GameController implements EventListener {
     public GameController() {
 
     }
-
 
     ////////////
     //TEST
@@ -152,5 +154,19 @@ public class GameController implements EventListener {
             return accept;
         }
     }
+
+    /*
+    public void actionPerformed(ActionEvent evt) {
+        JButton selectedBtn = (JButton) evt.getSource();
+        for (int row = 0; row < gridMod.getGrid().length; row++) {
+            for (int col = 0; col < gridMod.getGrid()[row].length; col++) {
+                if (gridMod.getGrid()[row][col] == (TileModel) selectedBtn) {
+                    System.out.printf("Selected row and column: %d %d%n", row, col);
+                }
+            }
+        }
+    }
+*/
+
 
 }
