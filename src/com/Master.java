@@ -24,6 +24,7 @@ public class Master extends JFrame {
         super();
         Font font = new Font("SansSerif", Font.BOLD, 28);
         Font fontButton = new Font("SansSerif", Font.BOLD, 22);
+
         //Panel
         JPanel buttonPanel = new JPanel();
         //JButtons
@@ -46,9 +47,9 @@ public class Master extends JFrame {
         timedJB.setBackground(Color.YELLOW);
         //set title, size, layout etc for the frame
         setTitle("Sum Fun Main Menu");
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(850, 350);
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         welcome.setHorizontalAlignment(SwingConstants.CENTER);
         //add JLabel to Frame

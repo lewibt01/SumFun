@@ -27,7 +27,7 @@ public class TheGui extends JFrame implements Observer {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1000, 1000);
         setLayout(new BorderLayout());
-
+        setLocationRelativeTo(null);
         gridView = new GridView();
         add(gridView, BorderLayout.CENTER);
         queueView = new QueueView();
