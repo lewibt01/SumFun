@@ -15,7 +15,7 @@ public class GridModel extends Observable {
         grid = new TileModel[colMax][rowMax];
         for (int i = 0; i < colMax; i++) {
             for (int j = 0; j < rowMax; j++) {
-                val = ThreadLocalRandom.current().nextInt(1, 10);
+                val = ThreadLocalRandom.current().nextInt(0, 10);
                 grid[i][j] = new TileModel();
                 grid[i][j].setBoolean(false);
                 if (!((i == 0 || j == 0) || (i == colMax - 1 || j == rowMax - 1))) {
