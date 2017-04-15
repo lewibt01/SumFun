@@ -11,7 +11,7 @@ public class TileModel extends Observable {
     private Color color = Color.WHITE;
 
     //constructors
-    public TileModel() {
+    TileModel() {
     }
 
     //used to grab integer value
@@ -30,7 +30,7 @@ public class TileModel extends Observable {
     }
 
     //will be used to create numbers
-    public void setNumber(int number) {
+    void setNumber(int number) {
         this.value = number;
         setChanged();
         notifyObservers();
@@ -44,8 +44,7 @@ public class TileModel extends Observable {
     }
 
     //will be used to set the boolean
-    public void setBoolean(boolean occupied) {
-
+    void setBoolean(boolean occupied) {
         this.occupied = occupied;
     }
 }

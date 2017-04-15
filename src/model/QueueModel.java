@@ -42,7 +42,7 @@ public class QueueModel extends Observable {
 
     //randomly reshuffle the elements of the queue
     public void shuffle() {
-        Random r = new Random();
+        r = new Random();
         ArrayList<Integer> tmp = new ArrayList<>();
 
         //collect all queue elements

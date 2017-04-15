@@ -16,6 +16,7 @@ import javax.swing.WindowConstants;
 //import models and view classes
 import model.GridModel;
 import model.QueueModel;
+import view.LeaderboardView;
 import view.TheGui;
 
 //will build the initial title menu for the game
@@ -31,6 +32,7 @@ public class Master extends JFrame {
         JButton exitJB = new JButton("Exit Game");
         JButton untimedJB = new JButton("Play Un-timed Game");
         JButton timedJB = new JButton("Play Timed Game");
+        JButton leaderJB = new JButton("Click to View LeaderBoard!");
         //JLabel
         JLabel welcome = new JLabel("Welcome To Sum Fun!! \n\n Please make a selection Below!");
         //changes font of JLabel
@@ -45,6 +47,9 @@ public class Master extends JFrame {
         //timed button set
         timedJB.setFont(fontButton);
         timedJB.setBackground(Color.YELLOW);
+        //leader button set
+        leaderJB.setFont(fontButton);
+        leaderJB.setBackground(Color.CYAN);
         //set title, size, layout etc for the frame
         setTitle("Sum Fun Main Menu");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -54,16 +59,20 @@ public class Master extends JFrame {
         welcome.setHorizontalAlignment(SwingConstants.CENTER);
         //add JLabel to Frame
         this.add(welcome, BorderLayout.NORTH);
-        buttonPanel.setLayout(new GridLayout(1, 3, 0, 0));
-        buttonPanel.add(untimedJB);
+        buttonPanel.setLayout(new GridLayout(2, 2, 0, 0));
         //un-timed listener
         untimedJB.addActionListener(new UntimedButtonListener());
-        buttonPanel.add(exitJB);
         //exit listener
         exitJB.addActionListener(new ExitButtonListener());
-        buttonPanel.add(timedJB);
         //timed listener
         timedJB.addActionListener(new TimedButtonListener());
+        //leaderBoard Listener
+        leaderJB.addActionListener(new LeaderBoardButtonListener());
+        //add Buttons to the panel
+        buttonPanel.add(untimedJB);
+        buttonPanel.add(timedJB);
+        buttonPanel.add(leaderJB);
+        buttonPanel.add(exitJB);
         this.add(buttonPanel, BorderLayout.CENTER);
 
     }
@@ -106,6 +115,19 @@ public class Master extends JFrame {
     //To Do Needs implemented to be instantiated
     private class TimedButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    private class LeaderBoardButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            LeaderboardView leaderBoard;
+            try {
+                leaderBoard = new LeaderboardView();
+                leaderBoard.setVisible(true);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
 
         }
     }

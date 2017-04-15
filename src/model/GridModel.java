@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 //Grid Model used to make the grid of the game board
 public class GridModel extends Observable {
     private TileModel[][] grid;
+    private CurrentScoreModel currScoreMod;
     private int val = 0;
     private final int rowMax = 9;
     private final int colMax = 9;
@@ -158,7 +159,6 @@ public class GridModel extends Observable {
 
         setChanged();
         notifyObservers(grid);
-
     }
     //need to change number from queue and take it and move it to the grid's unoccupied tile
     //need to change number of queue to move up one when this happens
