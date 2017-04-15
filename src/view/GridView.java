@@ -69,7 +69,7 @@ public class GridView extends JPanel implements Observer {
                 for (int j = 0; j < 9; j++) {
                     boardButtons[i][j].setBackground(model[i][j].getColor());
                     if (model[i][j].getBool()) {
-                        System.out.println(i+","+j+" : "+model[i][j].getBool());
+
                         boardButtons[i][j].setText(model[i][j].getInt() + "");
 
                     } else {
