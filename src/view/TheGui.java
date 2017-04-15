@@ -30,8 +30,7 @@ public class TheGui extends JFrame implements Observer {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1000, 1000);
         setLayout(new BorderLayout());
-
-        //instantiate the grid & queue views
+        setLocationRelativeTo(null);
         gridView = new GridView();
         add(gridView, BorderLayout.CENTER);
         queueView = new QueueView();
@@ -67,15 +66,7 @@ public class TheGui extends JFrame implements Observer {
 
     }
 
-    private class ButtonListener extends MouseAdapter implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-
-        }
-    }
-
 }
-
-
 
 /*    private class TileListener implements ActionListener {
         TileModel t;
