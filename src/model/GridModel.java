@@ -15,20 +15,16 @@ public class GridModel extends Observable {
         grid = new TileModel[colMax][rowMax];
         for (int i = 0; i < colMax; i++) {
             for (int j = 0; j < rowMax; j++) {
-
-                val = ThreadLocalRandom.current().nextInt(0, 10);
+                val = ThreadLocalRandom.current().nextInt(1, 10);
                 grid[i][j] = new TileModel();
                 grid[i][j].setBoolean(false);
                 if (!((i == 0 || j == 0) || (i == colMax - 1 || j == rowMax - 1))) {
-
                     grid[i][j].setNumber(val);
                     grid[i][j].setBoolean(true);
-
                 }
             }
         }
-
-        updateGrid();
+        forceUpdate();
     }
 
     public int getMaxCol() {
@@ -154,19 +150,29 @@ public class GridModel extends Observable {
         return pos;
     }
 
+    //modify the value of the tile at the given position
+    public void setTileValue(int row, int col, int value){
+        TileModel reference = grid[row][col];
+        reference.setBoolean(true);
+        reference.setNumber(value);
+
+        setChanged();
+        notifyObservers(grid);
+
+    }
     //need to change number from queue and take it and move it to the grid's unoccupied tile
     //need to change number of queue to move up one when this happens
     //need to change value of occupied to true if placed
     public void changeNum(TileModel grid, QueueModel queue) {
-        int queueVal = queue.getQValue();
+        int queueVal = queue.peek();
         boolean occupied = grid.getBool();
         if (grid.getInt() == 0 && !occupied) {
             grid.setNumber(queueVal);
             grid.setBoolean(true);
-            queue.updateQueue();
+            //queue.updateQueue();
         }
         setChanged();
-        notifyObservers();
+        notifyObservers(grid);//passes the grid to registered observers
     }
 
     //returns the grid for the gameBoard
@@ -182,12 +188,12 @@ public class GridModel extends Observable {
         }
 
         setChanged();
-        notifyObservers();
+        notifyObservers(grid);
     }
 
-    public void updateGrid() {
+    public void forceUpdate() {
         setChanged();
-        notifyObservers();
+        notifyObservers(grid);
     }
 
     //helper class to store the position of the tile in the grid

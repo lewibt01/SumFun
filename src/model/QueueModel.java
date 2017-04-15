@@ -1,67 +1,53 @@
 package model;
 
 import java.util.Observable;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
+import java.util.Random;
 
 //will populate the values needed into the view
 public class QueueModel extends Observable {
-    //private LinkedList<Integer> queue;
-    private TileModel[] tileModel;
+    private ArrayList<Integer> queue;
+    private int numElements;
+    private Random r;
 
     public QueueModel() {
-        final int max = 5;
-        int randomVal;
-        tileModel = new TileModel[max];
-        //queuebtns= new JButton[5];
-        //queue = new LinkedList<>();
-        //numElements = 5;
-        for (int i = 0; i < max; i++) {
-            randomVal = ThreadLocalRandom.current().nextInt(0, 10);
-            tileModel[i] = new TileModel();
-            tileModel[i].setNumber(randomVal);
-            tileModel[i].setBoolean(true);
-        }
-        updateQueue();
-    }
+        numElements = 5;
+        queue = new ArrayList<>();
+        r = new Random();
 
-    /*
-        public TileModel[] getQueue() {
-            return tileModel;
+        for(int i=0;i<50;i++){
+            enqueue(r.nextInt(8)+1);
         }
-    */
-    //returns the queue of buttons to the gui
-    public TileModel[] getQueue() {
-        return tileModel;
-    }
-
-    public void updateQueue() {
 
         setChanged();
-        notifyObservers();
-    }
-    int getQValue(){
-        return tileModel[0].getInt();
+        notifyObservers(queue);
     }
 
-    /*//set the number of queue elements that should be visible to the user
+    public ArrayList<Integer> getQueue() {
+        return queue;
+    }
+
+    //set the number of queue elements that should be visible to the user
     public void setNumberElements(int input) {
         numElements = input;
+        setChanged();
+        notifyObservers(queue);
     }
 
     //return the number of elements that are allowed to be visible to the user
     public int getNumElements() {
         int tmp = numElements; //no intellij, this is not redundant, It's art
         return tmp;
-    }*/
+    }
 
-    /*//randomly reshuffle the elements of the queue
+    //randomly reshuffle the elements of the queue
     public void shuffle() {
         Random r = new Random();
         ArrayList<Integer> tmp = new ArrayList<>();
 
         //collect all queue elements
         for (int el : queue) {
-            tmp.add(retrieve());
+            tmp.add(dequeue());
             System.out.println(el);
         }
 
@@ -71,22 +57,59 @@ public class QueueModel extends Observable {
         //re-add elements to the queue
         for (int i = 0; i < tmp.size(); i++) {
             int tmpInt = r.nextInt(tmp.size());//generate random index
-            queue.addFirst(tmp.get(tmpInt));//grab index and add to queue, ensure search by index not by value
+            queue.add(tmp.get(tmpInt));//grab index and add to queue, ensure search by index not by value
             tmp.remove(tmpInt);//make absolutely sure it removes the index not the value
         }
 
         //tell everybody we updated the queue
         this.setChanged();
-        this.notifyObservers();
-    }*/
+        this.notifyObservers(queue);
+    }
 
-   /* //push a value into the queue
-    public void add(int i) {
-        queue.addFirst(i);
-    }*/
+    public void forceUpdate(){
+        setChanged();
+        notifyObservers(queue);
+    }
 
-    /*public Integer peek() {
-        return queue.peekLast();
-    }*/
+    //push a value into the queue
+    public void enqueue(Integer i) {
+        queue.add(i);
+        setChanged();
+        notifyObservers(queue);
+    }
+
+    //removes the least recently added element from the queue
+    public int dequeue(){
+        int tmp;
+        if(queue.size()<=0) {
+            tmp = -1;//illegal value to show emptiness
+        }else {
+            tmp = queue.get((int) 0);
+            //System.out.println(tmp + " Dequeued");
+            queue.remove((int) 0);
+        }
+        setChanged();
+        notifyObservers(queue);
+
+        return tmp;
+    }
+
+    //return, but not remove, least recently added element from the queue
+    public Integer peek() {
+        return queue.get((int)queue.size()-1);
+    }
+
+    //return the element at the specified index. 0 being the most recently added element,
+    // and queue.size() being the least recently added element.
+    public Integer peek(int i){
+        return queue.get(i);
+    }
+
+    public int size(){
+        return queue.size();
+    }
+
+
+
 
 }

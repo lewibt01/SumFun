@@ -3,8 +3,11 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -14,14 +17,16 @@ import model.TileModel;
 
 
 public class QueueView extends JPanel implements Observer {
-    private JButton[] display = new JButton[5];
+    private JButton[] display;
+    private QueueModel queueMod;//link to registered queue model
+    private GridView gridLink;//start with no registered grid
 
     //will be used to show the queue
     QueueView() {
         super();
-        //create a boxlayout with vertically stacked components
-        //BoxLayout box = new BoxLayout(this,BoxLayout.Y_AXIS);
-        //this.setLayout(box);
+        display = new JButton[5];
+        queueMod = new QueueModel();
+
         this.setLayout(new GridLayout(5, 1, 0, 0));
         this.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Available Moves"),
@@ -53,20 +58,41 @@ public class QueueView extends JPanel implements Observer {
     //register a model with this view...
     public void addObserver(Observable o) {
         o.addObserver(this);
-
     }
 
     //grab data from the model to update what is seen on the view
+    @SuppressWarnings("unchecked")
     public void update(Observable o, Object arg) {
-
-        if (o.getClass().getSimpleName().equals("QueueModel")) {
-            TileModel[] model = ((QueueModel) o).getQueue();
-            for (int i = 0; i < 5; i++) {
-                display[i].setText(model[i].getInt() + "");
+        //if (o.getClass().getSimpleName().equals("QueueModel")) {
+            ArrayList<Integer> queueModel = (ArrayList<Integer>)arg;
+        //iterate through 5 or fewer elements in the queue
+        for (int i = 0; i < 5 && i<queueMod.size(); i++) {
+                display[i].setText(queueModel.get(i) + "");
                 display[i].setBackground(Color.CYAN);
                 display[i].setForeground(Color.BLACK);
-            }
         }
+        //System.out.println(queueModel.toString());
+        //}
+    }
+
+    public void registerGridView(GridView g){
+        gridLink = g;
+    }
+
+    public GridView getRegisteredGridView(){
+        return gridLink;
+    }
+
+    public void registerQueueModel(QueueModel q){
+        queueMod = q;
+    }
+
+    public QueueModel getRegisteredQueueModel(){
+        return queueMod;
+    }
+
+    public JButton[] getDisplay(){
+        return display;
     }
 
     private class ButtonListener extends MouseAdapter {

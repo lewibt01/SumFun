@@ -19,11 +19,12 @@ import model.TileModel;
 public class GridView extends JPanel implements Observer {
 
     private JButton[][] boardButtons;
+    private GridModel gridMod;
+    private TileModel cellData;
+    private QueueView queueLink;//start with no linked queue
 
     GridView() {
         super();
-        GridModel gridMod;
-        TileModel cellData;
         gridMod = new GridModel();
         int maxRow = gridMod.getMaxRow();
         int maxCol = gridMod.getMaxCol();
@@ -41,7 +42,7 @@ public class GridView extends JPanel implements Observer {
                 cellData = gridMod.getGrid()[i][j];
                 boardButtons[i][j] = new JButton();
                 boardButtons[i][j].setText(cellData.getInt() + "");
-                boardButtons[i][j].addMouseListener(new ButtonListener(i, j));
+                boardButtons[i][j].addMouseListener(new ButtonListener(j, i));
                 /*TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
                 GameController.ValueImportTransferHandler handle = new GameController.ValueImportTransferHandler();
                 handle.canImport(support);
@@ -59,15 +60,16 @@ public class GridView extends JPanel implements Observer {
     }
 
     @Override
-    //this method will update the observers with the values populated on the grid
+    //this method will update the values populated in the grid
     public void update(Observable o, Object arg) {
         //TODO
         if (o.getClass().getSimpleName().equals("GridModel")) {
-            TileModel[][] model = ((GridModel) o).getGrid();
+            TileModel[][] model = (TileModel[][]) arg;//receive the grid from the model
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
                     boardButtons[i][j].setBackground(model[i][j].getColor());
                     if (model[i][j].getBool()) {
+                        System.out.println(i+","+j+" : "+model[i][j].getBool());
                         boardButtons[i][j].setText(model[i][j].getInt() + "");
 
                     } else {
@@ -77,25 +79,26 @@ public class GridView extends JPanel implements Observer {
 
             }
         }
-    }
-/*
 
-    private class GMController implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            switch (e.getActionCommand()) {
-                case "FUBAR":
-                    System.exit(0);
-                    break;
-*//*
-                case "RETRIEVE":
-                    model.retrieve();
-                    break;
-                case "SHUFFLE":
-                    model.shuffle();
-*//*
-            }
-        }
-    }*/
+    }
+
+    //links the grid view to the queue view by reference for data transfer purposes
+    public void registerQueueView(QueueView q){
+        queueLink = q;
+    }
+
+    //return the currently registered Queue View
+    public QueueView getRegisteredQueueView(){
+        return queueLink;
+    }
+
+    public void registerGridModel(GridModel g){
+        gridMod = g;
+    }
+
+    public GridModel getRegisteredGridModel(){
+        return gridMod;
+    }
 
 
     private class ButtonListener extends MouseAdapter implements MouseListener {
@@ -122,8 +125,11 @@ public class GridView extends JPanel implements Observer {
                 System.out.println("This is unoccupied");
             }
 
+            gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
+            //System.out.println(queueLink.getDisplay()[0].getText() + ":" + boardButtons[row][col].getText() + ":" + row +","+col);
 
         }
+
     }
 
 

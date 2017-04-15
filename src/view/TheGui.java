@@ -2,6 +2,9 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFrame;
@@ -28,12 +31,16 @@ public class TheGui extends JFrame implements Observer {
         setSize(1000, 1000);
         setLayout(new BorderLayout());
 
+        //instantiate the grid & queue views
         gridView = new GridView();
         add(gridView, BorderLayout.CENTER);
         queueView = new QueueView();
-        //queueView.setSize(300,300);
-        // queueView.setMinimumSize(new Dimension(100,0));
-        //queueView.setPreferredSize(queueView.getMinimumSize());
+
+        //register the views to each other...
+        gridView.registerQueueView(queueView);
+        queueView.registerGridView(gridView);
+
+        //Format the GUI to make it look pretty...
         sidePanel.setLayout(new GridLayout(2, 1, 0, 0));
         sidePanel.add(queueView);
         currentScoreView = new CurrentScoreView();
@@ -60,7 +67,15 @@ public class TheGui extends JFrame implements Observer {
 
     }
 
+    private class ButtonListener extends MouseAdapter implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+
+        }
+    }
+
 }
+
+
 
 /*    private class TileListener implements ActionListener {
         TileModel t;
