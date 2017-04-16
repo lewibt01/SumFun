@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collections;
 import java.util.Observable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -42,6 +43,8 @@ public class QueueModel extends Observable {
 
     //randomly reshuffle the elements of the queue
     public void shuffle() {
+        Collections.shuffle(this.getQueue());
+/*
         r = new Random();
         ArrayList<Integer> tmp = new ArrayList<>();
 
@@ -61,6 +64,7 @@ public class QueueModel extends Observable {
             tmp.remove(tmpInt);//make absolutely sure it removes the index not the value
         }
 
+*/
         //tell everybody we updated the queue
         this.setChanged();
         this.notifyObservers(queue);

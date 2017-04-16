@@ -43,8 +43,9 @@ public class CurrentScoreModel extends Observable {
 
     public void decrMoves() {
         numberMoves = numberMoves -1;
+        System.out.println(numberMoves);
         setChanged();
-        notifyObservers(numberMoves);
+        notifyObservers();
     }
 
 }

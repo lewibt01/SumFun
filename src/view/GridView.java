@@ -120,6 +120,7 @@ public class GridView extends JPanel implements Observer {
             buttonPress.setBackground(Color.WHITE);
         }
 
+/*
         public void mouseClicked(MouseEvent e) {
             if (boardButtons[row][col].getText().equals("")) {
                 System.out.println("This is unoccupied");
@@ -137,18 +138,14 @@ public class GridView extends JPanel implements Observer {
             //System.out.println(queueLink.getDisplay()[0].getText() + ":" + boardButtons[row][col].getText() + ":" + row +","+col);
 
         }
+*/
         public void mousePressed(MouseEvent e){
-            if ((boardButtons[col][row].getText().equals("")) ||(boardButtons[col][row].getText().equals(" "))){
+            if ((boardButtons[row][col].getText().equals("")) ||(boardButtons[row][col].getText().equals(" "))){
                 System.out.println("clicked on empty");
+                gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
+                gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
             }
-            gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
-            gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
-
-
         }
-
     }
-
-
 }
 

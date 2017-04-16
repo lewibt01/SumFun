@@ -14,6 +14,7 @@ public class GridModel extends Observable {
 
     //constructor
     public GridModel() {
+        currScoreMod = new CurrentScoreModel();
         grid = new TileModel[rowMax][colMax];
         for (int i = 0; i < rowMax; i++) {
             for (int j = 0; j < colMax; j++) {
@@ -204,11 +205,13 @@ public class GridModel extends Observable {
                 t.setNumber(0);
             }
 
-            setChanged();
-            notifyObservers(grid);
             //update score
             //currScoreMod.changeScore(currScoreMod.getCurrentScore());
         }
+        currScoreMod.decrMoves();
+        setChanged();
+        notifyObservers(grid);
+
     }
 
     public void forceUpdate() {
