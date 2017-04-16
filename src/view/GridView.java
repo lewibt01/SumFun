@@ -31,18 +31,18 @@ public class GridView extends JPanel implements Observer {
 
 
         //gridMod = new GridModel();
-        boardButtons = new JButton[maxCol][maxRow];
+        boardButtons = new JButton[maxRow][maxCol];
 
         GridLayout grid = new GridLayout(9, 9, 0, 0);
         this.setLayout(grid);
         this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(0), BorderFactory.createBevelBorder(0)));
         //this.setBackground(new Color(123, 255, 24));
-        for (int i = 0; i < maxCol; i++) {
-            for (int j = 0; j < maxRow; j++) {
+        for (int i = 0; i < maxRow; i++) {
+            for (int j = 0; j < maxCol; j++) {
                 cellData = gridMod.getGrid()[i][j];
                 boardButtons[i][j] = new JButton();
                 boardButtons[i][j].setText(cellData.getInt() + "");
-                boardButtons[i][j].addMouseListener(new ButtonListener(j, i));
+                boardButtons[i][j].addMouseListener(new ButtonListener(i, j));
                 /*TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
                 GameController.ValueImportTransferHandler handle = new GameController.ValueImportTransferHandler();
                 handle.canImport(support);
@@ -105,9 +105,9 @@ public class GridView extends JPanel implements Observer {
         int row;
         int col;
 
-        ButtonListener(int c, int r) {
-            this.col = c;
+        ButtonListener(int r, int c) {
             this.row = r;
+            this.col = c;
         }
 
         public void mouseEntered(MouseEvent e) {
@@ -121,11 +121,17 @@ public class GridView extends JPanel implements Observer {
         }
 
         public void mouseClicked(MouseEvent e) {
-            if (boardButtons[col][row].getText().equals("")) {
+            if (boardButtons[row][col].getText().equals("")) {
                 System.out.println("This is unoccupied");
+                gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
+/*
+                TileModel[] neighbors;
+                neighbors = gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col]));
+*/
+                gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
             }
 
-            gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
+            //gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
             //System.out.println(queueLink.getDisplay()[0].getText() + ":" + boardButtons[row][col].getText() + ":" + row +","+col);
 
         }
