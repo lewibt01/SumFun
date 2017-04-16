@@ -109,7 +109,6 @@ public class Master extends JFrame {
             queueModel.forceUpdate();
             //set gui to visible and the current frame to false to "close"
             gui.setVisible(true);
-            setVisible(false);
         }
     }
 

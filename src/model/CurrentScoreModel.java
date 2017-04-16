@@ -4,8 +4,13 @@ import java.util.Observable;
 
 //populates the values used for the currentScore, as well as retains those values when changed
 public class CurrentScoreModel extends Observable {
-    private int numberMoves = 50;
-    private int currentScore = 0;
+    private int numberMoves;
+    private int currentScore;
+
+    public CurrentScoreModel() {
+        numberMoves = 50;
+        currentScore = 0;
+    }
 
     public int getNumberMoves() {
         return this.numberMoves;
@@ -16,6 +21,7 @@ public class CurrentScoreModel extends Observable {
     }
 
     //will set score calculated
+/*
     public void setCurrentScore(int score) {
         this.currentScore = score;
         setChanged();
@@ -27,15 +33,18 @@ public class CurrentScoreModel extends Observable {
         setChanged();
         notifyObservers();
     }
+*/
 
-    public int scoreCh(int num) {
+    public void changeScore(int num) {
         currentScore += num;
-        return num;
+        setChanged();
+        notifyObservers(currentScore);
     }
 
-    public int move(int num) {
-        numberMoves = num - 1;
-        return numberMoves;
+    public void decrMoves() {
+        numberMoves = numberMoves -1;
+        setChanged();
+        notifyObservers(numberMoves);
     }
 
 }

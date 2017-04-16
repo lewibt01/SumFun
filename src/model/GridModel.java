@@ -227,7 +227,11 @@ public class GridModel extends Observable {
             this.col = c;
         }
 
-        public int getRow() {return row;}
-        public int getCol() {return col;}
+        private int getRow() {
+            return row;
+        }
+        private int getCol() {
+            return col;
+        }
     }
 }
