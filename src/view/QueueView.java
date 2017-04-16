@@ -1,30 +1,30 @@
 package view;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 //model Imports
 import model.QueueModel;
-import model.TileModel;
+
 
 
 public class QueueView extends JPanel implements Observer {
     private JButton[] display;
     private QueueModel queueMod;//link to registered queue model
     private GridView gridLink;//start with no registered grid
-
     //will be used to show the queue
     QueueView() {
-        super();
-        display = new JButton[5];
+
+       display = new JButton[5];
         queueMod = new QueueModel();
 
         this.setLayout(new GridLayout(5, 1, 0, 0));
@@ -35,6 +35,7 @@ public class QueueView extends JPanel implements Observer {
                         BorderFactory.createBevelBorder(0))));
         this.setAlignmentY(CENTER_ALIGNMENT);
         //for loop used to iterate through the 5 queue buttons
+
         for (int i = 0; i < 5; i++) {
             //int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
             display[i] = new JButton();
@@ -72,7 +73,7 @@ public class QueueView extends JPanel implements Observer {
                 display[i].setForeground(Color.BLACK);
         }
         //System.out.println(queueModel.toString());
-        //}
+
     }
 
     public void registerGridView(GridView g){
@@ -117,6 +118,13 @@ public class QueueView extends JPanel implements Observer {
             TransferHandler handle = btn.getTransferHandler();
             handle.exportAsDrag(btn, e, TransferHandler.MOVE);
         }*/
+    }
+
+    //listener for the shuffle button
+    private class ShuffleListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+
+        }
     }
 
 

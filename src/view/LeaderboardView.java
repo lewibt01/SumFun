@@ -28,18 +28,20 @@ public class LeaderboardView extends JFrame implements Observer {
         Font font = new Font("SansSerif", Font.BOLD, 28);
         GridLayout grid = new GridLayout(10, 1, 0, 0);
         this.setTitle("High Scores!!");
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setSize(600, 600);
         this.setLocationRelativeTo(null);
         this.setLayout(grid);
         //for loop to generate the rank
         for (int i = 0; i < 10; i++) {
             rank[i] = new JLabel("Rank: " + leaderboard.getNumber(i) + "     Name: " + leaderboard.getUserName(i) + "     Score: " + leaderboard.getScore(i));
+            leaderboard.setCurrentPos(i);
             leaderboard.setNumber(i);
             rank[i].setFont(font);
             rank[i].setHorizontalAlignment(SwingConstants.CENTER);
             add(rank[i]);
         }
+        leaderboard.setCurrentPos(1);
 
     }
 
@@ -55,6 +57,7 @@ public class LeaderboardView extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
         for (int i = 0; i < 10; i++) {
             rank[i].setText("Rank:" + leaderboard.getNumber(i) + "\t Name: " + leaderboard.getUserName(i) + "\t Score: " + leaderboard.getScore(i));
+            System.out.println(leaderboard.getCurrentPos() + "");
         }
     }
 }

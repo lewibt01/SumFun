@@ -124,15 +124,24 @@ public class GridView extends JPanel implements Observer {
             if (boardButtons[row][col].getText().equals("")) {
                 System.out.println("This is unoccupied");
                 gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
-/*
-                TileModel[] neighbors;
-                neighbors = gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col]));
-*/
+
+                //TileModel[] neighbors;
+                //neighbors = gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col]));
+
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
             }
 
             //gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
             //System.out.println(queueLink.getDisplay()[0].getText() + ":" + boardButtons[row][col].getText() + ":" + row +","+col);
+
+        }
+        public void mousePressed(MouseEvent e){
+            if ((boardButtons[col][row].getText().equals("")) ||(boardButtons[col][row].getText().equals(" "))){
+                System.out.println("clicked on empty");
+            }
+            gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
+            gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
+
 
         }
 

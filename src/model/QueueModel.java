@@ -15,7 +15,7 @@ public class QueueModel extends Observable {
         queue = new ArrayList<>();
         r = new Random();
 
-        for(int i=0;i<50;i++){
+        for(int i=0;i< 50;i++){
             enqueue(r.nextInt(8)+1);
         }
 
