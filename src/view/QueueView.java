@@ -24,10 +24,13 @@ public class QueueView extends JPanel implements Observer {
     //will be used to show the queue
     QueueView() {
 
-       display = new JButton[5];
+        super();
+        JPanel shufflePanel = new JPanel();
+        JButton shuffleJB = new JButton("Shuffle");
+        display = new JButton[5];
         queueMod = new QueueModel();
 
-        this.setLayout(new GridLayout(5, 1, 0, 0));
+        this.setLayout(new GridLayout(6, 1, 0, 0));
         this.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Available Moves"),
                 BorderFactory.createCompoundBorder(
@@ -35,7 +38,11 @@ public class QueueView extends JPanel implements Observer {
                         BorderFactory.createBevelBorder(0))));
         this.setAlignmentY(CENTER_ALIGNMENT);
         //for loop used to iterate through the 5 queue buttons
-
+        //add action Listener to jButtons
+        shuffleJB.addActionListener(new ShuffleListener());
+        //add buttons to panel
+        shufflePanel.add(shuffleJB);
+        add(shufflePanel);
         for (int i = 0; i < 5; i++) {
             //int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
             display[i] = new JButton();
@@ -120,12 +127,12 @@ public class QueueView extends JPanel implements Observer {
         }*/
     }
 
-    //listener for the shuffle button
     private class ShuffleListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-
+            queueMod.shuffle();
         }
     }
+
 
 
 }

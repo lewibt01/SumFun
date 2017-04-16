@@ -107,7 +107,7 @@ public class Master extends JFrame {
             //grab updated grid and queue
             gridModel.forceUpdate();
             queueModel.forceUpdate();
-            //set gui to visible and the current frame to false to "close"
+            //set gui to visible
             gui.setVisible(true);
         }
     }
