@@ -1,15 +1,14 @@
 package model;
 
-import view.TheGui;
-
 import java.util.Observable;
 
+import view.TheGui;
 /**
  * Created by Garrett on 4/16/2017.
  * CS360
  */
-public class GameModel extends Observable {
-    public GameModel() {
+class GameModel extends Observable {
+    GameModel() {
         GridModel gridModel = new GridModel();
         QueueModel queueModel = new QueueModel();
         TheGui gui = new TheGui();
