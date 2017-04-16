@@ -193,15 +193,19 @@ public class GridModel extends Observable {
             result = result + t.getInt();
         }
         System.out.println("result :" +result);
-        if (result == tile.getInt()%10) {
+        if (result%10 == tile.getInt()) {
             tile.setBoolean(false);
+            tile.setNumber(0);
             System.out.println("computation successful!");
             for (TileModel t : neighbors) {
                 t.setBoolean(false);
+                t.setNumber(0);
             }
-            //add scoring
-            //decrement # of moves
+            //update score
+            //currScoreMod.changeScore(currScoreMod.getCurrentScore());
         }
+        //decrement # of moves
+        //currScoreMod.decrMoves();
 
         setChanged();
         notifyObservers(grid);
