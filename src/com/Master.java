@@ -16,6 +16,7 @@ import javax.swing.WindowConstants;
 //import models and view classes
 import model.GridModel;
 import model.QueueModel;
+import model.TimedGameModel;
 import view.LeaderboardView;
 import view.TheGui;
 
@@ -115,6 +116,7 @@ public class Master extends JFrame {
     //To Do Needs implemented to be instantiated
     private class TimedButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            TimedGameModel timedGameModel = new TimedGameModel();
 
         }
     }
