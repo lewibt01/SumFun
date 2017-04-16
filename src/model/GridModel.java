@@ -168,6 +168,7 @@ public class GridModel extends Observable {
     //need to change number from queue and take it and move it to the grid's unoccupied tile
     //need to change number of queue to move up one when this happens
     //need to change value of occupied to true if placed
+/*
     public void changeNum(TileModel grid, QueueModel queue) {
         int queueVal = queue.peek();
         boolean occupied = grid.getBool();
@@ -179,6 +180,7 @@ public class GridModel extends Observable {
         setChanged();
         notifyObservers(grid);//passes the grid to registered observers
     }
+*/
 
     //returns the grid for the gameBoard
     public TileModel[][] getGrid() {
@@ -201,14 +203,12 @@ public class GridModel extends Observable {
                 t.setBoolean(false);
                 t.setNumber(0);
             }
+
+            setChanged();
+            notifyObservers(grid);
             //update score
             //currScoreMod.changeScore(currScoreMod.getCurrentScore());
         }
-        //decrement # of moves
-        //currScoreMod.decrMoves();
-
-        setChanged();
-        notifyObservers(grid);
     }
 
     public void forceUpdate() {
