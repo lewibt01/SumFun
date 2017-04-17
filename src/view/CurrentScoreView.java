@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Observable;
@@ -9,8 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 //class imports
 import model.CurrentScoreModel;
-import model.GridModel;
-import org.omg.CORBA.Current;
 
 /**
  * Created by Aaron on 3/30/2017.
@@ -25,7 +24,8 @@ public class CurrentScoreView extends JPanel implements Observer {
         Font font = new Font("SansSerif", Font.BOLD, 20);
         JLabel scoreLabel;
         JLabel movesLabel;
-        GridLayout grid = new GridLayout(2, 2, 0, 0);
+        currentScore = new CurrentScoreModel();
+        GridLayout grid = new GridLayout(0, 2, 0, 0);
         this.setLayout(grid);
         this.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Score "),
@@ -35,7 +35,6 @@ public class CurrentScoreView extends JPanel implements Observer {
         scoreLabel = new JLabel();
         scoreLabel.setText("Current Score: ");
         add(scoreLabel);
-        currentScore = new CurrentScoreModel();
         scoreTextField = new JTextField();
         scoreTextField.setText(currentScore.getCurrentScore() + "");
         scoreTextField.setFont(font);
@@ -51,13 +50,21 @@ public class CurrentScoreView extends JPanel implements Observer {
         movesRemaining.setHorizontalAlignment(JTextField.CENTER);
         movesRemaining.setEditable(false);
         add(movesRemaining);
+
+    }
+
+    void addTimer(TimerView timerView) {
+        JLabel timerLabel = new JLabel();
+        timerLabel.setText("Time remaining: ");
+        add(timerLabel);
+        add(timerView);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         if (o.getClass().getSimpleName().equals("CurrentScoreModel")) {
-            scoreTextField.setText(currentScore.getCurrentScore() + "");
-            movesRemaining.setText(currentScore.getNumberMoves() + "");
+            scoreTextField.setText(currentScore.scoreCh(currentScore.getCurrentScore()) + "");
+            movesRemaining.setText(currentScore.move(currentScore.getNumberMoves()) + "");
         }
     }
 }

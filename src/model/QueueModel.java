@@ -10,8 +10,10 @@ public class QueueModel extends Observable {
     private ArrayList<Integer> queue;
     private int numElements;
     private Random r;
+    private Boolean hasShuffled;
 
     public QueueModel() {
+        hasShuffled = false;
         numElements = 5;
         queue = new ArrayList<>();
         r = new Random();
@@ -111,6 +113,16 @@ public class QueueModel extends Observable {
 
     public int size(){
         return queue.size();
+    }
+    public Boolean getHasShuffled(){
+        return  hasShuffled;
+    }
+    public void setHasShuffled(){
+        if(hasShuffled){
+            hasShuffled = true;
+        }
+        setChanged();
+        notifyObservers(queue);
     }
 
 

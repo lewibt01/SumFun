@@ -13,12 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-//import models and view classes
 import model.GridModel;
 import model.QueueModel;
 import model.TimedGameModel;
 import view.LeaderboardView;
 import view.TheGui;
+
+//import models and view classes
 
 //will build the initial title menu for the game
 public class Master extends JFrame {
@@ -26,7 +27,6 @@ public class Master extends JFrame {
         super();
         Font font = new Font("SansSerif", Font.BOLD, 28);
         Font fontButton = new Font("SansSerif", Font.BOLD, 22);
-
         //Panel
         JPanel buttonPanel = new JPanel();
         //JButtons
@@ -112,16 +112,30 @@ public class Master extends JFrame {
         }
     }
 
-    //To Do Needs implemented to be instantiated
     private class TimedButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            TimedGameModel timedGameModel = new TimedGameModel();
+            TimedGameModel timedGameModel = new TimedGameModel(5);
+            TheGui gui = new TheGui();
+            //add observers to the views
+            gui.getGridView().addObserver(timedGameModel.getGridModel());
+            gui.getGridView().registerGridModel(timedGameModel.getGridModel());
+            //tie models to their respective views
+            gui.getQueueView().addObserver(timedGameModel.getQueueModel());
+            gui.getQueueView().registerQueueModel(timedGameModel.getQueueModel());
+            timedGameModel.getGridModel().forceUpdate();
+            timedGameModel.getQueueModel().forceUpdate();
+            //set gui to visible and the current frame to false to "close"
+            gui.setVisible(true);
+            gui.update(timedGameModel, null);
+            setVisible(false);
+            // Timing stuff
+            gui.addTimer(timedGameModel);
 
         }
     }
 
     private class LeaderBoardButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
             LeaderboardView leaderBoard;
             try {
                 leaderBoard = new LeaderboardView();
