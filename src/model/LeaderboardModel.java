@@ -19,7 +19,7 @@ public class LeaderboardModel extends Observable implements Serializable {
     private File leaderFile;
     private Boolean[] isFilled = new Boolean[10];
 
-    public LeaderboardModel() throws Exception {
+    private LeaderboardModel() throws Exception {
         CurrentScoreModel currentScore = new CurrentScoreModel();
         for (int i = 0; i < 10; i++) {
             currentPos = i;
