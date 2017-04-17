@@ -68,7 +68,7 @@ public class QueueModel extends Observable {
         int tmp;
         if(queue.size()<=0) {
             tmp = -1;//illegal value to show emptiness
-        }else {
+        }else{
             tmp = queue.get((int) 0);
             //System.out.println(tmp + " Dequeued");
             queue.remove((int) 0);

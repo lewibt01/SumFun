@@ -144,14 +144,6 @@ public class LeaderboardModel extends Observable implements Serializable {
         notifyObservers(singletonLink);
     }
 
-    //test method plz ignore
-    //nothing to see here
-
-
-    public void setCurrentPos(int input){
-        currentPos = input;
-    }
-
     private void forceUpdate() {
         setChanged();
         notifyObservers(singletonLink);

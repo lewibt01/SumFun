@@ -34,6 +34,7 @@ public class QueueView extends JPanel implements Observer {
         display = new JButton[5];
         queueMod = new QueueModel();
 
+
         this.setLayout(new GridLayout(6, 1, 0, 0));
         this.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Available Moves"),
