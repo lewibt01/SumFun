@@ -12,7 +12,10 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+
 //model Imports
+import com.sun.org.apache.xalan.internal.xsltc.runtime.ErrorMessages_ca;
 import model.QueueModel;
 
 
@@ -129,7 +132,15 @@ public class QueueView extends JPanel implements Observer {
 
     private class ShuffleListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            queueMod.shuffle();
+
+            if(queueMod.getHasShuffled()) {
+                JOptionPane.showMessageDialog(null, "Queue has been shuffled already!");
+
+            }else{
+                queueMod.shuffle();
+                queueMod.setHasShuffled();
+        }
+
         }
     }
 

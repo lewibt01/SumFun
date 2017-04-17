@@ -21,6 +21,7 @@ public class LeaderboardModel extends Observable implements Serializable {
 
     public LeaderboardModel() throws Exception {
         CurrentScoreModel currentScore = new CurrentScoreModel();
+        load();
         for (int i = 0; i < 10; i++) {
             currentPos = i;
             score[i] = currentScore.getCurrentScore();
@@ -29,19 +30,20 @@ public class LeaderboardModel extends Observable implements Serializable {
             isFilled[i] = false;
         }
         update();
-
-
+    }
+    public void save() throws Exception{
         try {
             leaderFile = new File("LeaderBoard.txt");
             FileOutputStream fos = new FileOutputStream(leaderFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(this);
+            update();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void load() throws Exception {
+    private void load() throws Exception {
         FileInputStream fis = new FileInputStream(leaderFile);
         ObjectInputStream ois = new ObjectInputStream(fis);
         LeaderboardModel lbm = (LeaderboardModel) ois.readObject();

@@ -46,10 +46,11 @@ public class LeaderboardView extends JFrame implements Observer {
     }
 
 
-    public void displayMessage() {
+    public void displayMessage() throws Exception{
         String message = JOptionPane.showInputDialog("Please enter your name to be added to the list of high scores!");
         leaderboard.setUserName(message, leaderboard.getCurrentPos());
         leaderboard.setIsFilled(leaderboard.getCurrentPos());
+        leaderboard.save();
     }
 
 
