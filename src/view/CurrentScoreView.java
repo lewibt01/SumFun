@@ -12,9 +12,6 @@ import javax.swing.JTextField;
 import model.CurrentScoreModel;
 import model.GridModel;
 
-/**
- * Created by Aaron on 3/30/2017.
- */
 public class CurrentScoreView extends JPanel implements Observer {
 
     private JTextField scoreTextField;
@@ -52,6 +49,8 @@ public class CurrentScoreView extends JPanel implements Observer {
         movesRemaining.setHorizontalAlignment(JTextField.CENTER);
         movesRemaining.setEditable(false);
         add(movesRemaining);
+
+
 
     }
 
