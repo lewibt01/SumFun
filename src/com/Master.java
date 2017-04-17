@@ -27,7 +27,6 @@ public class Master extends JFrame {
         super();
         Font font = new Font("SansSerif", Font.BOLD, 28);
         Font fontButton = new Font("SansSerif", Font.BOLD, 22);
-
         //Panel
         JPanel buttonPanel = new JPanel();
         //JButtons

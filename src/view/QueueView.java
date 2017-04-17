@@ -24,12 +24,13 @@ public class QueueView extends JPanel implements Observer {
     private JButton[] display;
     private QueueModel queueMod;//link to registered queue model
     private GridView gridLink;//start with no registered grid
+    private JButton shuffleJB;
     //will be used to show the queue
     QueueView() {
 
         super();
         JPanel shufflePanel = new JPanel();
-        JButton shuffleJB = new JButton("Shuffle");
+        shuffleJB = new JButton("Shuffle");
         display = new JButton[5];
         queueMod = new QueueModel();
 
@@ -135,7 +136,7 @@ public class QueueView extends JPanel implements Observer {
 
             if(queueMod.getHasShuffled()) {
                 JOptionPane.showMessageDialog(null, "Queue has been shuffled already!");
-
+                shuffleJB.setEnabled(false);
             }else{
                 queueMod.shuffle();
                 queueMod.setHasShuffled();

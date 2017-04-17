@@ -8,16 +8,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Observable;
 
 
 public class LeaderboardModel extends Observable implements Serializable {
     private static LeaderboardModel singletonLink = new LeaderboardModel();
+    private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    private Date thisDate;
     private int[] number = new int[10];
     private int currentPos;
     private String[] userName = new String[10];
     private int[] score = new int[10];
-    private File leaderFile;
+    private File leaderFile = new File("LeaderBoard.txt");
     private Boolean[] isFilled = new Boolean[10];
 
     private LeaderboardModel(){
@@ -33,6 +38,7 @@ public class LeaderboardModel extends Observable implements Serializable {
             number[i] = currentPos + 1;
             userName[i] = "";
             isFilled[i] = false;
+
         }
         forceUpdate();
     }
@@ -44,7 +50,6 @@ public class LeaderboardModel extends Observable implements Serializable {
     public void save(){
 
         try {
-            leaderFile = new File("LeaderBoard.txt");
             FileOutputStream fos = new FileOutputStream(leaderFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(this);
@@ -59,7 +64,7 @@ public class LeaderboardModel extends Observable implements Serializable {
     private void load() throws Exception {
         FileInputStream fis = new FileInputStream(leaderFile);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        LeaderboardModel lbm = (LeaderboardModel) ois.readObject();
+        singletonLink = (LeaderboardModel) ois.readObject();
     }
 
     public Boolean getIsFilled(int pos) {
@@ -78,6 +83,13 @@ public class LeaderboardModel extends Observable implements Serializable {
 
     public int getNumber(int pos) {
         return number[pos];
+    }
+    public String getDate(){
+        return dateFormat.format(thisDate);
+    }
+    public void setDate(Date current){
+        thisDate = new Date();
+        thisDate = current;
     }
 
     public void setNumber(int pos) {

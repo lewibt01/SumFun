@@ -114,7 +114,11 @@ public class QueueModel extends Observable {
         return  hasShuffled;
     }
     public void setHasShuffled(){
-        hasShuffled = true;
+        if(hasShuffled){
+            hasShuffled = true;
+        }
+        setChanged();
+        notifyObservers(queue);
     }
 
 

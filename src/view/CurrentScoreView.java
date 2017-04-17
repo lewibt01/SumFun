@@ -16,15 +16,17 @@ public class CurrentScoreView extends JPanel implements Observer {
 
     private JTextField scoreTextField;
     private JTextField movesRemaining;
-
+    private JTextField timerTextField;
     private CurrentScoreModel currentScore;
 
     CurrentScoreView() {
         Font font = new Font("SansSerif", Font.BOLD, 20);
         JLabel scoreLabel;
         JLabel movesLabel;
+        JLabel timerLabel;
+        JTextField timerTextField;
         currentScore = new CurrentScoreModel();
-        GridLayout grid = new GridLayout(2, 2, 0, 0);
+        GridLayout grid = new GridLayout(3, 3, 0, 0);
         this.setLayout(grid);
         this.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("Score "),
@@ -49,6 +51,16 @@ public class CurrentScoreView extends JPanel implements Observer {
         movesRemaining.setHorizontalAlignment(JTextField.CENTER);
         movesRemaining.setEditable(false);
         add(movesRemaining);
+        timerLabel = new JLabel("Timer: ");
+        add(timerLabel);
+        //needs to be implementer
+        timerTextField = new JTextField();
+        timerTextField.setEditable(false);
+        timerTextField.setEnabled(false);
+        add(timerTextField);
+        //timerLabel.setVisible(false);
+        //timerTextField.setVisible(false);
+
     }
 
     @Override
@@ -56,6 +68,7 @@ public class CurrentScoreView extends JPanel implements Observer {
         if (o.getClass().getSimpleName().equals("CurrentScoreModel")) {
             scoreTextField.setText(currentScore.scoreCh(currentScore.getCurrentScore()) + "");
             movesRemaining.setText(currentScore.move(currentScore.getNumberMoves()) + "");
+            timerTextField.setText("Implement timer here");
         }
     }
 }
