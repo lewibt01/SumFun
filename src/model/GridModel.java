@@ -187,6 +187,7 @@ public class GridModel extends Observable {
     }
 
     //takes values from neighboring tiles and performs game logic calculation
+    //then updates the number of moves and
     public void performCalc(ArrayList<TileModel> neighbors, TileModel tile) {
         System.out.println("begin calculation");
         int result = 0;
@@ -207,16 +208,18 @@ public class GridModel extends Observable {
                 t.setBoolean(false);
                 t.setNumber(0);
             }
+            //use score counter to determine points earned from move
             if (score >= 3) {
                 score = score * 10;
+                System.out.println("temp score: " + score);
+                currScoreMod.setCurrentScore(currScoreMod.getCurrentScore() + score);
+                System.out.println("total score: "+currScoreMod.getCurrentScore());
             }
-            currScoreMod.setCurrentScore(currScoreMod.getCurrentScore() + score);
         }
         currScoreMod.setNumberMoves(currScoreMod.getNumberMoves()-1);
         System.out.println("moves: "+currScoreMod.getNumberMoves());
         setChanged();
         notifyObservers(grid);
-        notifyObservers(currScoreMod);
 
     }
 

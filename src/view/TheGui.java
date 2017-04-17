@@ -37,15 +37,17 @@ public class TheGui extends JFrame implements Observer {
         gridView = new GridView();
         add(gridView, BorderLayout.CENTER);
         queueView = new QueueView();
+        currentScoreView = new CurrentScoreView();
 
         //register the views to each other...
         gridView.registerQueueView(queueView);
         queueView.registerGridView(gridView);
+        gridView.registerScoreView(currentScoreView);
+        currentScoreView.registerGridView(gridView);
         //Format the GUI to make it look pretty...
         sidePanel.setLayout(new GridLayout(2, 1, 0, 0));
 
         sidePanel.add(queueView);
-        currentScoreView = new CurrentScoreView();
         sidePanel.add(currentScoreView);
         add(sidePanel, BorderLayout.EAST);
         //setVisible(true);

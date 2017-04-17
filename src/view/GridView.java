@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 //class imports
+import model.CurrentScoreModel;
 import model.GridModel;
 import model.TileModel;
 
@@ -21,7 +22,8 @@ public class GridView extends JPanel implements Observer {
     private JButton[][] boardButtons;
     private GridModel gridMod;
     private TileModel cellData;
-    private QueueView queueLink;//start with no linked queue
+    private QueueView queueLink; //start with no linked queue
+    private CurrentScoreView scoreLink; //and with no score link
 
     GridView() {
         super();
@@ -98,6 +100,14 @@ public class GridView extends JPanel implements Observer {
 
     public GridModel getRegisteredGridModel(){
         return gridMod;
+    }
+
+    public void registerScoreView(CurrentScoreView c) {
+        scoreLink = c;
+    }
+
+    public CurrentScoreView getScoreView() {
+        return scoreLink;
     }
 
 

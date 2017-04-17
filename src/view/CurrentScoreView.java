@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 //class imports
 import model.CurrentScoreModel;
+import model.GridModel;
 
 /**
  * Created by Aaron on 3/30/2017.
@@ -18,7 +19,8 @@ public class CurrentScoreView extends JPanel implements Observer {
 
     private JTextField scoreTextField;
     private JTextField movesRemaining;
-    private CurrentScoreModel currentScore;
+    private CurrentScoreModel currentScore; //link to registered score model
+    private GridView gridLink; //start with no registered grid
 
     CurrentScoreView() {
         Font font = new Font("SansSerif", Font.BOLD, 20);
@@ -66,5 +68,20 @@ public class CurrentScoreView extends JPanel implements Observer {
             scoreTextField.setText(currentScore.getCurrentScore() + "");
             movesRemaining.setText(currentScore.getNumberMoves() + "");
         }
+    }
+
+    public void registerScoreModel(CurrentScoreModel cs) {
+        currentScore = cs;
+    }
+
+    public CurrentScoreModel getRegisteredScoreModel() {
+        return currentScore;
+    }
+    public void registerGridView(GridView g){
+        gridLink = g;
+    }
+
+    public GridView getRegisteredGridView(){
+        return gridLink;
     }
 }

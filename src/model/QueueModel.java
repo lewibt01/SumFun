@@ -46,27 +46,6 @@ public class QueueModel extends Observable {
     //randomly reshuffle the elements of the queue
     public void shuffle() {
         Collections.shuffle(this.getQueue());
-/*
-        r = new Random();
-        ArrayList<Integer> tmp = new ArrayList<>();
-
-        //collect all queue elements
-        for (int el : queue) {
-            tmp.add(dequeue());
-            System.out.println(el);
-        }
-
-        //ensure queue is empty
-        queue.clear();
-
-        //re-add elements to the queue
-        for (int i = 0; i < tmp.size(); i++) {
-            int tmpInt = r.nextInt(tmp.size());//generate random index
-            queue.add(tmp.get(tmpInt));//grab index and add to queue, ensure search by index not by value
-            tmp.remove(tmpInt);//make absolutely sure it removes the index not the value
-        }
-
-*/
         //tell everybody we updated the queue
         this.setChanged();
         this.notifyObservers(queue);
