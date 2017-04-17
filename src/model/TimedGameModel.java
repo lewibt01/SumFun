@@ -11,6 +11,9 @@ public class TimedGameModel extends GameModel {
     private Timer timer = new Timer(1000, new TimerListener());
     private int seconds = 0;
 
+    /**
+     * @param minutes Time in minutes
+     */
     public TimedGameModel(int minutes) {
         super();
         seconds = 60 * minutes;
@@ -51,7 +54,7 @@ public class TimedGameModel extends GameModel {
 
                 notifyObservers();
             }
-            System.out.println("Timer at:" + getTimer());
+            //System.out.println("Timer at:" + getTimer());
             setChanged();
             notifyObservers();
         }

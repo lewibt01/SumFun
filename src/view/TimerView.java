@@ -1,8 +1,6 @@
 package view;
 
 
-import model.TimedGameModel;
-
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Observable;
@@ -11,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.TimedGameModel;
 
 //class imports
 
@@ -27,16 +26,11 @@ public class TimerView extends JPanel implements Observer {
         Font font = new Font("SansSerif", Font.BOLD, 18);
         JLabel timerLabel;
         timedModel = timedGameModel;
-        GridLayout grid = new GridLayout(2, 2, 0, 0);
+        GridLayout grid = new GridLayout(0, 1, 0, 0);
         this.setLayout(grid);
-        this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Score "),
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createEtchedBorder(0),
-                        BorderFactory.createBevelBorder(0))));
         timerLabel = new JLabel();
         timerLabel.setText("Time remaining: ");
-        add(timerLabel);
+        //add(timerLabel);
         timerTextField = new JTextField();
         timerTextField.setText(timedModel.getTimer());
         timerTextField.setFont(font);
@@ -53,6 +47,7 @@ public class TimerView extends JPanel implements Observer {
 
         }
     }
+
     public void addObserver(Observable o) {
         o.addObserver(this);
     }
