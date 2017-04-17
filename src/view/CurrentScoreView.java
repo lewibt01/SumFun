@@ -58,9 +58,9 @@ public class CurrentScoreView extends JPanel implements Observer {
         add(timerLabel);
         add(timerView);
     }
-
-    public void setMovesRemaining() {
-        movesRemaining.setText(currentScore.getNumberMoves() + "");
+    public void addObserver(Observable o) {
+        o.addObserver(this);
+        //register a model with this view...
     }
 
     @Override
@@ -69,6 +69,7 @@ public class CurrentScoreView extends JPanel implements Observer {
             scoreTextField.setText(currentScore.getCurrentScore() + "");
             movesRemaining.setText(currentScore.getNumberMoves() + "");
         }
+
     }
 
     public void registerScoreModel(CurrentScoreModel cs) {

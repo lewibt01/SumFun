@@ -146,9 +146,7 @@ public class LeaderboardModel extends Observable implements Serializable {
 
     //test method plz ignore
     //nothing to see here
-    public int getCurrentPos(){
-        return currentPos;
-    }
+
 
     public void setCurrentPos(int input){
         currentPos = input;
@@ -159,6 +157,5 @@ public class LeaderboardModel extends Observable implements Serializable {
         notifyObservers(singletonLink);
         save();
     }
-
 
 }
