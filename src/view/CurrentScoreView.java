@@ -62,6 +62,10 @@ public class CurrentScoreView extends JPanel implements Observer {
         add(timerView);
     }
 
+    public void setMovesRemaining() {
+        movesRemaining.setText(currentScore.getNumberMoves() + "");
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         if (o.getClass().getSimpleName().equals("CurrentScoreModel")) {

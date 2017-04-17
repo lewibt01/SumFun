@@ -30,7 +30,7 @@ public class TheGui extends JFrame implements Observer {
         // used to combine currentScore view and queue view via the same panel
         sidePanel = new JPanel();
         setTitle("Sum Fun!!");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(1200, 1000);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
