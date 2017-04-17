@@ -1,5 +1,7 @@
 package model;
 
+import view.LeaderboardView;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +14,7 @@ import java.util.Observable;
 
 
 public class LeaderboardModel extends Observable implements Serializable {
+    private static LeaderboardModel singletonLink = new LeaderboardModel();
     private int[] number = new int[10];
     private int currentPos;
     private String[] userName = new String[10];
@@ -19,9 +22,13 @@ public class LeaderboardModel extends Observable implements Serializable {
     private File leaderFile;
     private Boolean[] isFilled = new Boolean[10];
 
-    private LeaderboardModel() throws Exception {
+    private LeaderboardModel(){
         CurrentScoreModel currentScore = new CurrentScoreModel();
-        load();
+        try {
+            load();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
         for (int i = 0; i < 10; i++) {
             currentPos = i;
             score[i] = currentScore.getCurrentScore();
@@ -31,14 +38,22 @@ public class LeaderboardModel extends Observable implements Serializable {
         }
         update();
     }
-    public void save() throws Exception{
+
+    public LeaderboardModel getInstance(){
+        return singletonLink;
+    }
+
+    public void save(){
+
         try {
             leaderFile = new File("LeaderBoard.txt");
             FileOutputStream fos = new FileOutputStream(leaderFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(this);
+            oos.close();
+            fos.close();
             update();
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
