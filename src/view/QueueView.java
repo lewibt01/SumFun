@@ -134,13 +134,11 @@ public class QueueView extends JPanel implements Observer {
     private class ShuffleListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
 
-            if(queueMod.getHasShuffled()) {
-                JOptionPane.showMessageDialog(null, "Queue has been shuffled already!");
-                shuffleJB.setEnabled(false);
-            }else{
+            if(!queueMod.getHasShuffled()) {
                 queueMod.shuffle();
                 queueMod.setHasShuffled(true);
-        }
+                shuffleJB.setEnabled(false);
+            }
 
         }
     }
