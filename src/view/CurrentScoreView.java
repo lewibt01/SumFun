@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 //class imports
 import model.CurrentScoreModel;
+import model.GridModel;
+import org.omg.CORBA.Current;
+
 /**
  * Created by Aaron on 3/30/2017.
  */
@@ -16,14 +19,12 @@ public class CurrentScoreView extends JPanel implements Observer {
 
     private JTextField scoreTextField;
     private JTextField movesRemaining;
-
     private CurrentScoreModel currentScore;
 
     CurrentScoreView() {
         Font font = new Font("SansSerif", Font.BOLD, 20);
         JLabel scoreLabel;
         JLabel movesLabel;
-        currentScore = new CurrentScoreModel();
         GridLayout grid = new GridLayout(2, 2, 0, 0);
         this.setLayout(grid);
         this.setBorder(BorderFactory.createCompoundBorder(
@@ -34,6 +35,7 @@ public class CurrentScoreView extends JPanel implements Observer {
         scoreLabel = new JLabel();
         scoreLabel.setText("Current Score: ");
         add(scoreLabel);
+        currentScore = new CurrentScoreModel();
         scoreTextField = new JTextField();
         scoreTextField.setText(currentScore.getCurrentScore() + "");
         scoreTextField.setFont(font);
@@ -55,7 +57,7 @@ public class CurrentScoreView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (o.getClass().getSimpleName().equals("CurrentScoreModel")) {
             scoreTextField.setText(currentScore.getCurrentScore() + "");
-            movesRemaining.setText(currentScore.getCurrentScore() + "");
+            movesRemaining.setText(currentScore.getNumberMoves() + "");
         }
     }
 }

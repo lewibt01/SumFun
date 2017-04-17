@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.SystemColor;
 import java.util.Observable;
 
 //populates the values used for the currentScore, as well as retains those values when changed
@@ -10,6 +11,7 @@ public class CurrentScoreModel extends Observable {
     public CurrentScoreModel() {
         numberMoves = 50;
         currentScore = 0;
+        forceUpdate();
     }
 
     public int getNumberMoves() {
@@ -21,31 +23,21 @@ public class CurrentScoreModel extends Observable {
     }
 
     //will set score calculated
-/*
+
     public void setCurrentScore(int score) {
         this.currentScore = score;
-        setChanged();
-        notifyObservers();
+        //setChanged();
+        //notifyObservers();
     }
 
     public void setNumberMoves(int moves) {
         this.numberMoves = moves;
+        //setChanged();
+        //notifyObservers();
+    }
+
+    public void forceUpdate() {
         setChanged();
         notifyObservers();
     }
-*/
-
-    public void changeScore(int num) {
-        currentScore += num;
-        setChanged();
-        notifyObservers(currentScore);
-    }
-
-    public void decrMoves() {
-        numberMoves = numberMoves -1;
-        System.out.println(numberMoves);
-        setChanged();
-        notifyObservers();
-    }
-
 }

@@ -1,5 +1,7 @@
 package model;
 
+import view.CurrentScoreView;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
@@ -30,17 +32,13 @@ public class GridModel extends Observable {
         forceUpdate();
     }
 
-    public int getMaxCol() {
-        return colMax;
-    }
+    public int getMaxCol() { return colMax; }
 
-    public int getValue() {
-        return val;
-    }
+    public int getValue() { return val; }
 
-    public int getMaxRow() {
-        return rowMax;
-    }
+    public int getMaxRow() { return rowMax; }
+
+    public CurrentScoreModel getCurrScoreMod() { return currScoreMod; }
 
     //stores all neighbors (and the tile in question : 9 values max) in an array
     //the value from the queue will need to be set in the new tile before this function is called
@@ -195,22 +193,30 @@ public class GridModel extends Observable {
         for (TileModel t : neighbors) {
             result = result + t.getInt();
         }
-        System.out.println("result :" +result);
+        System.out.println("result: " +result);
         if (result%10 == tile.getInt()) {
             tile.setBoolean(false);
             tile.setNumber(0);
             System.out.println("computation successful!");
+            int score = 0;
             for (TileModel t : neighbors) {
+                //if the tile is currently occupied, increment score
+                if (t.getBool()) {
+                    score++;
+                }
                 t.setBoolean(false);
                 t.setNumber(0);
             }
-
-            //update score
-            //currScoreMod.changeScore(currScoreMod.getCurrentScore());
+            if (score >= 3) {
+                score = score * 10;
+            }
+            currScoreMod.setCurrentScore(currScoreMod.getCurrentScore() + score);
         }
-        currScoreMod.decrMoves();
+        currScoreMod.setNumberMoves(currScoreMod.getNumberMoves()-1);
+        System.out.println("moves: "+currScoreMod.getNumberMoves());
         setChanged();
         notifyObservers(grid);
+        notifyObservers(currScoreMod);
 
     }
 
