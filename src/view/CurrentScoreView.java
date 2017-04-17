@@ -78,7 +78,6 @@ public class CurrentScoreView extends JPanel implements Observer {
     public CurrentScoreModel getRegisteredScoreModel() {
         return currentScore;
     }
-
     public void registerGridView(GridView g){
         gridLink = g;
     }
