@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SumFun:jar">
+    <output-path>$USER_HOME$/Google Drive/Intellij Projects/Compiled Projects/artifacts/SumFun_jar</output-path>
+    <root id="archive" name="SumFun.jar">
+      <element id="module-output" name="SumFun" />
+    </root>
+  </artifact>
+</component>

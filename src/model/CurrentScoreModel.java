@@ -22,6 +22,12 @@ public class CurrentScoreModel extends Observable {
         return this.currentScore;
     }
 
+    public void decrementMoves(){
+        numberMoves=numberMoves--;
+        setChanged();
+        notifyObservers(this);
+    }
+
     //will set score calculated
 
     public void setCurrentScore(int score) {

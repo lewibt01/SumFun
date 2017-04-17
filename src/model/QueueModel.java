@@ -11,6 +11,7 @@ public class QueueModel extends Observable {
     private int numElements;
     private Random r;
     private Boolean hasShuffled;
+    private CurrentScoreModel scoreModel;
 
     public QueueModel() {
         hasShuffled = false;
@@ -73,6 +74,7 @@ public class QueueModel extends Observable {
             //System.out.println(tmp + " Dequeued");
             queue.remove((int) 0);
         }
+        scoreModel.decrementMoves();
         setChanged();
         notifyObservers(queue);
 
@@ -101,6 +103,12 @@ public class QueueModel extends Observable {
         setChanged();
         notifyObservers(queue);
     }
+
+    public void registerCurrentScoreModel(CurrentScoreModel c){
+        scoreModel = c;
+    }
+
+
 
 
 
