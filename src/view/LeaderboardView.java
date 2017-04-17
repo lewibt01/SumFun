@@ -29,7 +29,7 @@ public class LeaderboardView extends JFrame implements Observer {
         GridLayout grid = new GridLayout(10, 1, 0, 0);
         this.setTitle("High Scores!!");
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.setSize(600, 600);
+        this.setSize(900, 600);
         this.setLocationRelativeTo(null);
         this.setLayout(grid);
         leaderboard.setDate(leaderboard.getCurrentPos());

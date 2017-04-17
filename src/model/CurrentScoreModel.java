@@ -30,10 +30,10 @@ public class CurrentScoreModel extends Observable {
         //notifyObservers();
     }
 
-    public void setNumberMoves(int moves) {
-        this.numberMoves = moves;
-        //setChanged();
-        //notifyObservers();
+    public void setNumberMoves() {
+        numberMoves--;
+        setChanged();
+        notifyObservers();
     }
 
     public void forceUpdate() {

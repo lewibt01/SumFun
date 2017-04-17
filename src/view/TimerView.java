@@ -27,15 +27,10 @@ public class TimerView extends JPanel implements Observer {
         Font font = new Font("SansSerif", Font.BOLD, 18);
         JLabel timerLabel;
         timedModel = timedGameModel;
-        GridLayout grid = new GridLayout(0, 2, 0, 0);
+        GridLayout grid = new GridLayout(1, 2, 0, 0);
         this.setLayout(grid);
-        this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Timer "),
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createEtchedBorder(0),
-                        BorderFactory.createBevelBorder(0))));
+
         timerLabel = new JLabel();
-        timerLabel.setText("Time remaining: ");
         add(timerLabel);
         timerTextField = new JTextField();
         timerTextField.setText(timedModel.getTimer());

@@ -40,6 +40,7 @@ public class LeaderboardModel extends Observable implements Serializable {
             number[i] = currentPos + 1;
             userName[i] = "";
             isFilled[i] = false;
+            thisDate[i] = new Date();
 
         }
         forceUpdate();

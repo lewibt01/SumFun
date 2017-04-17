@@ -22,9 +22,11 @@ public class GridView extends JPanel implements Observer {
     private GridModel gridMod;
     private TileModel cellData;
     private QueueView queueLink;//start with no linked queue
+    private CurrentScoreView currentScoreView;
 
     GridView() {
         super();
+        currentScoreView = new CurrentScoreView();
         gridMod = new GridModel();
         int maxRow = gridMod.getMaxRow();
         int maxCol = gridMod.getMaxCol();
@@ -83,20 +85,20 @@ public class GridView extends JPanel implements Observer {
     }
 
     //links the grid view to the queue view by reference for data transfer purposes
-    public void registerQueueView(QueueView q){
+    public void registerQueueView(QueueView q) {
         queueLink = q;
     }
 
     //return the currently registered Queue View
-    public QueueView getRegisteredQueueView(){
+    public QueueView getRegisteredQueueView() {
         return queueLink;
     }
 
-    public void registerGridModel(GridModel g){
+    public void registerGridModel(GridModel g) {
         gridMod = g;
     }
 
-    public GridModel getRegisteredGridModel(){
+    public GridModel getRegisteredGridModel() {
         return gridMod;
     }
 
@@ -120,30 +122,32 @@ public class GridView extends JPanel implements Observer {
             buttonPress.setBackground(Color.WHITE);
         }
 
-/*
-        public void mouseClicked(MouseEvent e) {
-            if (boardButtons[row][col].getText().equals("")) {
-                System.out.println("This is unoccupied");
-                gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
+        /*
+                public void mouseClicked(MouseEvent e) {
+                    if (boardButtons[row][col].getText().equals("")) {
+                        System.out.println("This is unoccupied");
+                        gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
 
-                //TileModel[] neighbors;
-                //neighbors = gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col]));
+                        //TileModel[] neighbors;
+                        //neighbors = gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col]));
 
-                gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
-                //decrement # of moves
-                //currScoreMod.decrMoves();
-            }
+                        gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
+                        //decrement # of moves
+                        //currScoreMod.decrMoves();
+                    }
 
-            //gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
-            //System.out.println(queueLink.getDisplay()[0].getText() + ":" + boardButtons[row][col].getText() + ":" + row +","+col);
+                    //gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
+                    //System.out.println(queueLink.getDisplay()[0].getText() + ":" + boardButtons[row][col].getText() + ":" + row +","+col);
 
-        }
-*/
-        public void mousePressed(MouseEvent e){
-            if ((boardButtons[row][col].getText().equals("")) ||(boardButtons[row][col].getText().equals(" "))){
+                }
+        */
+        public void mousePressed(MouseEvent e) {
+            if ((boardButtons[row][col].getText().equals("")) || (boardButtons[row][col].getText().equals(" "))) {
                 System.out.println("clicked on empty");
-                gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
+                gridMod.setTileValue(row, col, queueLink.getRegisteredQueueModel().dequeue());
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
+                gridMod.getCurrScoreMod().setNumberMoves();
+
             }
         }
     }
