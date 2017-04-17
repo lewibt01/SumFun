@@ -41,11 +41,11 @@ public class LeaderboardModel extends Observable implements Serializable {
             userName[i] = "";
             isFilled[i] = false;
 
-
         }
         forceUpdate();
     }
 
+    //returns an instance of this singleton
     public static LeaderboardModel getInstance(){
         return singletonLink;
     }
@@ -60,14 +60,27 @@ public class LeaderboardModel extends Observable implements Serializable {
             fos.close();
             forceUpdate();
         } catch (Exception e) {
+            System.err.println("Leaderboard Save() error");
             e.printStackTrace();
         }
     }
 
-    private void load() throws Exception {
-        FileInputStream fis = new FileInputStream(leaderFile);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        singletonLink = (LeaderboardModel) ois.readObject();
+    private void load(){
+        LeaderboardModel lbm;
+        try {
+            FileInputStream fis = new FileInputStream(leaderFile);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            lbm = (LeaderboardModel) ois.readObject();
+
+        }catch(FileNotFoundException fnfex) {
+            System.err.println("Leaderboard Load() FNF error");
+        }catch (IOException ioex) {
+            System.err.println("Leaderboard Load() IO error");
+            ioex.printStackTrace();
+        }catch (Exception ex){
+            System.err.println("Leaderboard Load() generic error");
+            //ex.printStackTrace();
+        }
     }
 
     public Boolean getIsFilled(int pos) {

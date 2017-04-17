@@ -52,29 +52,29 @@ public class GridModel extends Observable {
         //TOP LEFT
         if (pos.getRow()==0 && pos.getCol()==0) {
             //neighbors[0] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()+1]);
-            neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()+1][pos.getCol()]);
+            neighbors.add(grid[pos.getRow()+1][pos.getCol()+1]);
         }
         //TOP RIGHT
         else if ((pos.getRow()==0) && (pos.getCol()==8)) {
-            neighbors.add(this.getGrid()[0][7]);
+            neighbors.add(grid[0][7]);
             //neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
-            neighbors.add(this.getGrid()[1][7]);
-            neighbors.add(this.getGrid()[1][8]);
+            neighbors.add(grid[1][7]);
+            neighbors.add(grid[1][8]);
         }
         //BOTTOM LEFT
         else if (pos.getRow()==8 && pos.getCol()==0) {
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()+1]);
             //neighbors[2] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()][pos.getCol()+1]);
         }
         //BOTTOM RIGHT
         else if (pos.getRow()==8 && pos.getCol()==8) {
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()-1]);
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()-1]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()-1]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()]);
+            neighbors.add(grid[pos.getRow()][pos.getCol()-1]);
             //neighbors[3] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
         }
         ////////////
@@ -82,56 +82,56 @@ public class GridModel extends Observable {
         ///////////
         //NORTH BORDER
         else if (pos.getRow()==0) {
-            neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()-1]);
+            neighbors.add(grid[pos.getRow()][pos.getCol()-1]);
             //neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()+1]);
-            neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()-1]);
-            neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()+1][pos.getCol()-1]);
+            neighbors.add(grid[pos.getRow()+1][pos.getCol()]);
+            neighbors.add(grid[pos.getRow()+1][pos.getCol()+1]);
         }
         //SOUTH BORDER
         else if (pos.getRow()==8) {
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()-1]);
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()+1]);
-            neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()-1]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()-1]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()][pos.getCol()-1]);
             //neighbors[4] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()][pos.getCol()+1]);
         }
         //WEST BORDER
         else if (pos.getCol()==0) {
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()]);
             //neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()+1]);
-            neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()+1]);
-            neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()+1][pos.getCol()]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()][pos.getCol()+1]);
+            neighbors.add(grid[pos.getRow()+1][pos.getCol()+1]);
         }
         //EAST BORDER
         else if (pos.getCol()==8) {
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()-1]);
-            neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()-1]);
-            neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()-1]);
-            neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()-1]);
+            neighbors.add(grid[pos.getRow()][pos.getCol()-1]);
+            neighbors.add(grid[pos.getRow()+1][pos.getCol()-1]);
+            neighbors.add(grid[pos.getRow()-1][pos.getCol()]);
             //neighbors[4] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
-            neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()]);
+            neighbors.add(grid[pos.getRow()+1][pos.getCol()]);
         }
         ///////////
         //INTERIOR
         ///////////
         else {
             //for (int i = 0; i < ; i++) {
-                neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()-1]);
-                neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()]);
-                neighbors.add(this.getGrid()[pos.getRow()-1][pos.getCol()+1]);
+                neighbors.add(grid[pos.getRow()-1][pos.getCol()-1]);
+                neighbors.add(grid[pos.getRow()-1][pos.getCol()]);
+                neighbors.add(grid[pos.getRow()-1][pos.getCol()+1]);
 
-                neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()-1]);
+                neighbors.add(grid[pos.getRow()][pos.getCol()-1]);
                 //neighbors[i] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
-                neighbors.add(this.getGrid()[pos.getRow()][pos.getCol()+1]);
+                neighbors.add(grid[pos.getRow()][pos.getCol()+1]);
 
-                neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()-1]);
-                neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()]);
-                neighbors.add(this.getGrid()[pos.getRow()+1][pos.getCol()+1]);
+                neighbors.add(grid[pos.getRow()+1][pos.getCol()-1]);
+                neighbors.add(grid[pos.getRow()+1][pos.getCol()]);
+                neighbors.add(grid[pos.getRow()+1][pos.getCol()+1]);
             //}
         }
         //for testing purposes
@@ -148,7 +148,7 @@ public class GridModel extends Observable {
         Position pos = new Position(0,0);
         for (int i = 0; i < getMaxRow(); i++) {
             for (int j = 0; j < getMaxCol(); j++) {
-                if (tm == this.getGrid()[i][j]) {
+                if (tm == grid[i][j]) {
                     pos = new Position(i,j);
                 }
             }
