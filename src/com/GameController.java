@@ -30,9 +30,16 @@ import javax.swing.border.LineBorder;
 //import java.awt.event.ActionEvent;
 
 public class GameController implements EventListener {
+    private static GameController singletonLink = new GameController();
 
-    public GameController() {
+    //ensures that ther is only one game controller ever created
+    private GameController() {
 
+    }
+
+    //returns the singleton instance of the class
+    public GameController getInstance(){
+        return singletonLink;
     }
 
     ////////////
