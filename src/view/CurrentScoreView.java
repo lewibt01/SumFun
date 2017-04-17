@@ -50,8 +50,6 @@ public class CurrentScoreView extends JPanel implements Observer {
         movesRemaining.setEditable(false);
         add(movesRemaining);
 
-
-
     }
 
     void addTimer(TimerView timerView) {

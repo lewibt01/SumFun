@@ -18,6 +18,7 @@ import data_containers.LeaderboardEntry;
 public class LeaderboardModel extends Observable implements Serializable {
     private static LeaderboardModel singletonLink = new LeaderboardModel();
     private ArrayList<LeaderboardEntry> entries = new ArrayList<>();
+    private int currentPos = entries.size()-1;
 
     private File leaderFile = new File("LeaderBoard.txt");
 
@@ -141,6 +142,16 @@ public class LeaderboardModel extends Observable implements Serializable {
         entries.get(pos).setUserName(name);
         setChanged();
         notifyObservers(singletonLink);
+    }
+
+    //test method plz ignore
+    //nothing to see here
+    public int getCurrentPos(){
+        return currentPos;
+    }
+
+    public void setCurrentPos(int input){
+        currentPos = input;
     }
 
     private void forceUpdate() {
