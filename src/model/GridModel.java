@@ -223,8 +223,6 @@ public class GridModel extends Observable {
                 System.out.println("total score: "+currScoreMod.getCurrentScore());
             }
         }
-        //currScoreMod.setNumberMoves();
-        System.out.println("moves: " + currScoreMod.getNumberMoves());
         setChanged();
         notifyObservers(grid);
 

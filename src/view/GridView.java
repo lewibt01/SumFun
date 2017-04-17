@@ -22,11 +22,11 @@ public class GridView extends JPanel implements Observer {
     private GridModel gridMod;
     private TileModel cellData;
     private QueueView queueLink;//start with no linked queue
-    private CurrentScoreView currentScoreView;
+    private CurrentScoreView scoreLink;
 
     GridView() {
         super();
-        currentScoreView = new CurrentScoreView();
+        scoreLink = new CurrentScoreView();
         gridMod = new GridModel();
         int maxRow = gridMod.getMaxRow();
         int maxCol = gridMod.getMaxCol();
@@ -102,6 +102,13 @@ public class GridView extends JPanel implements Observer {
         return gridMod;
     }
 
+    public void registerScoreView(CurrentScoreView c) {
+        scoreLink = c;
+    }
+
+    public CurrentScoreView getRegisteredScoreView() {
+        return scoreLink;
+    }
 
     private class ButtonListener extends MouseAdapter implements MouseListener {
         int row;
@@ -147,7 +154,7 @@ public class GridView extends JPanel implements Observer {
                 gridMod.setTileValue(row, col, queueLink.getRegisteredQueueModel().dequeue());
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
                 gridMod.getCurrScoreMod().setNumberMoves();
-
+                System.out.println("moves: " + gridMod.getCurrScoreMod().getNumberMoves());
             }
         }
     }

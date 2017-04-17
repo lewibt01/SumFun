@@ -26,18 +26,18 @@ public class CurrentScoreModel extends Observable {
 
     public void setCurrentScore(int score) {
         this.currentScore = score;
-        //setChanged();
-        //notifyObservers();
+        setChanged();
+        notifyObservers(this);
     }
 
     public void setNumberMoves() {
         numberMoves--;
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
 
     public void forceUpdate() {
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
 }
