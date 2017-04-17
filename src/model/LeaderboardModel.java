@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Observable;
 
@@ -17,7 +18,8 @@ import java.util.Observable;
 public class LeaderboardModel extends Observable implements Serializable {
     private static LeaderboardModel singletonLink = new LeaderboardModel();
     private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-    private Date thisDate;
+    private Date[] thisDate = new Date[10];
+    private String currentDate = "";
     private int[] number = new int[10];
     private int currentPos;
     private String[] userName = new String[10];
@@ -38,6 +40,7 @@ public class LeaderboardModel extends Observable implements Serializable {
             number[i] = currentPos + 1;
             userName[i] = "";
             isFilled[i] = false;
+
 
         }
         forceUpdate();
@@ -84,12 +87,12 @@ public class LeaderboardModel extends Observable implements Serializable {
     public int getNumber(int pos) {
         return number[pos];
     }
-    public String getDate(){
-        return dateFormat.format(thisDate);
+    public String getDate(int pos){
+        return dateFormat.format(thisDate[pos]);
     }
-    public void setDate(Date current){
-        thisDate = new Date();
-        thisDate = current;
+    public void setDate(int pos){
+        thisDate[pos] = Calendar.getInstance().getTime();
+
     }
 
     public void setNumber(int pos) {

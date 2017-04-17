@@ -32,17 +32,16 @@ public class LeaderboardView extends JFrame implements Observer {
         this.setSize(600, 600);
         this.setLocationRelativeTo(null);
         this.setLayout(grid);
-
+        leaderboard.setDate(leaderboard.getCurrentPos());
         //for loop to generate the rank
         for (int i = 0; i < 10; i++) {
-            rank[i] = new JLabel("Rank: " + leaderboard.getNumber(i) + "     Name: " + leaderboard.getUserName(i) + "     Score: " + leaderboard.getScore(i) + "       Date: " + leaderboard.getDate());
+            rank[i] = new JLabel("Rank: " + leaderboard.getNumber(i) + "     Name: " + leaderboard.getUserName(i) + "     Score: " + leaderboard.getScore(i) + "       Date: " + leaderboard.getDate(i));
             leaderboard.setCurrentPos(i);
             leaderboard.setNumber(i);
             rank[i].setFont(font);
             rank[i].setHorizontalAlignment(SwingConstants.CENTER);
             add(rank[i]);
         }
-        leaderboard.setCurrentPos(1);
 
     }
 

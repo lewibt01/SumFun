@@ -27,7 +27,7 @@ public class TimedGameModel extends GameModel {
      *
      * @return True if timer was started
      */
-    protected boolean startTimer() {
+    private boolean startTimer() {
         if (timer.isRunning()) {
             return false;
         } else {
