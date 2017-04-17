@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Observable;
 import data_containers.LeaderboardEntry;
 
@@ -86,6 +87,10 @@ public class LeaderboardModel extends Observable implements Serializable {
             System.err.println("Leaderboard Load() generic error");
             //ex.printStackTrace();
         }
+    }
+
+    public void sort(){
+        Collections.sort(entries);
     }
 
     public Boolean getIsFilled(int pos) {
