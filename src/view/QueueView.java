@@ -139,7 +139,7 @@ public class QueueView extends JPanel implements Observer {
                 shuffleJB.setEnabled(false);
             }else{
                 queueMod.shuffle();
-                queueMod.setHasShuffled();
+                queueMod.setHasShuffled(true);
         }
 
         }
