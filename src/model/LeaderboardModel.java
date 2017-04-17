@@ -34,10 +34,10 @@ public class LeaderboardModel extends Observable implements Serializable {
             userName[i] = "";
             isFilled[i] = false;
         }
-        update();
+        forceUpdate();
     }
 
-    public LeaderboardModel getInstance(){
+    public static LeaderboardModel getInstance(){
         return singletonLink;
     }
 
@@ -50,7 +50,7 @@ public class LeaderboardModel extends Observable implements Serializable {
             oos.writeObject(this);
             oos.close();
             fos.close();
-            update();
+            forceUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,6 +68,8 @@ public class LeaderboardModel extends Observable implements Serializable {
 
     public void setIsFilled(int pos) {
         isFilled[pos] = true;
+        setChanged();
+        notifyObservers(singletonLink);
     }
 
     public int getScore(int pos) {
@@ -81,13 +83,13 @@ public class LeaderboardModel extends Observable implements Serializable {
     public void setNumber(int pos) {
         number[pos]++;
         setChanged();
-        notifyObservers();
+        notifyObservers(singletonLink);
     }
 
     public void setScore(int pos, int score) {
         this.score[pos] = score;
         setChanged();
-        notifyObservers();
+        notifyObservers(singletonLink);
     }
 
     public String getUserName(int pos) {
@@ -96,6 +98,8 @@ public class LeaderboardModel extends Observable implements Serializable {
 
     public void setUserName(String name, int pos) {
         this.userName[pos] = name;
+        setChanged();
+        notifyObservers(singletonLink);
     }
 
     public int getCurrentPos() {
@@ -103,11 +107,13 @@ public class LeaderboardModel extends Observable implements Serializable {
     }
     public void setCurrentPos(int current){
         currentPos = current;
+        setChanged();
+        notifyObservers(singletonLink);
     }
 
-    private void update() {
+    private void forceUpdate() {
         setChanged();
-        notifyObservers();
+        notifyObservers(singletonLink);
     }
 
 

@@ -23,7 +23,7 @@ public class LeaderboardView extends JFrame implements Observer {
 
     public LeaderboardView() throws Exception {
         super();
-        leaderboard = new LeaderboardModel();
+        leaderboard = LeaderboardModel.getInstance();
         rank = new JLabel[10];
         Font font = new Font("SansSerif", Font.BOLD, 28);
         GridLayout grid = new GridLayout(10, 1, 0, 0);

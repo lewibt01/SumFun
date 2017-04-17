@@ -38,7 +38,7 @@ public class GameController implements EventListener {
     }
 
     //returns the singleton instance of the class
-    public GameController getInstance(){
+    public static GameController getInstance(){
         return singletonLink;
     }
 
