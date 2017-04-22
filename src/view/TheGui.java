@@ -1,20 +1,13 @@
 package view;
-
-import model.TimedGameModel;
-
+//imports
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-
+import model.TimedGameModel;
 
 public class TheGui extends JFrame implements Observer {
     //Panels____
@@ -43,7 +36,6 @@ public class TheGui extends JFrame implements Observer {
         gridView.registerQueueView(queueView);
         queueView.registerGridView(gridView);
         gridView.registerScoreView(currentScoreView);
-        currentScoreView.registerGridView(gridView);
         //Format the GUI to make it look pretty...
         sidePanel.setLayout(new GridLayout(2, 1, 0, 0));
 

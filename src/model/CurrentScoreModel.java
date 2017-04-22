@@ -14,17 +14,18 @@ public class CurrentScoreModel extends Observable {
         forceUpdate();
     }
 
-    public int getNumberMoves() {
-        return this.numberMoves;
+    public String getNumberMoves() {
+        return this.numberMoves + "";
     }
 
-    public int getCurrentScore() {
-        return this.currentScore;
+    public String getCurrentScore() {
+        return this.currentScore + "";
     }
 
     //will set score calculated
-    public void setCurrentScore(int score) {
-        this.currentScore = score;
+
+    public void setCurrentScore(String score) {
+        currentScore = Integer.parseInt(score);
         setChanged();
         notifyObservers(this);
     }

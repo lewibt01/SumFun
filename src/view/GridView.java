@@ -2,8 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 //class imports
+import model.CurrentScoreModel;
 import model.GridModel;
 import model.TileModel;
 
@@ -26,7 +25,6 @@ public class GridView extends JPanel implements Observer {
 
     GridView() {
         super();
-        scoreLink = new CurrentScoreView();
         gridMod = new GridModel();
         int maxRow = gridMod.getMaxRow();
         int maxCol = gridMod.getMaxCol();
@@ -101,14 +99,18 @@ public class GridView extends JPanel implements Observer {
     public GridModel getRegisteredGridModel() {
         return gridMod;
     }
-
-    public void registerScoreView(CurrentScoreView c) {
+    public void registerScoreView(CurrentScoreView c){
         scoreLink = c;
     }
 
-    public CurrentScoreView getRegisteredScoreView() {
-        return scoreLink;
-    }
+
+//    public void registerScoreView(CurrentScoreView c) {
+//        scoreLink = c;
+//    }
+//
+//    public CurrentScoreView getRegisteredScoreView() {
+//        return scoreLink;
+//    }
 
     private class ButtonListener extends MouseAdapter implements MouseListener {
         int row;
@@ -153,8 +155,9 @@ public class GridView extends JPanel implements Observer {
                 System.out.println("clicked on empty");
                 gridMod.setTileValue(row, col, queueLink.getRegisteredQueueModel().dequeue());
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
-                gridMod.getCurrScoreMod().setNumberMoves();
-                System.out.println("moves: " + gridMod.getCurrScoreMod().getNumberMoves());
+                scoreLink.getRegisteredScoreModel().setNumberMoves();
+                scoreLink.getRegisteredScoreModel().setCurrentScore(scoreLink.getRegisteredScoreModel().getCurrentScore());
+
             }
         }
     }

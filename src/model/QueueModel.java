@@ -1,25 +1,25 @@
 package model;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
-import java.util.ArrayList;
+
 import java.util.Random;
 
 //will populate the values needed into the view
 public class QueueModel extends Observable {
     private ArrayList<Integer> queue;
     private int numElements;
-    private Random r;
+    private Random ranNum;
     private Boolean hasShuffled;
 
     public QueueModel() {
         hasShuffled = false;
         numElements = 5;
         queue = new ArrayList<>();
-        r = new Random();
+        ranNum = new Random();
 
         for(int i=0;i< 50;i++){
-            enqueue(r.nextInt(8)+1);
+            enqueue(ranNum.nextInt(8)+1);
         }
 
         setChanged();

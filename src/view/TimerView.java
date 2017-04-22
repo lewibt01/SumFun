@@ -1,17 +1,14 @@
 package view;
-
-
-import model.TimedGameModel;
-
+//imports
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.TimedGameModel;
 //class imports
 
 /**
