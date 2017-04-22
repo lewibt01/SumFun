@@ -1,6 +1,6 @@
 package model;
 
-import data.LeaderboardEntry;
+import data_containers.LeaderboardEntry;
 
 import java.io.File;
 import java.io.FileInputStream;
