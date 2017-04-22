@@ -3,7 +3,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 //Grid Model used to make the grid of the game board
 public class GridModel extends Observable {
@@ -15,11 +15,13 @@ public class GridModel extends Observable {
 
     //constructor
     public GridModel() {
+        Random rand = new Random();
         currScoreMod = new CurrentScoreModel();
         grid = new TileModel[rowMax][colMax];
         for (int i = 0; i < rowMax; i++) {
             for (int j = 0; j < colMax; j++) {
-                val = ThreadLocalRandom.current().nextInt(0, 10);
+                //val = ThreadLocalRandom.current().nextInt(0, 10);
+                val = rand.nextInt(10);
                 grid[i][j] = new TileModel();
                 grid[i][j].setBoolean(false);
                 if (!((i == 0 || j == 0) || (i == rowMax - 1 || j == colMax - 1))) {
@@ -61,71 +63,50 @@ public class GridModel extends Observable {
             neighbors.add(grid[pos.getRow()][pos.getCol() + 1]);
             neighbors.add(grid[pos.getRow() + 1][pos.getCol()]);
             neighbors.add(grid[pos.getRow() + 1][pos.getCol() + 1]);
-        }
-        //TOP RIGHT
-        else if ((pos.getRow() == 0) && (pos.getCol() == 8)) {
+        } else if ((pos.getRow() == 0) && (pos.getCol() == 8)) {//TOP RIGHT
             neighbors.add(grid[0][7]);
             //neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
             neighbors.add(grid[1][7]);
             neighbors.add(grid[1][8]);
-        }
-        //BOTTOM LEFT
-        else if (pos.getRow() == 8 && pos.getCol() == 0) {
+        } else if (pos.getRow() == 8 && pos.getCol() == 0) {//BOTTOM LEFT
             neighbors.add(grid[pos.getRow() - 1][pos.getCol()]);
             neighbors.add(grid[pos.getRow() - 1][pos.getCol() + 1]);
             //neighbors[2] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
             neighbors.add(grid[pos.getRow()][pos.getCol() + 1]);
-        }
-        //BOTTOM RIGHT
-        else if (pos.getRow() == 8 && pos.getCol() == 8) {
+        } else if (pos.getRow() == 8 && pos.getCol() == 8) {//BOTTOM RIGHT
             neighbors.add(grid[pos.getRow() - 1][pos.getCol() - 1]);
             neighbors.add(grid[pos.getRow() - 1][pos.getCol()]);
             neighbors.add(grid[pos.getRow()][pos.getCol() - 1]);
             //neighbors[3] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
-        }
-        ////////////
-        //BORDERS
-        ///////////
-        //NORTH BORDER
-        else if (pos.getRow() == 0) {
+        } else if (pos.getRow() == 0) {//NORTH BORDER
             neighbors.add(grid[pos.getRow()][pos.getCol() - 1]);
             //neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
             neighbors.add(grid[pos.getRow()][pos.getCol() + 1]);
             neighbors.add(grid[pos.getRow() + 1][pos.getCol() - 1]);
             neighbors.add(grid[pos.getRow() + 1][pos.getCol()]);
             neighbors.add(grid[pos.getRow() + 1][pos.getCol() + 1]);
-        }
-        //SOUTH BORDER
-        else if (pos.getRow() == 8) {
+        } else if (pos.getRow() == 8) {//SOUTH BORDER
             neighbors.add(grid[pos.getRow() - 1][pos.getCol() - 1]);
             neighbors.add(grid[pos.getRow() - 1][pos.getCol()]);
             neighbors.add(grid[pos.getRow() - 1][pos.getCol() + 1]);
             neighbors.add(grid[pos.getRow()][pos.getCol() - 1]);
             //neighbors[4] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
             neighbors.add(grid[pos.getRow()][pos.getCol() + 1]);
-        }
-        //WEST BORDER
-        else if (pos.getCol() == 0) {
+        } else if (pos.getCol() == 0) {//WEST BORDER
             neighbors.add(grid[pos.getRow() - 1][pos.getCol()]);
             //neighbors[1] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
             neighbors.add(grid[pos.getRow() + 1][pos.getCol()]);
             neighbors.add(grid[pos.getRow() - 1][pos.getCol() + 1]);
             neighbors.add(grid[pos.getRow()][pos.getCol() + 1]);
             neighbors.add(grid[pos.getRow() + 1][pos.getCol() + 1]);
-        }
-        //EAST BORDER
-        else if (pos.getCol() == 8) {
+        } else if (pos.getCol() == 8) {//EAST BORDER
             neighbors.add(grid[pos.getRow() - 1][pos.getCol() - 1]);
             neighbors.add(grid[pos.getRow()][pos.getCol() - 1]);
             neighbors.add(grid[pos.getRow() + 1][pos.getCol() - 1]);
             neighbors.add(grid[pos.getRow() - 1][pos.getCol()]);
             //neighbors[4] = (gm.getGrid()[pos.getRow()][pos.getCol()]);
             neighbors.add(grid[pos.getRow() + 1][pos.getCol()]);
-        }
-        ///////////
-        //INTERIOR
-        ///////////
-        else {
+        } else {//INTERIOR
             //for (int i = 0; i < ; i++) {
             neighbors.add(grid[pos.getRow() - 1][pos.getCol() - 1]);
             neighbors.add(grid[pos.getRow() - 1][pos.getCol()]);
@@ -174,19 +155,19 @@ public class GridModel extends Observable {
     //need to change number from queue and take it and move it to the grid's unoccupied tile
     //need to change number of queue to move up one when this happens
     //need to change value of occupied to true if placed
-/*
-    public void changeNum(TileModel grid, QueueModel queue) {
-        int queueVal = queue.peek();
-        boolean occupied = grid.getBool();
-        if (grid.getInt() == 0 && !occupied) {
-            grid.setNumber(queueVal);
-            grid.setBoolean(true);
-            //queue.updateQueue();
+    /*
+        public void changeNum(TileModel grid, QueueModel queue) {
+            int queueVal = queue.peek();
+            boolean occupied = grid.getBool();
+            if (grid.getInt() == 0 && !occupied) {
+                grid.setNumber(queueVal);
+                grid.setBoolean(true);
+                //queue.updateQueue();
+            }
+            setChanged();
+            notifyObservers(grid);//passes the grid to registered observers
         }
-        setChanged();
-        notifyObservers(grid);//passes the grid to registered observers
-    }
-*/
+    */
 
     //returns the grid for the gameBoard
     public TileModel[][] getGrid() {

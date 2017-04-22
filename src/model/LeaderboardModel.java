@@ -71,13 +71,14 @@ public class LeaderboardModel extends Observable implements Serializable {
     }
 
     private void load(){
-        LeaderboardEntry lbm[];
+        ArrayList<LeaderboardEntry> lbm;
         try {
             FileInputStream fis = new FileInputStream(leaderFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            lbm = (LeaderboardEntry[]) ois.readObject();
+            lbm = (ArrayList<LeaderboardEntry>) ois.readObject();
             fis.close();
             ois.close();
+            forceUpdate();
 
         }catch(FileNotFoundException fnfex) {
             System.err.println("Leaderboard Load() FNF error");
@@ -98,10 +99,14 @@ public class LeaderboardModel extends Observable implements Serializable {
         return entries.get(pos).getIsFilled();
     }
 
-    public void setIsFilled(int pos, boolean input) {
-        entries.get(pos).setIsFilled(input);
-        setChanged();
-        notifyObservers(singletonLink);
+    public void addEntry(LeaderboardEntry entry){
+        entries.add(entry);
+        forceUpdate();
+    }
+
+    public void setIsFilled(int index,boolean input) {
+        entries.get(index).setIsFilled(input);
+        forceUpdate();
     }
 
     public int getScore(int pos) {
@@ -118,20 +123,17 @@ public class LeaderboardModel extends Observable implements Serializable {
 
     public void setDate(int pos){
         entries.get(pos).setDate(Calendar.getInstance().getTime());
-        setChanged();
-        notifyObservers(singletonLink);
+        forceUpdate();
     }
 
     public void setNumber(int pos) {
         entries.get(pos).setNumber((entries.get(pos).getNumber()+1));
-        setChanged();
-        notifyObservers(singletonLink);
+        forceUpdate();
     }
 
     public void setScore(int pos, int score) {
         entries.get(pos).setScore(score);
-        setChanged();
-        notifyObservers(singletonLink);
+        forceUpdate();
     }
 
     public String getUserName(int pos) {
@@ -140,14 +142,13 @@ public class LeaderboardModel extends Observable implements Serializable {
 
     public void setUserName(String name, int pos) {
         entries.get(pos).setUserName(name);
-        setChanged();
-        notifyObservers(singletonLink);
+        forceUpdate();
     }
 
     private void forceUpdate() {
+        sort();
         setChanged();
         notifyObservers(singletonLink);
-        save();
     }
 
 }

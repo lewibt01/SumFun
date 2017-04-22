@@ -2,10 +2,6 @@ package model;
 
 import java.util.Observable;
 
-/**
- * Created by Garrett on 4/12/2017.
- * CS360
- */
 class GameModel extends Observable {
     private GridModel gridModel = new GridModel();
     private QueueModel queueModel = new QueueModel();

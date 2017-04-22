@@ -13,27 +13,17 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry>{
     private int number,score;
     private String userName;
     private boolean isFilled;
-    //private int currentPos;
 
     public LeaderboardEntry(){
 
     }
 
-    public LeaderboardEntry(String username, int score, boolean isFull){
+    public LeaderboardEntry(String username, int score, boolean isFull) {
         this.userName = username;
         this.score = score;
         this.isFilled = isFull;
         this.currentDate = new Date().toString();
 
-    }
-
-
-    public DateFormat getDateFormat() {
-        return dateFormat;
-    }
-
-    public void setDateFormat(DateFormat dateFormat) {
-        this.dateFormat = dateFormat;
     }
 
     public Date getDate() {

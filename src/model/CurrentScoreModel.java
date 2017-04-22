@@ -23,7 +23,6 @@ public class CurrentScoreModel extends Observable {
     }
 
     //will set score calculated
-
     public void setCurrentScore(int score) {
         this.currentScore = score;
         setChanged();

@@ -1,22 +1,22 @@
 package view;
 //
 
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-
 import model.LeaderboardModel;
+import data_containers.LeaderboardEntry;
 
 
 public class LeaderboardView extends JFrame implements Observer {
-    //set up places to store data 10 rows 3 columns
+    //set up places to store data 10
 
     private JLabel[] rank;
     private LeaderboardModel leaderboard;
@@ -32,7 +32,7 @@ public class LeaderboardView extends JFrame implements Observer {
         this.setSize(900, 600);
         this.setLocationRelativeTo(null);
         this.setLayout(grid);
-        //leaderboard.setDate(leaderboard.getCurrentPos());
+
         //for loop to generate the rank
         for (int i = 0; i < 10; i++) {
             rank[i] = new JLabel("Rank: " + leaderboard.getNumber(i) + "     Name: " + leaderboard.getUserName(i) + "     Score: " + leaderboard.getScore(i) + "       Date: " + leaderboard.getDate(i));
@@ -45,20 +45,24 @@ public class LeaderboardView extends JFrame implements Observer {
 
     }
 
-
-    public void displayMessage() throws Exception{
-        String message = JOptionPane.showInputDialog("Please enter your name to be added to the list of high scores!");
-        leaderboard.setUserName(message, 1);
-        leaderboard.setIsFilled(1, true);
-        leaderboard.save();
+    public void displayMessage(){
+        try {
+            String message = JOptionPane.showInputDialog("Please enter your name to be added to the list of high scores!");
+            LeaderboardEntry tmp = new LeaderboardEntry();
+            tmp.setUserName(message);
+            tmp.setIsFilled(true);
+            leaderboard.save();
+        }catch(Exception ex){
+            System.err.println("LeaderboardModel displayMessage() error");
+            ex.printStackTrace();
+        }
     }
-
 
     @Override
     public void update(Observable o, Object arg) {
         for (int i = 0; i < 10; i++) {
             rank[i].setText("Rank:" + leaderboard.getNumber(i) + "\t Name: " + leaderboard.getUserName(i) + "\t Score: " + leaderboard.getScore(i));
-            //System.out.println(leaderboard.getCurrentPos() + "");
+
         }
     }
 }
