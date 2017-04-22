@@ -10,14 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 //class imports
 import model.CurrentScoreModel;
-import model.GridModel;
 
 public class CurrentScoreView extends JPanel implements Observer {
 
     private JTextField scoreTextField;
     private JTextField movesRemaining;
     private CurrentScoreModel currentScore; //link to registered score model
-    private GridView gridLink; //start with no registered grid
 
     CurrentScoreView() {
         Font font = new Font("SansSerif", Font.BOLD, 20);
@@ -35,7 +33,7 @@ public class CurrentScoreView extends JPanel implements Observer {
         scoreLabel.setText("Current Score: ");
         add(scoreLabel);
         scoreTextField = new JTextField();
-        scoreTextField.setText(currentScore.getCurrentScore() + "");
+        scoreTextField.setText(currentScore.getCurrentScore());
         scoreTextField.setFont(font);
         scoreTextField.setHorizontalAlignment(JTextField.CENTER);
         scoreTextField.setEditable(false);
@@ -44,7 +42,7 @@ public class CurrentScoreView extends JPanel implements Observer {
         movesLabel.setText("Current Number of Moves: ");
         add(movesLabel);
         movesRemaining = new JTextField();
-        movesRemaining.setText(currentScore.getNumberMoves() + "");
+        movesRemaining.setText(currentScore.getNumberMoves());
         movesRemaining.setFont(font);
         movesRemaining.setHorizontalAlignment(JTextField.CENTER);
         movesRemaining.setEditable(false);
@@ -58,6 +56,7 @@ public class CurrentScoreView extends JPanel implements Observer {
         add(timerLabel);
         add(timerView);
     }
+
     public void addObserver(Observable o) {
         o.addObserver(this);
         //register a model with this view...
@@ -66,8 +65,8 @@ public class CurrentScoreView extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o.getClass().getSimpleName().equals("CurrentScoreModel")) {
-            scoreTextField.setText(currentScore.getCurrentScore() + "");
-            movesRemaining.setText(currentScore.getNumberMoves() + "");
+            scoreTextField.setText(currentScore.getCurrentScore());
+            movesRemaining.setText(currentScore.getNumberMoves());
         }
 
     }
@@ -78,12 +77,5 @@ public class CurrentScoreView extends JPanel implements Observer {
 
     public CurrentScoreModel getRegisteredScoreModel() {
         return currentScore;
-    }
-    public void registerGridView(GridView g){
-        gridLink = g;
-    }
-
-    public GridView getRegisteredGridView(){
-        return gridLink;
     }
 }

@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
+import model.CurrentScoreModel;
 import model.GridModel;
 import model.QueueModel;
 import model.TimedGameModel;
@@ -30,27 +32,27 @@ public class Master extends JFrame {
         //Panel
         JPanel buttonPanel = new JPanel();
         //JButtons
-        JButton exitJB = new JButton("Exit Game");
-        JButton untimedJB = new JButton("Play Un-timed Game");
-        JButton timedJB = new JButton("Play Timed Game");
-        JButton leaderJB = new JButton("Click to View LeaderBoard!");
+        JButton exitJb = new JButton("Exit Game");
+        JButton untimedJb = new JButton("Play Un-timed Game");
+        JButton timedJb = new JButton("Play Timed Game");
+        JButton leaderJb = new JButton("Click to View LeaderBoard!");
         //JLabel
         JLabel welcome = new JLabel("Welcome To Sum Fun!! \n\n Please make a selection Below!");
         //changes font of JLabel
         welcome.setFont(font);
         //un-timed button set
-        untimedJB.setFont(fontButton);
-        untimedJB.setBackground(Color.GREEN);
+        untimedJb.setFont(fontButton);
+        untimedJb.setBackground(Color.GREEN);
         //exit button set
-        exitJB.setFont(fontButton);
-        exitJB.setBackground(Color.RED);
-        exitJB.setForeground(Color.BLACK);
+        exitJb.setFont(fontButton);
+        exitJb.setBackground(Color.RED);
+        exitJb.setForeground(Color.BLACK);
         //timed button set
-        timedJB.setFont(fontButton);
-        timedJB.setBackground(Color.YELLOW);
+        timedJb.setFont(fontButton);
+        timedJb.setBackground(Color.YELLOW);
         //leader button set
-        leaderJB.setFont(fontButton);
-        leaderJB.setBackground(Color.CYAN);
+        leaderJb.setFont(fontButton);
+        leaderJb.setBackground(Color.CYAN);
         //set title, size, layout etc for the frame
         setTitle("Sum Fun Main Menu");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -62,18 +64,18 @@ public class Master extends JFrame {
         this.add(welcome, BorderLayout.NORTH);
         buttonPanel.setLayout(new GridLayout(2, 2, 0, 0));
         //un-timed listener
-        untimedJB.addActionListener(new UntimedButtonListener());
+        untimedJb.addActionListener(new UntimedButtonListener());
         //exit listener
-        exitJB.addActionListener(new ExitButtonListener());
+        exitJb.addActionListener(new ExitButtonListener());
         //timed listener
-        timedJB.addActionListener(new TimedButtonListener());
+        timedJb.addActionListener(new TimedButtonListener());
         //leaderBoard Listener
-        leaderJB.addActionListener(new LeaderBoardButtonListener());
+        leaderJb.addActionListener(new LeaderBoardButtonListener());
         //add Buttons to the panel
-        buttonPanel.add(untimedJB);
-        buttonPanel.add(timedJB);
-        buttonPanel.add(leaderJB);
-        buttonPanel.add(exitJB);
+        buttonPanel.add(untimedJb);
+        buttonPanel.add(timedJb);
+        buttonPanel.add(leaderJb);
+        buttonPanel.add(exitJb);
         this.add(buttonPanel, BorderLayout.CENTER);
 
     }
@@ -96,6 +98,7 @@ public class Master extends JFrame {
             //used for referencing the build of the Users interface
             GridModel gridModel = new GridModel();
             QueueModel queueModel = new QueueModel();
+            CurrentScoreModel currentScoreModel = new CurrentScoreModel();
             TheGui gui = new TheGui();
             //add observers to the views
             gui.getGridView().addObserver(gridModel);
@@ -103,7 +106,9 @@ public class Master extends JFrame {
             //tie models to their respective views
             gui.getQueueView().addObserver(queueModel);
             gui.getQueueView().registerQueueModel(queueModel);
-
+            //tie current score model to it's view
+            gui.getCurrentScoreView().addObserver(currentScoreModel);
+            gui.getCurrentScoreView().registerScoreModel(currentScoreModel);
             //grab updated grid and queue
             gridModel.forceUpdate();
             queueModel.forceUpdate();

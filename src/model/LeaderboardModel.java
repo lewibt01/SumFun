@@ -1,5 +1,7 @@
 package model;
 
+import data.LeaderboardEntry;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Observable;
-import data_containers.LeaderboardEntry;
 
 
 public class LeaderboardModel extends Observable implements Serializable {
@@ -24,7 +25,7 @@ public class LeaderboardModel extends Observable implements Serializable {
 
 
     private LeaderboardModel(){
-        CurrentScoreModel currentScore = new CurrentScoreModel();
+        //CurrentScoreModel currentScore = new CurrentScoreModel();
         try {
             load();
         }catch(Exception ex){
