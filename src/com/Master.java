@@ -127,6 +127,9 @@ public class Master extends JFrame {
             //tie models to their respective views
             gui.getQueueView().addObserver(timedGameModel.getQueueModel());
             gui.getQueueView().registerQueueModel(timedGameModel.getQueueModel());
+            //tie current score model to it's view
+            gui.getCurrentScoreView().addObserver(timedGameModel.getCurrentScoreModel());
+            gui.getCurrentScoreView().registerScoreModel(timedGameModel.getCurrentScoreModel());
             timedGameModel.getGridModel().forceUpdate();
             timedGameModel.getQueueModel().forceUpdate();
             //set gui to visible and the current frame to false to "close"

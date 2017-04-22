@@ -156,6 +156,7 @@ public class GridView extends JPanel implements Observer {
                 gridMod.setTileValue(row, col, queueLink.getRegisteredQueueModel().dequeue());
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
                 scoreLink.getRegisteredScoreModel().setNumberMoves();
+                scoreLink.getRegisteredScoreModel().setCurrentScore(scoreLink.getRegisteredScoreModel().getCurrentScore());
 
             }
         }

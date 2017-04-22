@@ -202,7 +202,6 @@ public class GridModel extends Observable {
 			if (score >= 3) {
 				score = score * 10;
 				System.out.println("temp score: " + score);
-				//currScoreMod.setCurrentScore(currScoreMod.getCurrentScore() + score);
 				System.out.println("total score: " );
 			}
 		}
