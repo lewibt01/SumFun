@@ -20,28 +20,19 @@ public class LeaderboardModel extends Observable implements Serializable {
     private static LeaderboardModel singletonLink = new LeaderboardModel();
     private ArrayList<LeaderboardEntry> entries = new ArrayList<>();
     private int currentPos = entries.size()-1;
-
-    private File leaderFile = new File("LeaderBoard.txt");
-
+    private File leaderFile;
 
     private LeaderboardModel(){
         //CurrentScoreModel currentScore = new CurrentScoreModel();
+        leaderFile = new File("LeaderBoard.txt");
+        for (int i = 0; i < 10; i++) {
+            entries.add(new LeaderboardEntry());
+        }
         try {
+            //leaderFile = new File("LeaderBoard.txt");
             load();
         }catch(Exception ex){
             ex.printStackTrace();
-        }
-        for (int i = 0; i < 10; i++) {
-            entries.add(new LeaderboardEntry());
-
-            /*
-            entries[i].setCurrentPos(i);
-            entries[i].setScore(currentScore.getCurrentScore());
-            entries[i].setNumber(entries[i].getCurrentPos()+1);
-            entries[i].setUserName("");
-            entries[i].setIsFilled(false);
-            entries.setDate(new Date());
-            */
         }
         forceUpdate();
     }
@@ -52,7 +43,6 @@ public class LeaderboardModel extends Observable implements Serializable {
     }
 
     public void save(){
-
         try {
             FileOutputStream fos = new FileOutputStream(leaderFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -76,6 +66,7 @@ public class LeaderboardModel extends Observable implements Serializable {
         try {
             FileInputStream fis = new FileInputStream(leaderFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
+
             lbm = (ArrayList<LeaderboardEntry>) ois.readObject();
             fis.close();
             ois.close();
@@ -105,6 +96,10 @@ public class LeaderboardModel extends Observable implements Serializable {
         forceUpdate();
     }
 
+    public LeaderboardEntry getEntry(int pos){
+        return entries.get(pos);
+    }
+
     public void setIsFilled(int index,boolean input) {
         entries.get(index).setIsFilled(input);
         forceUpdate();
@@ -114,21 +109,12 @@ public class LeaderboardModel extends Observable implements Serializable {
         return entries.get(pos).getScore();
     }
 
-    public int getNumber(int pos) {
-        return entries.get(pos).getNumber();
-    }
-
     public String getDate(int pos){
         return entries.get(pos).getDateString();
     }
 
     public void setDate(int pos){
         entries.get(pos).setDate(Calendar.getInstance().getTime());
-        forceUpdate();
-    }
-
-    public void setNumber(int pos) {
-        entries.get(pos).setNumber((entries.get(pos).getNumber()+1));
         forceUpdate();
     }
 

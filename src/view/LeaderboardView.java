@@ -1,7 +1,7 @@
 package view;
 //
 
-
+import data_containers.LeaderboardEntry;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Observable;
@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import model.LeaderboardModel;
-import data_containers.LeaderboardEntry;
+
 
 
 public class LeaderboardView extends JFrame implements Observer {
@@ -33,18 +33,20 @@ public class LeaderboardView extends JFrame implements Observer {
         this.setLocationRelativeTo(null);
         this.setLayout(grid);
 
-        //for loop to generate the rank
+        //generate JLabels to display the user ranks
         for (int i = 0; i < 10; i++) {
-            rank[i] = new JLabel("Rank: " + leaderboard.getNumber(i) + "     Name: " + leaderboard.getUserName(i) + "     Score: " + leaderboard.getScore(i) + "       Date: " + leaderboard.getDate(i));
-            //leaderboard.setCurrentPos(i);
-            leaderboard.setNumber(i);
+            //label initialization...
+            rank[i] = new JLabel();
             rank[i].setFont(font);
             rank[i].setHorizontalAlignment(SwingConstants.CENTER);
+
+            //add the labels to the panel...
             add(rank[i]);
         }
 
     }
 
+    //ask for a user's name to be added to the leaderboard
     public void displayMessage(){
         try {
             String message = JOptionPane.showInputDialog("Please enter your name to be added to the list of high scores!");
@@ -61,7 +63,7 @@ public class LeaderboardView extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         for (int i = 0; i < 10; i++) {
-            rank[i].setText("Rank:" + leaderboard.getNumber(i) + "\t Name: " + leaderboard.getUserName(i) + "\t Score: " + leaderboard.getScore(i));
+            rank[i].setText("Rank:" + i+1 + "\t Name: " + leaderboard.getUserName(i) + "\t Score: " + leaderboard.getScore(i));
 
         }
     }

@@ -1,16 +1,17 @@
 package data_containers;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class LeaderboardEntry implements Comparable<LeaderboardEntry>{
+public class LeaderboardEntry implements Comparable<LeaderboardEntry>,Serializable{
 
     private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     private Date thisDate = new Date();
     private String currentDate = "";
-    private int number,score;
+    private int score;
     private String userName;
     private boolean isFilled;
 
@@ -44,14 +45,6 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry>{
 
     public void setCurrentDate(String currentDate) {
         this.currentDate = currentDate;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     public int getScore() {
@@ -90,6 +83,12 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry>{
 
         //otherwise it must be equal....
         return 0;
+    }
+
+    @Override
+    public String toString(){
+        return "LeaderboardEntry [dateFormat="+dateFormat+", thisDate="+thisDate+", currentDate="+currentDate
+                +", score="+score+", userName="+userName+", isFilled="+isFilled+"]";
     }
 
 
