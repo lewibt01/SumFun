@@ -7,6 +7,8 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+
+import model.GridModel;
 import model.TimedGameModel;
 
 public class TheGui extends JFrame implements Observer {
@@ -14,6 +16,7 @@ public class TheGui extends JFrame implements Observer {
     private GridView gridView;
     private QueueView queueView;
     private CurrentScoreView currentScoreView;
+    private GridModel gridModel;
     private final JPanel sidePanel;
     //make an array of buttons then in the update method update all of the values to the tile array
 
@@ -27,7 +30,9 @@ public class TheGui extends JFrame implements Observer {
         setSize(1200, 1000);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
+        gridModel = new GridModel();
         gridView = new GridView();
+        gridView.registerGridModel(gridModel);
         add(gridView, BorderLayout.CENTER);
         queueView = new QueueView();
         currentScoreView = new CurrentScoreView();
@@ -45,7 +50,9 @@ public class TheGui extends JFrame implements Observer {
         //setVisible(true);
 
     }
-
+    public GridModel getGridModel(){
+        return  gridModel;
+    }
     public GridView getGridView() {
         return gridView;
     }

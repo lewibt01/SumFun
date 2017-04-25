@@ -13,8 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-
-import model.CurrentScoreModel;
+//
 import model.GridModel;
 import model.QueueModel;
 import model.TimedGameModel;
@@ -98,7 +97,6 @@ public class Master extends JFrame {
             //used for referencing the build of the Users interface
             GridModel gridModel = new GridModel();
             QueueModel queueModel = new QueueModel();
-            CurrentScoreModel currentScoreModel = new CurrentScoreModel();
             TheGui gui = new TheGui();
             //add observers to the views
             gui.getGridView().addObserver(gridModel);
@@ -107,8 +105,8 @@ public class Master extends JFrame {
             gui.getQueueView().addObserver(queueModel);
             gui.getQueueView().registerQueueModel(queueModel);
             //tie current score model to it's view
-            gui.getCurrentScoreView().addObserver(currentScoreModel);
-            gui.getCurrentScoreView().registerScoreModel(currentScoreModel);
+            gui.getCurrentScoreView().addObserver(gridModel);
+            gui.getCurrentScoreView().registerScoreModel(gridModel);
             //grab updated grid and queue
             gridModel.forceUpdate();
             queueModel.forceUpdate();
@@ -128,8 +126,8 @@ public class Master extends JFrame {
             gui.getQueueView().addObserver(timedGameModel.getQueueModel());
             gui.getQueueView().registerQueueModel(timedGameModel.getQueueModel());
             //tie current score model to it's view
-            gui.getCurrentScoreView().addObserver(timedGameModel.getCurrentScoreModel());
-            gui.getCurrentScoreView().registerScoreModel(timedGameModel.getCurrentScoreModel());
+            gui.getCurrentScoreView().addObserver(timedGameModel.getGridModel());
+            gui.getCurrentScoreView().registerScoreModel(timedGameModel.getGridModel());
             timedGameModel.getGridModel().forceUpdate();
             timedGameModel.getQueueModel().forceUpdate();
             //set gui to visible and the current frame to false to "close"

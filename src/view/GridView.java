@@ -10,8 +10,8 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 //class imports
-import model.CurrentScoreModel;
 import model.GridModel;
 import model.TileModel;
 
@@ -28,8 +28,6 @@ public class GridView extends JPanel implements Observer {
         gridMod = new GridModel();
         int maxRow = gridMod.getMaxRow();
         int maxCol = gridMod.getMaxCol();
-
-
         //gridMod = new GridModel();
         boardButtons = new JButton[maxRow][maxCol];
 
@@ -99,7 +97,8 @@ public class GridView extends JPanel implements Observer {
     public GridModel getRegisteredGridModel() {
         return gridMod;
     }
-    public void registerScoreView(CurrentScoreView c){
+
+    public void registerScoreView(CurrentScoreView c) {
         scoreLink = c;
     }
 
@@ -155,8 +154,8 @@ public class GridView extends JPanel implements Observer {
                 System.out.println("clicked on empty");
                 gridMod.setTileValue(row, col, queueLink.getRegisteredQueueModel().dequeue());
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
-                scoreLink.getRegisteredScoreModel().setNumberMoves();
-                scoreLink.getRegisteredScoreModel().setCurrentScore(scoreLink.getRegisteredScoreModel().getCurrentScore());
+                gridMod.setNumberMoves();
+                gridMod.setCurrentScore(gridMod.getCurrentScore());
 
             }
         }

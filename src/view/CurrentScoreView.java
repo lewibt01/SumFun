@@ -9,19 +9,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 //class imports
-import model.CurrentScoreModel;
+import model.GridModel;
 
 public class CurrentScoreView extends JPanel implements Observer {
 
     private JTextField scoreTextField;
     private JTextField movesRemaining;
-    private CurrentScoreModel currentScore; //link to registered score model
-
+    private GridModel currentScore;//link to registered score model
     CurrentScoreView() {
+        currentScore = new GridModel();
         Font font = new Font("SansSerif", Font.BOLD, 20);
         JLabel scoreLabel;
         JLabel movesLabel;
-        currentScore = new CurrentScoreModel();
         GridLayout grid = new GridLayout(0, 2, 0, 0);
         this.setLayout(grid);
         this.setBorder(BorderFactory.createCompoundBorder(
@@ -33,7 +32,7 @@ public class CurrentScoreView extends JPanel implements Observer {
         scoreLabel.setText("Current Score: ");
         add(scoreLabel);
         scoreTextField = new JTextField();
-        scoreTextField.setText(currentScore.getCurrentScore());
+        scoreTextField.setText(getRegisteredScoreModel().getCurrentScore());
         scoreTextField.setFont(font);
         scoreTextField.setHorizontalAlignment(JTextField.CENTER);
         scoreTextField.setEditable(false);
@@ -64,18 +63,18 @@ public class CurrentScoreView extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o.getClass().getSimpleName().equals("CurrentScoreModel")) {
+        if (o.getClass().getSimpleName().equals("GridModel")) {
             scoreTextField.setText(currentScore.getCurrentScore());
             movesRemaining.setText(currentScore.getNumberMoves());
         }
 
     }
 
-    public void registerScoreModel(CurrentScoreModel cs) {
+    public void registerScoreModel(GridModel cs) {
         currentScore = cs;
     }
 
-    public CurrentScoreModel getRegisteredScoreModel() {
+    public GridModel getRegisteredScoreModel() {
         return currentScore;
     }
 }
