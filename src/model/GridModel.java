@@ -14,6 +14,7 @@ public class GridModel extends Observable {
     private int scoreTot;
     private final int rowMax = 9;
     private final int colMax = 9;
+    private boolean removeSameBool = false;
 
     // constructor
     public GridModel() {
@@ -215,6 +216,22 @@ public class GridModel extends Observable {
 
         forceUpdate();
 
+    }
+
+    //removes all tiles on the board which share a value with the parameter (works once in game)
+    public void removeSame(int num) {
+        if (!removeSameBool) {
+            removeSameBool = true;
+            for (int i = 0; i < rowMax; i++) {
+                for (int j = 0; j < colMax; j++) {
+                    if (grid[i][j].getInt() == num) {
+                        grid[i][j].setBoolean(false);
+                        grid[i][j].setNumber(0);
+                    }
+                }
+            }
+        }
+        forceUpdate();
     }
 
     //used for score tracking and move tracking

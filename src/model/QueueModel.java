@@ -19,7 +19,7 @@ public class QueueModel extends Observable {
         ranNum = new Random();
 
         for(int i=0;i< 50;i++){
-            enqueue(ranNum.nextInt(8)+1);
+            enqueue(ranNum.nextInt(9)+1);
         }
 
         setChanged();

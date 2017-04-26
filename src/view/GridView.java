@@ -150,7 +150,27 @@ public class GridView extends JPanel implements Observer {
                 }
         */
         public void mousePressed(MouseEvent e) {
-            if ((boardButtons[row][col].getText().equals("")) || (boardButtons[row][col].getText().equals(" "))) {
+            if ((boardButtons[row][col].getText().equals("0"))
+                    ||
+                    (boardButtons[row][col].getText().equals("1"))
+                    ||
+                    (boardButtons[row][col].getText().equals("2"))
+                    ||
+                    (boardButtons[row][col].getText().equals("3"))
+                    ||
+                    (boardButtons[row][col].getText().equals("4"))
+                    ||
+                    (boardButtons[row][col].getText().equals("5"))
+                    ||
+                    (boardButtons[row][col].getText().equals("6"))
+                    ||
+                    (boardButtons[row][col].getText().equals("7"))
+                    ||
+                    (boardButtons[row][col].getText().equals("8"))
+                    ||
+                    (boardButtons[row][col].getText().equals("9"))) {
+                        gridMod.removeSame(Integer.parseInt(boardButtons[row][col].getText()));
+            } else if ((boardButtons[row][col].getText().equals("")) || (boardButtons[row][col].getText().equals(" "))) {
                 System.out.println("clicked on empty");
                 gridMod.setTileValue(row, col, queueLink.getRegisteredQueueModel().dequeue());
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
