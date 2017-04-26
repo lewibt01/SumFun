@@ -51,7 +51,8 @@ public class TimedGameModel extends GameModel {
         public void actionPerformed(ActionEvent e) {
             seconds--;
             if (seconds < 0) {
-                getMessage();
+
+                notifyObservers();
             }
             //System.out.println("Timer at:" + getTimer());
             setChanged();
@@ -63,7 +64,4 @@ public class TimedGameModel extends GameModel {
         return String.format("%2d:%02d", seconds / 60, seconds % 60);
     }
 
-    public String getMessage(){
-        return "Your time has run out!!";
-    }
 }

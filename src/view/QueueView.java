@@ -25,37 +25,27 @@ public class QueueView extends JPanel implements Observer {
     private QueueModel queueMod;//link to registered queue model
     private GridView gridLink;//start with no registered grid
     private JButton shuffleJB;
-    private JButton hintJB;
-    private JButton removeJB;
     //will be used to show the queue
     QueueView() {
 
         super();
         JPanel shufflePanel = new JPanel();
         shuffleJB = new JButton("Shuffle");
-        hintJB = new JButton("Hint");
-        removeJB = new JButton("Remove a number from board");
         display = new JButton[5];
         queueMod = new QueueModel();
 
 
         this.setLayout(new GridLayout(6, 1, 0, 0));
         this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("User Options"),
+                BorderFactory.createTitledBorder("Available Moves"),
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createEtchedBorder(0),
                         BorderFactory.createBevelBorder(0))));
         this.setAlignmentY(CENTER_ALIGNMENT);
         //for loop used to iterate through the 5 queue buttons
         //add action Listener to jButtons
-        hintJB.addActionListener(new HintListener());
-        removeJB.addActionListener(new RemoveListener());
         shuffleJB.addActionListener(new ShuffleListener());
-        //change layout to accept 3 buttons
-        shufflePanel.setLayout(new GridLayout(3,1));
         //add buttons to panel
-        shufflePanel.add(hintJB);
-        shufflePanel.add(removeJB);
         shufflePanel.add(shuffleJB);
         add(shufflePanel);
         for (int i = 0; i < 5; i++) {
@@ -93,9 +83,6 @@ public class QueueView extends JPanel implements Observer {
                 display[i].setText(queueModel.get(i) + "");
                 display[i].setBackground(Color.CYAN);
                 display[i].setForeground(Color.BLACK);
-                if(queueModel.get(i) <= -1){
-                    display[i].setText(" ");
-                }
         }
         //System.out.println(queueModel.toString());
 
@@ -144,9 +131,10 @@ public class QueueView extends JPanel implements Observer {
             handle.exportAsDrag(btn, e, TransferHandler.MOVE);
         }*/
     }
-    //method used to activate shuffle in the queue model
+
     private class ShuffleListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
+
             if(!queueMod.getHasShuffled()) {
                 queueMod.shuffle();
                 queueMod.setHasShuffled(true);
@@ -156,19 +144,6 @@ public class QueueView extends JPanel implements Observer {
         }
     }
 
-    //method used to activate hints in gridModel via button click
-    private class HintListener implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
 
-        }
-    }
-    //method used to activate remove all tile method via button click
-    private class RemoveListener implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
-    }
 
 }

@@ -2,8 +2,12 @@ package model;
 //
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
+import javafx.geometry.Pos;
 
 //Grid Model used to make the grid of the game board
 public class GridModel extends Observable {
@@ -15,12 +19,14 @@ public class GridModel extends Observable {
     private final int rowMax = 9;
     private final int colMax = 9;
     private boolean removeSameBool = false;
+    private int hintCounter;
 
     // constructor
     public GridModel() {
         scoreTot = 0;
         numberMoves = 50;
         currentScore = 0;
+        hintCounter = 0;
         grid = new TileModel[rowMax][colMax];
         for (int i = 0; i < rowMax; i++) {
             for (int j = 0; j < colMax; j++) {
@@ -232,6 +238,50 @@ public class GridModel extends Observable {
             }
         }
         forceUpdate();
+    }
+
+    public Position hint(int qNum) {
+        Position pos = new Position(15,15);
+        if (hintCounter < 3) {
+            Map<Position, Integer> collectiveScores = new HashMap<Position, Integer>();
+            for (int i = 0; i < rowMax; i++) {
+                for (int j = 0; j < colMax; j++) {
+                    if (grid[i][j].getInt() == qNum) {
+                        ArrayList<TileModel> neighbors = getNeighbors(getTilePosition(grid[i][j]));
+                        int result = 0;
+                        int tempScore = 0;
+                        for (TileModel t : neighbors) {
+                            result = result + t.getInt();
+                        }
+                        if (result % 10 == qNum) {
+                            for (TileModel t : neighbors) {
+                                // if the tile is currently occupied, increment score
+                                if (t.getBool()) {
+                                    tempScore++;
+                                }
+                            }
+                            // use score counter to determine points earned from each iteration
+                            //then store those values in a hashmap
+                            if (tempScore >= 3) {
+                                tempScore = tempScore * 10;
+                                collectiveScores.put(new Position(i,j), tempScore);
+                            }
+                        }
+                    }
+                }
+            }
+            for (int x = 0; x < collectiveScores.size(); x++) {
+                int hintScore = 0;
+                for (Map.Entry<Position, Integer> entry : collectiveScores.entrySet()) {
+                    if (entry.getValue() > hintScore) {
+                        hintScore = entry.getValue();
+                        pos = new Position(entry.getKey().getRow(), entry.getKey().getCol());
+                    }
+                }
+            }
+            hintCounter++;
+        }
+        return pos;
     }
 
     //used for score tracking and move tracking
