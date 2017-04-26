@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 //class imports
+import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 import model.GridModel;
 import model.TileModel;
 
@@ -69,7 +70,9 @@ public class GridView extends JPanel implements Observer {
                     if (model[i][j].getBool()) {
 
                         boardButtons[i][j].setText(model[i][j].getInt() + "");
-
+                        if (boardButtons[i][j].getText().equals("-1")) {
+                            boardButtons[i][j].setText("");
+                        }
                     } else {
                         boardButtons[i][j].setText("");
                     }
@@ -169,17 +172,25 @@ public class GridView extends JPanel implements Observer {
                     (boardButtons[row][col].getText().equals("8"))
                     ||
                     (boardButtons[row][col].getText().equals("9"))) {
-                        gridMod.removeSame(Integer.parseInt(boardButtons[row][col].getText()));
-                        //checkbox functionality goes here
+                gridMod.removeSame(Integer.parseInt(boardButtons[row][col].getText()));
+                //checkbox functionality goes here
+
             } else if ((boardButtons[row][col].getText().equals("")) || (boardButtons[row][col].getText().equals(" "))) {
                 System.out.println("clicked on empty");
                 gridMod.setTileValue(row, col, queueLink.getRegisteredQueueModel().dequeue());
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
                 gridMod.setNumberMoves();
                 gridMod.setCurrentScore(gridMod.getCurrentScore());
+                if (gridMod.countFilledTiles() > 80 || gridMod.getIntMoves() <= 0) {
+                    //the game is over
+                    JOptionPane.showConfirmDialog(null, "The game is over!");
+
+                }
 
             }
         }
+
     }
 }
+
 

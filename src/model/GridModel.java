@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
+
 import javafx.geometry.Pos;
 
 //Grid Model used to make the grid of the game board
@@ -214,8 +215,8 @@ public class GridModel extends Observable {
             // use score counter to determine points earned from move
             if (tempScore >= 3) {
                 scoreTot += tempScore * 10;
-                System.out.println("temp score: " + scoreTot);
-                System.out.println("total score: ");
+                System.out.println("temp score: " + tempScore);
+                System.out.println("total score: " + scoreTot);
                 setCurrentScore(scoreTot + "");
             }
         }
@@ -241,7 +242,7 @@ public class GridModel extends Observable {
     }
 
     public Position hint(int qNum) {
-        Position pos = new Position(15,15);
+        Position pos = new Position(15, 15);
         if (hintCounter < 3) {
             Map<Position, Integer> collectiveScores = new HashMap<Position, Integer>();
             for (int i = 0; i < rowMax; i++) {
@@ -264,7 +265,7 @@ public class GridModel extends Observable {
                             //then store those values in a hashmap
                             if (tempScore >= 3) {
                                 tempScore = tempScore * 10;
-                                collectiveScores.put(new Position(i,j), tempScore);
+                                collectiveScores.put(new Position(i, j), tempScore);
                             }
                         }
                     }
@@ -284,6 +285,20 @@ public class GridModel extends Observable {
         return pos;
     }
 
+    //this method will count through [i] and [j]
+    public int countFilledTiles() {
+        int count = 0;
+        for (int i = 0; i < rowMax; i++) {
+            for (int j = 0; j < colMax; j++) {
+                if (grid[i][j].getBool()) {
+                    count++;
+                }
+            }
+        }
+        System.out.println("tiles counted: " + count);
+        return count;
+    }
+
     //used for score tracking and move tracking
     public String getNumberMoves() {
         return this.numberMoves + "";
@@ -299,13 +314,20 @@ public class GridModel extends Observable {
         forceUpdate();
     }
 
-    public int getIntScore() {
+    public int getIntMoves() {
+        return numberMoves;
+    }
+
+    private int getIntScore() {
 
         return currentScore;
     }
 
     public void setNumberMoves() {
         numberMoves--;
+        if (numberMoves < 0) {
+            numberMoves = 0;
+        }
         forceUpdate();
     }
 

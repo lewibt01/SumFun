@@ -39,7 +39,7 @@ public class QueueView extends JPanel implements Observer {
         queueMod = new QueueModel();
 
 
-        this.setLayout(new GridLayout(6, 1, 0, 0));
+        this.setLayout(new GridLayout(8, 1, 0, 0));
         this.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("User Options"),
                 BorderFactory.createCompoundBorder(
