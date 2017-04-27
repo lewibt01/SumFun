@@ -225,20 +225,20 @@ public class GridModel extends Observable {
         forceUpdate();
     }
 
-    public Position hint(int qNum) {
+    public Position hint(int theNumber) {
         Position pos = new Position(15, 15);
         if (hintCounter < 3) {
             Map<Position, Integer> collectiveScores = new HashMap<Position, Integer>();
             for (int i = 0; i < rowMax; i++) {
                 for (int j = 0; j < colMax; j++) {
-                    if (grid[i][j].getInt() == qNum) {
+                    if (grid[i][j].getInt() == theNumber) {
                         ArrayList<TileModel> neighbors = getNeighbors(getTilePosition(grid[i][j]));
                         int result = 0;
                         int tempScore = 0;
                         for (TileModel t : neighbors) {
                             result = result + t.getInt();
                         }
-                        if (result % 10 == qNum) {
+                        if (result % 10 == theNumber) {
                             for (TileModel t : neighbors) {
                                 // if the tile is currently occupied, increment score
                                 if (t.getBool()) {

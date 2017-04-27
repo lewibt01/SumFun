@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -32,7 +33,7 @@ import javax.swing.border.LineBorder;
 public class GameController implements EventListener {
     private static GameController singletonLink = new GameController();
 
-    //ensures that ther is only one game controller ever created
+    //ensures that there is only one game controller ever created
     private GameController() {
 
     }
@@ -57,7 +58,7 @@ public class GameController implements EventListener {
                     }
 
                     JFrame frame = new JFrame("Testing");
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     frame.add(new TestPane());
                     frame.pack();
                     frame.setLocationRelativeTo(null);

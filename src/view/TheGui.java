@@ -1,4 +1,5 @@
 package view;
+
 //imports
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -10,7 +11,6 @@ import javax.swing.WindowConstants;
 
 import model.GridModel;
 import model.TimedGameModel;
-import oracle.jrockit.jfr.JFR;
 
 public class TheGui implements Observer {
     //Panels____
@@ -76,15 +76,16 @@ public class TheGui implements Observer {
     public void update(Observable o, Object arg) {
 
     }
+
     //will add timer to the gui
     public void addTimer(TimedGameModel timedModel) {
-        TimedGameModel timedGameModel = timedModel;
-        timerPanel.addObserver(timedGameModel);
+        timerPanel.addObserver(timedModel);
         currentScoreView.addTimer(timerPanel);
         sidePanel.updateUI();
 
     }
-    public JFrame getTheFrame(){
+
+    public JFrame getTheFrame() {
         return theFrame;
     }
 }

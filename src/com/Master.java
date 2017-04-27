@@ -1,6 +1,6 @@
 package com;
-//import java files
 
+//import java files
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,14 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-//
+//import models and view classes
 import model.GridModel;
 import model.QueueModel;
 import model.TimedGameModel;
 import view.LeaderboardView;
 import view.TheGui;
-
-//import models and view classes
 
 //will build the initial title menu for the game
 public class Master extends JFrame {
@@ -85,8 +83,9 @@ public class Master extends JFrame {
         Master m = new Master();
         m.setVisible(true);
     }
+
     // will be used to restart a game board
-    public void restartGame(){
+    public void restartGame() {
         //used for referencing the build of the Users interface
         GridModel gridModel = new GridModel();
         QueueModel queueModel = new QueueModel();

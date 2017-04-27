@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -15,30 +16,28 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 //model Imports
-
 import model.QueueModel;
-
-
 
 public class QueueView extends JPanel implements Observer {
     private JButton[] display;
     private QueueModel queueMod;//link to registered queue model
     private GridView gridLink;//start with no registered grid
-    private JButton shuffleJB;
-    private JButton hintJB;
-    private JButton removeJB;
-    private JButton exitJB;
+    private JButton shuffleJButton;
+    private JButton hintJButton;
+    private JButton removeJButton;
+    private JButton exitJButton;
+
     //will be used to show the queue
     QueueView() {
         super();
         //font used for the shuffle panel
         Font font = new Font("SansSerif", Font.BOLD, 14);
-        Font qFont = new Font("Sanserif", Font.BOLD,18);
+        Font queueFont = new Font("Sanserif", Font.BOLD, 18);
         JPanel shufflePanel = new JPanel();
-        shuffleJB = new JButton("Shuffle");
-        hintJB = new JButton("Hint");
-        removeJB = new JButton("Remove a Number from the Board");
-        exitJB = new JButton("Exit the game");
+        shuffleJButton = new JButton("Shuffle");
+        hintJButton = new JButton("Hint");
+        removeJButton = new JButton("Remove a Number from the Board");
+        exitJButton = new JButton("Exit the game");
         display = new JButton[5];
         queueMod = new QueueModel();
 
@@ -52,35 +51,35 @@ public class QueueView extends JPanel implements Observer {
         this.setAlignmentY(CENTER_ALIGNMENT);
         //for loop used to iterate through the 5 queue buttons
         //add action Listener to jButtons
-        hintJB.addActionListener(new HintListener());
-        removeJB.addActionListener(new RemoveListener());
-        shuffleJB.addActionListener(new ShuffleListener());
-        exitJB.addActionListener(new ExitListener());
+        hintJButton.addActionListener(new HintListener());
+        removeJButton.addActionListener(new RemoveListener());
+        shuffleJButton.addActionListener(new ShuffleListener());
+        exitJButton.addActionListener(new ExitListener());
         //change the font for the buttons for easier read ability
-        hintJB.setFont(font);
-        removeJB.setFont(font);
-        shuffleJB.setFont(font);
-        exitJB.setFont(font);
+        hintJButton.setFont(font);
+        removeJButton.setFont(font);
+        shuffleJButton.setFont(font);
+        exitJButton.setFont(font);
         //add Colors to the respective buttons
-        hintJB.setBackground(Color.BLUE);
-        hintJB.setForeground(Color.WHITE);
-        removeJB.setBackground(Color.MAGENTA);
-        shuffleJB.setBackground(Color.GREEN);
-        exitJB.setBackground(Color.ORANGE);
+        hintJButton.setBackground(Color.BLUE);
+        hintJButton.setForeground(Color.WHITE);
+        removeJButton.setBackground(Color.MAGENTA);
+        shuffleJButton.setBackground(Color.GREEN);
+        exitJButton.setBackground(Color.ORANGE);
         //change layout to accept 3 buttons
-        shufflePanel.setLayout(new GridLayout(2,2));
+        shufflePanel.setLayout(new GridLayout(2, 2));
         //add buttons to panel
-        shufflePanel.add(hintJB);
-        shufflePanel.add(removeJB);
-        shufflePanel.add(shuffleJB);
-        shufflePanel.add(exitJB);
+        shufflePanel.add(hintJButton);
+        shufflePanel.add(removeJButton);
+        shufflePanel.add(shuffleJButton);
+        shufflePanel.add(exitJButton);
         add(shufflePanel);
         for (int i = 0; i < 5; i++) {
             //int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
             display[i] = new JButton();
             //display[i].setText(randomVal+"");
             //initially set to false so that user cannot interact with the queue
-            display[i].setFont(qFont);
+            display[i].setFont(queueFont);
             display[i].setEnabled(false);
             //when the tile is the first in the queue
             if (i == 0) {
@@ -115,19 +114,20 @@ public class QueueView extends JPanel implements Observer {
         }
 
     }
-    public JButton getShuffleJB(){
-        return shuffleJB;
+
+    public JButton getShuffleJButton() {
+        return shuffleJButton;
     }
 
     void registerGridView(GridView g){
         gridLink = g;
     }
 
-    public GridView getRegisteredGridView(){
+    public GridView getRegisteredGridView() {
         return gridLink;
     }
 
-    public void registerQueueModel(QueueModel q){
+    public void registerQueueModel(QueueModel q) {
         queueMod = q;
     }
 
@@ -135,7 +135,7 @@ public class QueueView extends JPanel implements Observer {
         return queueMod;
     }
 
-    public JButton[] getDisplay(){
+    public JButton[] getDisplay() {
         return display;
     }
 
@@ -150,41 +150,45 @@ public class QueueView extends JPanel implements Observer {
             btnEx.setBackground(Color.CYAN);
             btnEx.setForeground(Color.BLACK);
         }
-        public void mouseClicked(MouseEvent e){
-            if(display[0] == e.getSource()){
+
+        public void mouseClicked(MouseEvent e) {
+            if (display[0] == e.getSource()) {
                 System.out.println("You clicked on the queue");
 
             }
         }
     }
+
     //method used to activate shuffle in the queue model
-    private class ShuffleListener implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            if(!queueMod.getHasShuffled()) {
+    private class ShuffleListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (!queueMod.getHasShuffled()) {
                 queueMod.shuffle();
                 queueMod.setHasShuffled(true);
-                shuffleJB.setEnabled(false);
+                shuffleJButton.setEnabled(false);
             }
 
         }
     }
 
     //method used to activate hints in gridModel via button click
-    private class HintListener implements ActionListener{
+    private class HintListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
         }
     }
+
     //method used to activate remove all tile method via button click
-    private class RemoveListener implements ActionListener{
+    private class RemoveListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
         }
     }
-    private class ExitListener implements ActionListener{
-        public void actionPerformed(ActionEvent e ){
+
+    private class ExitListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
             System.exit(0);
         }
     }

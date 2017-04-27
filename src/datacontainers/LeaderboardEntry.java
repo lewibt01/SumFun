@@ -1,9 +1,8 @@
-package data_containers;
+package datacontainers;
 
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class LeaderboardEntry implements Comparable<LeaderboardEntry>,Serializable{
