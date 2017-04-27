@@ -104,9 +104,7 @@ public class QueueView extends JPanel implements Observer {
     //grab data from the model to update what is seen on the view
     @SuppressWarnings("unchecked")
     public void update(Observable o, Object arg) {
-        //if (o.getClass().getSimpleName().equals("QueueModel")) {
-            ArrayList<Integer> queueModel = (ArrayList<Integer>)arg;
-        //iterate through 5 or fewer elements in the queue
+        ArrayList<Integer> queueModel = (ArrayList<Integer>)arg;
         for (int i = 0; i < 5 && i<queueMod.size(); i++) {
                 display[i].setText(queueModel.get(i) + "");
                 display[i].setBackground(Color.CYAN);
@@ -115,14 +113,13 @@ public class QueueView extends JPanel implements Observer {
                     display[i].setText(" ");
                 }
         }
-        //System.out.println(queueModel.toString());
 
     }
     public JButton getShuffleJB(){
         return shuffleJB;
     }
 
-    public void registerGridView(GridView g){
+    void registerGridView(GridView g){
         gridLink = g;
     }
 
@@ -134,7 +131,7 @@ public class QueueView extends JPanel implements Observer {
         queueMod = q;
     }
 
-    public QueueModel getRegisteredQueueModel(){
+    QueueModel getRegisteredQueueModel(){
         return queueMod;
     }
 
@@ -159,11 +156,6 @@ public class QueueView extends JPanel implements Observer {
 
             }
         }
-        /*public void mouseDragged(MouseEvent e) {
-            JButton btn = (JButton) e.getSource();
-            TransferHandler handle = btn.getTransferHandler();
-            handle.exportAsDrag(btn, e, TransferHandler.MOVE);
-        }*/
     }
     //method used to activate shuffle in the queue model
     private class ShuffleListener implements ActionListener{

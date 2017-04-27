@@ -19,12 +19,18 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry>,Serializab
 
     }
 
+    public LeaderboardEntry(String username){
+        this.userName = username;
+        this.score = 0;
+        this.isFilled = true;
+        this.currentDate = new Date().toString();
+    }
+
     public LeaderboardEntry(String username, int score, boolean isFull) {
         this.userName = username;
         this.score = score;
         this.isFilled = isFull;
         this.currentDate = new Date().toString();
-
     }
 
     public Date getDate() {

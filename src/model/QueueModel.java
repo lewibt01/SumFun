@@ -30,8 +30,8 @@ public class QueueModel extends Observable {
 
     //return the number of elements that are allowed to be visible to the user
     public int getNumElements() {
-        //no intellij, this is not redundant, It's art
-        return numElements;
+        int tmp = numElements; //no intellij, this is not redundant, It's art
+        return tmp;
     }
 
     //randomly reshuffle the elements of the queue
@@ -42,7 +42,7 @@ public class QueueModel extends Observable {
         this.notifyObservers(queue);
     }
 
-    public void forceUpdate() {
+    public void forceUpdate(){
         setChanged();
         notifyObservers(queue);
     }
@@ -55,11 +55,11 @@ public class QueueModel extends Observable {
     }
 
     //removes the least recently added element from the queue
-    public int dequeue() {
+    public int dequeue(){
         int tmp;
-        if (queue.size() <= 0) {
+        if(queue.size()<=0) {
             tmp = -1;//illegal value to show emptiness
-        } else {
+        }else{
             tmp = queue.get((int) 0);
             //System.out.println(tmp + " Dequeued");
             queue.remove((int) 0);
@@ -72,16 +72,16 @@ public class QueueModel extends Observable {
 
     //return, but not remove, least recently added element from the queue
     public Integer peek() {
-        return queue.get((int) queue.size() - 1);
+        return queue.get((int)queue.size()-1);
     }
 
     //return the element at the specified index. 0 being the most recently added element,
     // and queue.size() being the least recently added element.
-    public Integer peek(int i) {
+    public Integer peek(int i){
         return queue.get(i);
     }
 
-    public int size() {
+    public int size(){
         return queue.size();
     }
 

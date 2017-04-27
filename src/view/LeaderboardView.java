@@ -1,5 +1,4 @@
 package view;
-//
 
 import data_containers.LeaderboardEntry;
 import java.awt.Font;
@@ -13,18 +12,16 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import model.LeaderboardModel;
 
-
-
 public class LeaderboardView extends JFrame implements Observer {
-    //set up places to store data 10
-
-    private JLabel[] rank;
-    private LeaderboardModel leaderboard;
+    private JLabel[] rank;//where the leader board entries will be displayed as JLabels
+    private LeaderboardModel leaderboard = LeaderboardModel.getInstance();
 
     public LeaderboardView() throws Exception {
         super();
-        leaderboard = LeaderboardModel.getInstance();
+        leaderboard.addObserver(this);
         rank = new JLabel[10];
+
+        //GUI variables
         Font font = new Font("SansSerif", Font.BOLD, 28);
         GridLayout grid = new GridLayout(10, 1, 0, 0);
         this.setTitle("High Scores!!");
@@ -39,8 +36,13 @@ public class LeaderboardView extends JFrame implements Observer {
             rank[i] = new JLabel();
             rank[i].setFont(font);
             rank[i].setHorizontalAlignment(SwingConstants.CENTER);
+            rank[i].setText("<placeholder>");
 
-            //add the labels to the panel...
+            //entry addition
+            leaderboard.addEntry(new LeaderboardEntry("testName",i*10,true));
+            leaderboard.save();
+
+            //add the label to the panel...
             add(rank[i]);
         }
 
@@ -60,11 +62,16 @@ public class LeaderboardView extends JFrame implements Observer {
         }
     }
 
+    public void addObserver(Observable o) {
+        o.addObserver(this);
+        //register a model with this view...
+    }
+
     @Override
     public void update(Observable o, Object arg) {
-        for (int i = 0; i < 10; i++) {
-            rank[i].setText("Rank:" + i+1 + "\t Name: " + leaderboard.getUserName(i) + "\t Score: " + leaderboard.getScore(i));
-
+        LeaderboardModel tmp = (LeaderboardModel) arg;
+        for (int i = 0; i < 10 && i<tmp.getSize(); i++) {
+            rank[i].setText("Rank:" + i+2 + "\t Name: " + tmp.getUserName(i) + "\t Score: " + tmp.getScore(i));
         }
     }
 }

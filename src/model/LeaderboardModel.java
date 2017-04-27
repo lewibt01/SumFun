@@ -19,17 +19,12 @@ import java.util.Observable;
 public class LeaderboardModel extends Observable implements Serializable {
     private static LeaderboardModel singletonLink = new LeaderboardModel();
     private ArrayList<LeaderboardEntry> entries = new ArrayList<>();
-    private int currentPos = entries.size()-1;
     private File leaderFile;
 
     private LeaderboardModel(){
-        //CurrentScoreModel currentScore = new CurrentScoreModel();
         leaderFile = new File("LeaderBoard.txt");
-        for (int i = 0; i < 10; i++) {
-            entries.add(new LeaderboardEntry());
-        }
         try {
-            //leaderFile = new File("LeaderBoard.txt");
+            save();
             load();
         }catch(Exception ex){
             ex.printStackTrace();
@@ -57,17 +52,22 @@ public class LeaderboardModel extends Observable implements Serializable {
             ioex.printStackTrace();
         }catch (Exception ex){
             System.err.println("Leaderboard Save() generic error");
-            //ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void load(){
         ArrayList<LeaderboardEntry> lbm;
         try {
             FileInputStream fis = new FileInputStream(leaderFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
+            //cast the object back into a usable format
             lbm = (ArrayList<LeaderboardEntry>) ois.readObject();
+            entries = lbm;
+
+            //clean up & update
             fis.close();
             ois.close();
             forceUpdate();
@@ -79,11 +79,11 @@ public class LeaderboardModel extends Observable implements Serializable {
             ioex.printStackTrace();
         }catch (Exception ex){
             System.err.println("Leaderboard Load() generic error");
-            //ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 
-    public void sort(){
+    private void sort(){
         Collections.sort(entries);
     }
 
@@ -97,10 +97,11 @@ public class LeaderboardModel extends Observable implements Serializable {
     }
 
     public LeaderboardEntry getEntry(int pos){
+        forceUpdate();
         return entries.get(pos);
     }
 
-    public void setIsFilled(int index,boolean input) {
+    public void setIsFilled(int index, boolean input) {
         entries.get(index).setIsFilled(input);
         forceUpdate();
     }
@@ -130,6 +131,10 @@ public class LeaderboardModel extends Observable implements Serializable {
     public void setUserName(String name, int pos) {
         entries.get(pos).setUserName(name);
         forceUpdate();
+    }
+
+    public int getSize(){
+        return entries.size();
     }
 
     private void forceUpdate() {
