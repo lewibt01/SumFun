@@ -1,4 +1,5 @@
 package view;
+//imports
 
 import java.awt.Color;
 import java.awt.Font;
@@ -96,32 +97,19 @@ public class GridView extends JPanel implements Observer {
         queueLink = q;
     }
 
-
+    //grab the model created
     public void registerGridModel(GridModel g) {
         gridMod = g;
     }
-
-    public GridModel getRegisteredGridModel() {
-        return gridMod;
-    }
-
+    //grab the scoresview to use in the controller
     void registerScoreView(CurrentScoreView c) {
         scoreLink = c;
     }
-
-    void registerTimerView(TimerView t) {
+    //grab the timers view to user in the controller
+    void registerTimerView(TimerView t){
         timerView = t;
     }
-
-
-    //    public void registerScoreView(CurrentScoreView c) {
-    //        scoreLink = c;
-    //    }
-    //
-    //    public CurrentScoreView getRegisteredScoreView() {
-    //        return scoreLink;
-    //  }
-
+    //this listener will let the user know what tile their cursor is on
     private class ButtonListener extends MouseAdapter implements MouseListener {
         int row;
         int col;
@@ -194,9 +182,14 @@ public class GridView extends JPanel implements Observer {
                     int option = JOptionPane.showConfirmDialog(null, "Would you like to start a new game?", "Start New Game?", JOptionPane.YES_NO_OPTION);
                     if (option == 0) {
                         //yes option
+                        //resets the grid and queue
                         gridMod.resetGrid();
+                        //make sure to enable buttons to start new game
+                        queueLink.getHintJButton().setEnabled(true);
+                        queueLink.getRemoveJButton().setEnabled(true);
                         queueLink.getRegisteredQueueModel().reset();
                         queueLink.getShuffleJButton().setEnabled(true);
+                        //sends 5 minutes to the timer
                         timerView.getRegisteredTimeModel().reset(5);
                     } else {
                         //closes program

@@ -71,7 +71,7 @@ public class LeaderboardView extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
         LeaderboardModel tmp = (LeaderboardModel) arg;
         for (int i = 0; i < 10 && i<tmp.getSize(); i++) {
-            rank[i].setText("Rank:" + i+2 + "\t Name: " + tmp.getUserName(i) + "\t Score: " + tmp.getScore(i));
+            rank[i].setText("Rank:" + i + "\t Name: " + tmp.getUserName(i) + "\t Score: " + tmp.getScore(i));
         }
     }
 }

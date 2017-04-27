@@ -1,5 +1,4 @@
 package view;
-
 //imports
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -8,13 +7,10 @@ import java.util.Observer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-//class imports
-import model.TimedGameModel;
 
-/**
- * Created by Garrett on 4/10/2017.
- * CS360
- */
+import model.TimedGameModel;
+//class imports
+
 public class TimerView extends JPanel implements Observer {
 
     private JTextField timerTextField;
@@ -29,8 +25,7 @@ public class TimerView extends JPanel implements Observer {
         this.setLayout(grid);
 
         timerLabel = new JLabel();
-        timerLabel.setText("Time remaining: ");
-        //add(timerLabel);
+        add(timerLabel);
         timerTextField = new JTextField();
         timerTextField.setText(timedModel.getTimer());
         timerTextField.setFont(font);
@@ -40,7 +35,7 @@ public class TimerView extends JPanel implements Observer {
 
     }
 
-    public TimedGameModel getRegisteredTimeModel() {
+   TimedGameModel getRegisteredTimeModel() {
         return timedModel;
     }
 
@@ -49,11 +44,9 @@ public class TimerView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (o.getClass().getSimpleName().equals("TimedGameModel")) {
             timerTextField.setText(timedModel.getTimer());
-
         }
     }
-
-    void addObserver(Observable o) {
+    public void addObserver(Observable o) {
         o.addObserver(this);
     }
 }

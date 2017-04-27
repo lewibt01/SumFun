@@ -118,6 +118,12 @@ public class QueueView extends JPanel implements Observer {
     public JButton getShuffleJButton() {
         return shuffleJButton;
     }
+    public JButton getHintJButton(){
+        return hintJButton;
+    }
+    public JButton getRemoveJButton(){
+        return removeJButton;
+    }
 
     void registerGridView(GridView g){
         gridLink = g;
