@@ -11,7 +11,7 @@ public class QueueModel extends Observable {
     private ArrayList<Integer> queue;
     private int numElements;
     private int numQueueItems;
-    private Boolean hasShuffled;
+    private Boolean hasShuffled = false;
 
     public QueueModel() {
         reset();
@@ -90,6 +90,7 @@ public class QueueModel extends Observable {
     }
 
     public void setHasShuffled(boolean flag) {
+
         hasShuffled = flag;
         setChanged();
         notifyObservers(queue);

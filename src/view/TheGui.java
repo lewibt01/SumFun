@@ -32,7 +32,7 @@ public class TheGui implements Observer {
         sidePanel = new JPanel();
         theFrame.setTitle("Sum Fun!!");
         theFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        theFrame.setSize(1200, 1000);
+        theFrame.setSize(1600, 900);
         theFrame.setLayout(new BorderLayout());
         theFrame.setLocationRelativeTo(null);
         gridModel = new GridModel();

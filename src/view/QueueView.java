@@ -33,6 +33,7 @@ public class QueueView extends JPanel implements Observer {
         super();
         //font used for the shuffle panel
         Font font = new Font("SansSerif", Font.BOLD, 14);
+        Font qFont = new Font("Sanserif", Font.BOLD,18);
         JPanel shufflePanel = new JPanel();
         shuffleJB = new JButton("Shuffle");
         hintJB = new JButton("Hint");
@@ -79,6 +80,7 @@ public class QueueView extends JPanel implements Observer {
             display[i] = new JButton();
             //display[i].setText(randomVal+"");
             //initially set to false so that user cannot interact with the queue
+            display[i].setFont(qFont);
             display[i].setEnabled(false);
             //when the tile is the first in the queue
             if (i == 0) {
@@ -115,6 +117,9 @@ public class QueueView extends JPanel implements Observer {
         }
         //System.out.println(queueModel.toString());
 
+    }
+    public JButton getShuffleJB(){
+        return shuffleJB;
     }
 
     public void registerGridView(GridView g){

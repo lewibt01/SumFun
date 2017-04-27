@@ -4,6 +4,7 @@ import com.Master;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -29,6 +30,7 @@ public class GridView extends JPanel implements Observer {
 
     GridView() {
         super();
+        Font font = new Font("SansSerif", Font.BOLD, 18);
         TileModel cellData;
         gridMod = new GridModel();
         int maxRow = gridMod.getMaxRow();
@@ -44,6 +46,7 @@ public class GridView extends JPanel implements Observer {
             for (int j = 0; j < maxCol; j++) {
                 cellData = gridMod.getGrid()[i][j];
                 boardButtons[i][j] = new JButton();
+                boardButtons[i][j].setFont(font);
                 boardButtons[i][j].setText(cellData.getInt() + "");
                 boardButtons[i][j].addMouseListener(new ButtonListener(i, j));
                 /*TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
@@ -188,13 +191,14 @@ public class GridView extends JPanel implements Observer {
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
                 gridMod.setNumberMoves();
                 gridMod.setCurrentScore(gridMod.getCurrentScore());
-                if (gridMod.countFilledTiles() > 80 || gridMod.getIntMoves() <= 50) {
+                if (gridMod.countFilledTiles() > 80 || gridMod.getIntMoves() <= 0) {
                     //the game is over
                     int option = JOptionPane.showConfirmDialog(null, "Would you like to start a new game?", "Start New Game?", JOptionPane.YES_NO_OPTION);
                     if (option == 0) {
                         //yes option
                         gridMod.resetGrid();
                         queueLink.getRegisteredQueueModel().reset();
+                        queueLink.getShuffleJB().setEnabled(true);
                         timerView.getRegisteredTimeModel().reset(5);
                     } else {
                         //closes program
