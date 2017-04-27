@@ -1,5 +1,7 @@
 package view;
 
+import com.Master;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -9,23 +11,25 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 //class imports
-import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 import model.GridModel;
 import model.TileModel;
+import model.TimedGameModel;
 
 public class GridView extends JPanel implements Observer {
 
     private JButton[][] boardButtons;
     private GridModel gridMod;
-    private TileModel cellData;
     private QueueView queueLink;//start with no linked queue
+    private TimerView timerView;
     private CurrentScoreView scoreLink;
+    private TheGui guiReg;
 
     GridView() {
         super();
+        TileModel cellData;
         gridMod = new GridModel();
         int maxRow = gridMod.getMaxRow();
         int maxCol = gridMod.getMaxCol();
@@ -83,15 +87,15 @@ public class GridView extends JPanel implements Observer {
 
     }
 
+    void registerGui(TheGui gui) {
+        guiReg = gui;
+    }
+
     //links the grid view to the queue view by reference for data transfer purposes
-    public void registerQueueView(QueueView q) {
+    void registerQueueView(QueueView q) {
         queueLink = q;
     }
 
-    //return the currently registered Queue View
-    public QueueView getRegisteredQueueView() {
-        return queueLink;
-    }
 
     public void registerGridModel(GridModel g) {
         gridMod = g;
@@ -101,8 +105,11 @@ public class GridView extends JPanel implements Observer {
         return gridMod;
     }
 
-    public void registerScoreView(CurrentScoreView c) {
+    void registerScoreView(CurrentScoreView c) {
         scoreLink = c;
+    }
+    void registerTimerView(TimerView t){
+        timerView = t;
     }
 
 
@@ -181,10 +188,18 @@ public class GridView extends JPanel implements Observer {
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
                 gridMod.setNumberMoves();
                 gridMod.setCurrentScore(gridMod.getCurrentScore());
-                if (gridMod.countFilledTiles() > 80 || gridMod.getIntMoves() <= 0) {
+                if (gridMod.countFilledTiles() > 80 || gridMod.getIntMoves() <= 50) {
                     //the game is over
-                    JOptionPane.showConfirmDialog(null, "The game is over!");
-
+                    int option = JOptionPane.showConfirmDialog(null, "Would you like to start a new game?", "Start New Game?", JOptionPane.YES_NO_OPTION);
+                    if (option == 0) {
+                        //yes option
+                        gridMod.resetGrid();
+                        queueLink.getRegisteredQueueModel().reset();
+                        timerView.getRegisteredTimeModel().reset(5);
+                    } else {
+                        //closes program
+                        System.exit(0);
+                    }
                 }
 
             }

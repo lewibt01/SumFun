@@ -1,5 +1,6 @@
 package view;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,10 +13,9 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JOptionPane;
 
 //model Imports
-import com.sun.org.apache.xalan.internal.xsltc.runtime.ErrorMessages_ca;
+
 import model.QueueModel;
 
 
@@ -27,19 +27,22 @@ public class QueueView extends JPanel implements Observer {
     private JButton shuffleJB;
     private JButton hintJB;
     private JButton removeJB;
+    private JButton exitJB;
     //will be used to show the queue
     QueueView() {
-
         super();
+        //font used for the shuffle panel
+        Font font = new Font("SansSerif", Font.BOLD, 14);
         JPanel shufflePanel = new JPanel();
         shuffleJB = new JButton("Shuffle");
         hintJB = new JButton("Hint");
-        removeJB = new JButton("Remove a number from board");
+        removeJB = new JButton("Remove a Number from the Board");
+        exitJB = new JButton("Exit the game");
         display = new JButton[5];
         queueMod = new QueueModel();
 
 
-        this.setLayout(new GridLayout(8, 1, 0, 0));
+        this.setLayout(new GridLayout(6, 1, 0, 0));
         this.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder("User Options"),
                 BorderFactory.createCompoundBorder(
@@ -51,12 +54,25 @@ public class QueueView extends JPanel implements Observer {
         hintJB.addActionListener(new HintListener());
         removeJB.addActionListener(new RemoveListener());
         shuffleJB.addActionListener(new ShuffleListener());
+        exitJB.addActionListener(new ExitListener());
+        //change the font for the buttons for easier read ability
+        hintJB.setFont(font);
+        removeJB.setFont(font);
+        shuffleJB.setFont(font);
+        exitJB.setFont(font);
+        //add Colors to the respective buttons
+        hintJB.setBackground(Color.BLUE);
+        hintJB.setForeground(Color.WHITE);
+        removeJB.setBackground(Color.MAGENTA);
+        shuffleJB.setBackground(Color.GREEN);
+        exitJB.setBackground(Color.ORANGE);
         //change layout to accept 3 buttons
-        shufflePanel.setLayout(new GridLayout(3,1));
+        shufflePanel.setLayout(new GridLayout(2,2));
         //add buttons to panel
         shufflePanel.add(hintJB);
         shufflePanel.add(removeJB);
         shufflePanel.add(shuffleJB);
+        shufflePanel.add(exitJB);
         add(shufflePanel);
         for (int i = 0; i < 5; i++) {
             //int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
@@ -168,6 +184,11 @@ public class QueueView extends JPanel implements Observer {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+        }
+    }
+    private class ExitListener implements ActionListener{
+        public void actionPerformed(ActionEvent e ){
+            System.exit(0);
         }
     }
 

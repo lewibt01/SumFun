@@ -11,15 +11,9 @@ public class TimedGameModel extends GameModel {
     private Timer timer = new Timer(1000, new TimerListener());
     private int seconds = 0;
 
-    /**
-     * @param minutes Time in minutes
-     */
-    public TimedGameModel(int minutes) {
+    public TimedGameModel() {
         super();
-        seconds = 60 * minutes;
-        System.out.println("Starting timed game");
-        timer.setRepeats(true);
-        startTimer();
+        reset(5);
     }
 
     /**
@@ -57,6 +51,18 @@ public class TimedGameModel extends GameModel {
             setChanged();
             notifyObservers();
         }
+    }
+    public void reset(int minutes){
+        seconds = 60 * minutes;
+        System.out.println("Starting timed game");
+        timer.setRepeats(true);
+        startTimer();
+        setChanged();
+        notifyObservers();
+    }
+
+    public TimedGameModel getTimedModel(){
+        return this;
     }
 
     public String getTimer() {

@@ -24,23 +24,7 @@ public class GridModel extends Observable {
 
     // constructor
     public GridModel() {
-        scoreTot = 0;
-        numberMoves = 50;
-        currentScore = 0;
-        hintCounter = 0;
-        grid = new TileModel[rowMax][colMax];
-        for (int i = 0; i < rowMax; i++) {
-            for (int j = 0; j < colMax; j++) {
-                val = ThreadLocalRandom.current().nextInt(0, 10);
-                grid[i][j] = new TileModel();
-                grid[i][j].setBoolean(false);
-                if (!((i == 0 || j == 0) || (i == rowMax - 1 || j == colMax - 1))) {
-                    grid[i][j].setNumber(val);
-                    grid[i][j].setBoolean(true);
-                }
-            }
-        }
-        forceUpdate();
+        resetGrid();
     }
 
     public int getMaxCol() {
@@ -355,6 +339,26 @@ public class GridModel extends Observable {
         private int getCol() {
             return col;
         }
+    }
+    //initializes the grid
+    public void resetGrid() {
+        scoreTot = 0;
+        numberMoves = 50;
+        currentScore = 0;
+        hintCounter = 0;
+        grid = new TileModel[rowMax][colMax];
+        for (int i = 0; i < rowMax; i++) {
+            for (int j = 0; j < colMax; j++) {
+                val = ThreadLocalRandom.current().nextInt(0, 10);
+                grid[i][j] = new TileModel();
+                grid[i][j].setBoolean(false);
+                if (!((i == 0 || j == 0) || (i == rowMax - 1 || j == colMax - 1))) {
+                    grid[i][j].setNumber(val);
+                    grid[i][j].setBoolean(true);
+                }
+            }
+        }
+        forceUpdate();
     }
 
 }

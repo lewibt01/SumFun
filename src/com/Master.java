@@ -24,7 +24,8 @@ import view.TheGui;
 
 //will build the initial title menu for the game
 public class Master extends JFrame {
-    private Master() {
+
+    public Master() {
         super();
         Font font = new Font("SansSerif", Font.BOLD, 28);
         Font fontButton = new Font("SansSerif", Font.BOLD, 22);
@@ -84,6 +85,27 @@ public class Master extends JFrame {
         Master m = new Master();
         m.setVisible(true);
     }
+    // will be used to restart a game board
+    public void restartGame(){
+        //used for referencing the build of the Users interface
+        GridModel gridModel = new GridModel();
+        QueueModel queueModel = new QueueModel();
+        TheGui gui = new TheGui();
+        //add observers to the views
+        gui.getGridView().addObserver(gridModel);
+        gui.getGridView().registerGridModel(gridModel);
+        //tie models to their respective views
+        gui.getQueueView().addObserver(queueModel);
+        gui.getQueueView().registerQueueModel(queueModel);
+        //tie current score model to it's view
+        gui.getCurrentScoreView().addObserver(gridModel);
+        gui.getCurrentScoreView().registerScoreModel(gridModel);
+        //grab updated grid and queue
+        gridModel.forceUpdate();
+        queueModel.forceUpdate();
+        //set gui to visible
+        gui.getTheFrame().setVisible(true);
+    }
 
     private class ExitButtonListener implements ActionListener {
         @Override
@@ -111,13 +133,14 @@ public class Master extends JFrame {
             gridModel.forceUpdate();
             queueModel.forceUpdate();
             //set gui to visible
-            gui.setVisible(true);
+            gui.getTheFrame().setVisible(true);
         }
     }
 
     private class TimedButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            TimedGameModel timedGameModel = new TimedGameModel(5);
+            TimedGameModel timedGameModel = new TimedGameModel();
+            timedGameModel.reset(5);
             TheGui gui = new TheGui();
             //add observers to the views
             gui.getGridView().addObserver(timedGameModel.getGridModel());
@@ -131,7 +154,7 @@ public class Master extends JFrame {
             timedGameModel.getGridModel().forceUpdate();
             timedGameModel.getQueueModel().forceUpdate();
             //set gui to visible and the current frame to false to "close"
-            gui.setVisible(true);
+            gui.getTheFrame().setVisible(true);
             gui.update(timedGameModel, null);
             setVisible(false);
             // Timing stuff
