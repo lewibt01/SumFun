@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
-
 import java.util.Random;
 
 //will populate the values needed into the view
@@ -72,7 +71,7 @@ public class QueueModel extends Observable {
 
     //return, but not remove, least recently added element from the queue
     public Integer peek() {
-        return queue.get((int) queue.size() - 1);
+        return queue.get(queue.size() - 1);
     }
 
     //return the element at the specified index. 0 being the most recently added element,

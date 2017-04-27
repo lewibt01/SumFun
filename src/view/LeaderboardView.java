@@ -1,7 +1,7 @@
 package view;
 //
 
-import data_containers.LeaderboardEntry;
+import datacontainers.LeaderboardEntry;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Observable;

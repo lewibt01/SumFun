@@ -1,10 +1,8 @@
 package view;
 
-import com.Master;
-
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -17,7 +15,6 @@ import javax.swing.JPanel;
 //class imports
 import model.GridModel;
 import model.TileModel;
-import model.TimedGameModel;
 
 public class GridView extends JPanel implements Observer {
 
@@ -111,18 +108,19 @@ public class GridView extends JPanel implements Observer {
     void registerScoreView(CurrentScoreView c) {
         scoreLink = c;
     }
-    void registerTimerView(TimerView t){
+
+    void registerTimerView(TimerView t) {
         timerView = t;
     }
 
 
-//    public void registerScoreView(CurrentScoreView c) {
-//        scoreLink = c;
-//    }
-//
-//    public CurrentScoreView getRegisteredScoreView() {
-//        return scoreLink;
-//    }
+    //    public void registerScoreView(CurrentScoreView c) {
+    //        scoreLink = c;
+    //    }
+    //
+    //    public CurrentScoreView getRegisteredScoreView() {
+    //        return scoreLink;
+    //  }
 
     private class ButtonListener extends MouseAdapter implements MouseListener {
         int row;
@@ -198,7 +196,7 @@ public class GridView extends JPanel implements Observer {
                         //yes option
                         gridMod.resetGrid();
                         queueLink.getRegisteredQueueModel().reset();
-                        queueLink.getShuffleJB().setEnabled(true);
+                        queueLink.getShuffleJButton().setEnabled(true);
                         timerView.getRegisteredTimeModel().reset(5);
                     } else {
                         //closes program
