@@ -37,7 +37,7 @@ public class TheGui implements Observer {
         theFrame.setLocationRelativeTo(null);
         gridModel = new GridModel();
         gridView = new GridView();
-        timerPanel = new TimerView();
+        //timerPanel = new TimerView();
         gridView.registerGridModel(gridModel);
         theFrame.add(gridView, BorderLayout.CENTER);
         queueView = new QueueView();
@@ -71,7 +71,6 @@ public class TheGui implements Observer {
         return currentScoreView;
     }
 
-
     @Override
     public void update(Observable o, Object arg) {
 
@@ -79,6 +78,7 @@ public class TheGui implements Observer {
 
     //will add timer to the gui
     public void addTimer(TimedGameModel timedModel) {
+        timerPanel = new TimerView(timedModel);
         timerPanel.addObserver(timedModel);
         currentScoreView.addTimer(timerPanel);
         sidePanel.updateUI();

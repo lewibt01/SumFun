@@ -13,7 +13,7 @@ public class TimedGameModel extends GameModel {
 
     public TimedGameModel() {
         super();
-        reset(5);
+        timer.setRepeats(true);
     }
 
     /**
@@ -39,7 +39,7 @@ public class TimedGameModel extends GameModel {
         /**
          * Invoked when an action occurs.
          *
-         * @param e
+         * @param e Something.
          */
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -57,7 +57,9 @@ public class TimedGameModel extends GameModel {
         seconds = 60 * minutes;
         System.out.println("Starting timer...");
         timer.setRepeats(true);
-        startTimer();
+        if (startTimer()) {
+            System.out.println("Actually starting timer!");
+        }
         setChanged();
         notifyObservers();
     }

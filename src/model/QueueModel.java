@@ -28,6 +28,7 @@ public class QueueModel extends Observable {
     }
 
     //return the number of elements that are allowed to be visible to the user
+    @SuppressWarnings("UnnecessaryLocalVariable")
     public int getNumElements() {
         int tmp = numElements; //no intellij, this is not redundant, It's art
         return tmp;
@@ -71,7 +72,7 @@ public class QueueModel extends Observable {
 
     //return, but not remove, least recently added element from the queue
     public Integer peek() {
-        return queue.get((int)queue.size()-1);
+        return queue.get((int) queue.size() - 1);
     }
 
     //return the element at the specified index. 0 being the most recently added element,
@@ -94,7 +95,8 @@ public class QueueModel extends Observable {
         setChanged();
         notifyObservers(queue);
     }
-    public void reset(){
+
+    public void reset() {
         hasShuffled = false;
         numElements = 5;
         numQueueItems = 51;
@@ -102,7 +104,7 @@ public class QueueModel extends Observable {
         Random ranNum = new Random();
 
         for (int i = 0; i < numQueueItems; i++) {
-            enqueue(ranNum.nextInt(9) + 1);
+            enqueue(ranNum.nextInt(10));
         }
 
         setChanged();

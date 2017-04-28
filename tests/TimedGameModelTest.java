@@ -13,7 +13,7 @@ public class TimedGameModelTest {
 
     @org.junit.Before
     public void setUp() throws Exception {
-
+        assertSame(timedGameModel, timedGameModel.getTimedModel());
     }
 
     @org.junit.Test
@@ -23,7 +23,7 @@ public class TimedGameModelTest {
         assertEquals(" 4:00", timedGameModel.getTimer());
         timedGameModel.reset(1);
         assertEquals(" 1:00", timedGameModel.getTimer());
-        assertSame(timedGameModel, timedGameModel.getTimedModel());
+
 
     }
 

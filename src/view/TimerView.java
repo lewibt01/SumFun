@@ -17,15 +17,13 @@ public class TimerView extends JPanel implements Observer {
 
     private TimedGameModel timedModel;
 
-    TimerView() {
+    TimerView(TimedGameModel timedGameModel) {
         Font font = new Font("SansSerif", Font.BOLD, 18);
         JLabel timerLabel;
-        timedModel = new TimedGameModel();
+        timedModel = timedGameModel;
         GridLayout grid = new GridLayout(1, 1, 0, 0);
         this.setLayout(grid);
 
-        timerLabel = new JLabel();
-        add(timerLabel);
         timerTextField = new JTextField();
         timerTextField.setText(timedModel.getTimer());
         timerTextField.setFont(font);
@@ -37,6 +35,10 @@ public class TimerView extends JPanel implements Observer {
 
    TimedGameModel getRegisteredTimeModel() {
         return timedModel;
+    }
+
+    void registerTimeModel(TimedGameModel timedGameModel){
+        timedModel = timedGameModel;
     }
 
 

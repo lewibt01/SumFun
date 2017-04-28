@@ -20,7 +20,10 @@ import model.TimedGameModel;
 import view.LeaderboardView;
 import view.TheGui;
 
-//will build the initial title menu for the game
+/**
+ * This class will build the initial title menu for the game
+ *
+ */
 public class Master extends JFrame {
 
     public Master() {
@@ -139,8 +142,9 @@ public class Master extends JFrame {
     private class TimedButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             TimedGameModel timedGameModel = new TimedGameModel();
-            timedGameModel.reset(5);
+
             TheGui gui = new TheGui();
+
             //add observers to the views
             gui.getGridView().addObserver(timedGameModel.getGridModel());
             gui.getGridView().registerGridModel(timedGameModel.getGridModel());
@@ -152,12 +156,12 @@ public class Master extends JFrame {
             gui.getCurrentScoreView().registerScoreModel(timedGameModel.getGridModel());
             timedGameModel.getGridModel().forceUpdate();
             timedGameModel.getQueueModel().forceUpdate();
-            //set gui to visible and the current frame to false to "close"
-            gui.getTheFrame().setVisible(true);
-            gui.update(timedGameModel, null);
-            setVisible(false);
             // Timing stuff
             gui.addTimer(timedGameModel);
+            timedGameModel.reset(5);
+            //set gui to visible and the current frame to false to "close"
+            gui.getTheFrame().setVisible(true);
+            //setVisible(false);
 
         }
     }
