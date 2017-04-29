@@ -7,29 +7,46 @@ import java.util.Date;
 
 public class LeaderboardEntry implements Comparable<LeaderboardEntry>,Serializable{
 
+    public static final int NUM_PARAMETERS = 8;//the number of variables stored in LeaderboardEntry
     private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     private Date thisDate = new Date();
     private String currentDate = "";
     private int score;
     private String userName;
     private boolean isFilled;
+    private int time;
+    private boolean isTimed;
 
     public LeaderboardEntry(){
-
+        this.isFilled = (userName == null || userName.equals(""));
+        this.isTimed = !(time==0);
+        this.currentDate = new Date().toString();
     }
 
     public LeaderboardEntry(String username){
         this.userName = username;
         this.score = 0;
+        this.time=0;
         this.isFilled = true;
+        this.isTimed = false; //if time is not zero, it must be timed
         this.currentDate = new Date().toString();
     }
 
-    public LeaderboardEntry(String username, int score, boolean isFull) {
+    public LeaderboardEntry(String username, int score) {
         this.userName = username;
         this.score = score;
-        this.isFilled = isFull;
+        this.isFilled = !(userName == null || userName.equals(""));
         this.currentDate = new Date().toString();
+        this.isTimed=!(this.time==0);
+    }
+
+    public LeaderboardEntry(String username, int score,int time) {
+        this.userName = username;
+        this.score = score;
+        this.isFilled = (userName == null || userName.equals(""));
+        this.currentDate = new Date().toString();
+        this.isTimed=!(time==0);
+        this.time = time;
     }
 
     public Date getDate() {
@@ -50,6 +67,23 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry>,Serializab
 
     public void setCurrentDate(String currentDate) {
         this.currentDate = currentDate;
+    }
+
+    public int getTime(){
+        return time;
+    }
+
+    public void setTime(int input){
+        //negative time is not allowed
+        if(input>0) {
+            this.time = input;
+            isTimed=true;
+        }
+        //if set to zero, entry becomes untimed
+        if(input==0){
+            this.time=input;
+            isTimed=false;
+        }
     }
 
     public int getScore() {
@@ -78,11 +112,11 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry>,Serializab
 
     public int compareTo(LeaderboardEntry entry){
         //if less than...
-        if(this.score < entry.getScore()){
+        if (this.score < entry.getScore()) {
             return -1;
         }
         //if greater than...
-        if(this.score > entry.getScore()){
+        if (this.score > entry.getScore()) {
             return 1;
         }
 
@@ -92,8 +126,8 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry>,Serializab
 
     @Override
     public String toString(){
-        return "LeaderboardEntry [dateFormat="+dateFormat+", thisDate="+thisDate+", currentDate="+currentDate
-                +", score="+score+", userName="+userName+", isFilled="+isFilled+"]";
+        return "LeaderboardEntry [dateFormat="+dateFormat+",thisDate="+thisDate+",currentDate="+currentDate
+                +",score="+score+",time="+time+",userName="+userName+",isFilled="+isFilled+",isTimed="+isTimed+"]";
     }
 
 

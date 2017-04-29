@@ -2,13 +2,11 @@ package model;
 
 import datacontainers.LeaderboardEntry;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,19 +15,20 @@ import java.util.Observable;
 
 
 public class LeaderboardModel extends Observable implements Serializable {
+    public static final int LIST_LENGTH = 10;
+    private static final File leaderFile = new File("LeaderBoard.txt");
     private static LeaderboardModel singletonLink = new LeaderboardModel();
     private ArrayList<LeaderboardEntry> entries = new ArrayList<>();
-    private File leaderFile;
 
     private LeaderboardModel(){
-        leaderFile = new File("LeaderBoard.txt");
+        singletonLink = this;
         try {
-            save();
+            //save();
             load();
+            forceUpdate();
         }catch(Exception ex){
             ex.printStackTrace();
         }
-        forceUpdate();
     }
 
     //returns an instance of this singleton
@@ -39,52 +38,84 @@ public class LeaderboardModel extends Observable implements Serializable {
 
     public void save(){
         try {
-            FileOutputStream fos = new FileOutputStream(leaderFile);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(entries);
-            oos.close();
-            fos.close();
-            forceUpdate();
-        }catch(FileNotFoundException fnfex) {
-            System.err.println("Leaderboard Save() FNF error");
-        }catch (IOException ioex) {
-            System.err.println("Leaderboard Save() IO error");
-            ioex.printStackTrace();
-        }catch (Exception ex){
-            System.err.println("Leaderboard Save() generic error");
+            BufferedWriter buffWriter = new BufferedWriter(new FileWriter(leaderFile));
+
+            //write each element to its own line
+            for(LeaderboardEntry el: entries){
+                buffWriter.write(el.toString()+"\n");
+            }
+            buffWriter.flush();
+            buffWriter.close();
+        }catch(Exception ex){
             ex.printStackTrace();
+
         }
+        forceUpdate();
     }
 
-    @SuppressWarnings("unchecked")
-    private void load(){
-        ArrayList<LeaderboardEntry> lbm;
-        try {
-            FileInputStream fis = new FileInputStream(leaderFile);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+    public void load(){
+        ArrayList<String> tmp = new ArrayList<>();
+        try{
+            BufferedReader buffReader = new BufferedReader(new FileReader(leaderFile));
+            LeaderboardEntry localEntries[];
+            String currentLine;
+            //read & store all the lines of the text file for ease of parsing
+            do{
+                currentLine = buffReader.readLine();
+                //only add the line if there is text in it
+                if(currentLine!=null) {
+                    tmp.add(currentLine);
+                }
+            }while ((currentLine) != null);
 
-            //cast the object back into a usable format
-            lbm = (ArrayList<LeaderboardEntry>) ois.readObject();
-            entries = lbm;
+            buffReader.close();
 
-            //clean up & update
-            fis.close();
-            ois.close();
-            forceUpdate();
+            //convert the serialized LeaderboardEntries back into objects
+            localEntries = parseFileText(tmp);
 
-        }catch(FileNotFoundException fnfex) {
-            System.err.println("Leaderboard Load() FNF error");
-        }catch (IOException ioex) {
-            System.err.println("Leaderboard Load() IO error");
-            ioex.printStackTrace();
-        }catch (Exception ex){
-            System.err.println("Leaderboard Load() generic error");
+            //add local entries to the static entries
+            entries.clear();
+            for(LeaderboardEntry el:localEntries){
+                entries.add(el);
+            }
+        }catch(Exception ex){
             ex.printStackTrace();
         }
+        forceUpdate();
+    }
+
+    private LeaderboardEntry[] parseFileText(ArrayList<String> lines){
+        ArrayList<LeaderboardEntry> decodedEntries = new ArrayList<>();
+        LeaderboardEntry localEntries[] = new LeaderboardEntry[LIST_LENGTH];
+        String tmpString;
+        String elements[][] = new String[LIST_LENGTH][];//2D Array to store serialized elements
+
+        //trim the serialized class name & brackets away from the string
+        for(int i=0;i<lines.size();i++){
+            tmpString=lines.get(i).substring(lines.get(i).indexOf("[")+1,lines.get(i).indexOf("]"));
+            elements[i] = tmpString.split(",");
+        }
+
+        //split the variables apart for each line and assign the values to their respective data container
+        for(int i=0;i<lines.size();i++){
+            //5=username, 4=time, 3=score
+            //  only grab the useful characters, trim the rest away with substring()
+            String localUsername = elements[i][5].substring(9);
+            int localScore = Integer.parseInt(elements[i][3].substring(6));
+            int localTime = Integer.parseInt(elements[i][4].substring(5));
+
+            decodedEntries.add(new LeaderboardEntry(localUsername,localScore,localTime));
+
+        }
+
+        return decodedEntries.toArray(localEntries);
     }
 
     private void sort(){
-        Collections.sort(entries);
+        //only sort if there are elements to be sorted
+        if(entries.size()>0) {
+            Collections.sort(entries, Collections.reverseOrder());
+        }
     }
 
     public Boolean getIsFilled(int pos) {
@@ -96,9 +127,9 @@ public class LeaderboardModel extends Observable implements Serializable {
         forceUpdate();
     }
 
-    public LeaderboardEntry getEntry(int pos){
+    public LeaderboardEntry getEntry(int index){
         forceUpdate();
-        return entries.get(pos);
+        return entries.get(index);
     }
 
     public void setIsFilled(int index, boolean input) {

@@ -89,18 +89,3 @@ public class TheGui implements Observer {
         return theFrame;
     }
 }
-
-/*    private class TileListener implements ActionListener {
-        TileModel t;
-
-        public TileListener(TileModel tile) {
-            this.t = tile;
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            t = (TileModel) e.getSource();
-            t.setColor(Color.GREEN);
-
-
-        }
-    }*/
