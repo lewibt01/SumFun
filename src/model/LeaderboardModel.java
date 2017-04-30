@@ -87,7 +87,7 @@ public class LeaderboardModel extends Observable implements Serializable {
         ArrayList<LeaderboardEntry> decodedEntries = new ArrayList<>();
         LeaderboardEntry[] localEntries = new LeaderboardEntry[LIST_LENGTH];
         String tmpString;
-        String[][] elements = new String[LIST_LENGTH][];//2D Array to store serialized elements
+        String[][] elements = new String[lines.size()][LeaderboardEntry.NUM_PARAMETERS];//2D Array to store serialized elements
 
         //trim the serialized class name & brackets away from the string
         for (int i = 0; i < lines.size(); i++) {

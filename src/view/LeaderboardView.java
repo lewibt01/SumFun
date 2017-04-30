@@ -30,7 +30,7 @@ public class LeaderboardView extends JFrame implements Observer {
         timeRank = new JLabel[10];
 
         //GUI variables
-        font = new Font("SansSerif", Font.BOLD, 28);
+        font = new Font("SansSerif", Font.BOLD, 24);
         GridLayout grid = new GridLayout(LeaderboardModel.LIST_LENGTH, 1, 0, 0);
         this.setLayout(new GridLayout(1, 2, 0, 0));
         this.setTitle("High Scores!!");
@@ -56,6 +56,7 @@ public class LeaderboardView extends JFrame implements Observer {
             timedPanel.add(timeRank[i]);
         }
 
+        /*
         //add dummy entries to the
         for (int i = 0; i < LeaderboardModel.LIST_LENGTH; i++) {
             leaderboard.addEntry(new LeaderboardEntry("testName  ", i, 0));
@@ -65,6 +66,7 @@ public class LeaderboardView extends JFrame implements Observer {
         leaderboard.setScore(1, 1100);
 
         leaderboard.save();
+        */
         this.add(untimedPanel);
         this.add(timedPanel);
         leaderboard.load();
