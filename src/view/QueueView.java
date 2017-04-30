@@ -184,7 +184,7 @@ public class QueueView extends JPanel implements Observer {
         public void actionPerformed(ActionEvent e) {
             GridModel gm = gridLink.getRegisteredGridModel();
             try {
-                gridLink.highlightTile(gm.hint(queueMod.peek()));
+                gm.highlightTile(gm.hint(queueMod.peek()));
             } catch (NullPointerException ex) {
 
             }

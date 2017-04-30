@@ -89,11 +89,6 @@ public class GridView extends JPanel implements Observer {
 
     }
 
-    //helper function for hint to highlight the tile
-    public void highlightTile(GridModel.Position pos) {
-        gridMod.getGrid()[pos.getRow()][pos.getCol()].setColor(cyan);
-    }
-
     void registerGui(TheGui gui) {
         guiReg = gui;
     }

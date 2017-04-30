@@ -9,6 +9,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JOptionPane;
 
+import static java.awt.Color.cyan;
+
 //Grid Model used to make the grid of the game board
 public class GridModel extends Observable {
     private TileModel[][] grid;
@@ -297,6 +299,12 @@ public class GridModel extends Observable {
         JOptionPane.showMessageDialog(null, "You have already used all three hints.");
         return null;
     }
+
+    //helper function for hint to highlight the tile
+    public void highlightTile(Position pos) {
+        grid[pos.getRow()][pos.getCol()].setColor(cyan);
+    }
+
 
     //this method will count through [i] and [j]
     public int countFilledTiles() {
