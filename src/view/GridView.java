@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 //class imports
+import static java.awt.Color.cyan;
 import model.GridModel;
 import model.TileModel;
 
@@ -88,6 +89,11 @@ public class GridView extends JPanel implements Observer {
 
     }
 
+    //helper function for hint to highlight the tile
+    public void highlightTile(GridModel.Position pos) {
+        gridMod.getGrid()[pos.getRow()][pos.getCol()].setColor(cyan);
+    }
+
     void registerGui(TheGui gui) {
         guiReg = gui;
     }
@@ -101,6 +107,10 @@ public class GridView extends JPanel implements Observer {
     public void registerGridModel(GridModel g) {
         gridMod = g;
     }
+    public GridModel getRegisteredGridModel() {
+        return gridMod;
+    }
+
     //grab the scoresview to use in the controller
     void registerScoreView(CurrentScoreView c) {
         scoreLink = c;

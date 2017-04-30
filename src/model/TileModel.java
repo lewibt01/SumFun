@@ -37,7 +37,7 @@ public class TileModel extends Observable {
     }
 
     //will change background color of tile
-    void setColor(Color colorSet) {
+    public void setColor(Color colorSet) {
         this.color = colorSet;
         setChanged();
         notifyObservers();

@@ -70,13 +70,13 @@ public class QueueModel extends Observable {
         return tmp;
     }
 
-    //return, but not remove, least recently added element from the queue
+    //return, but not remove, the first element in the queue (at index 0 of the array)
     public Integer peek() {
-        return queue.get((int) queue.size() - 1);
+        return queue.get(0);
     }
 
-    //return the element at the specified index. 0 being the most recently added element,
-    // and queue.size() being the least recently added element.
+    //return the element at the specified index. 0 being the first element of the array,
+    // and queue.size() being the last element of the array.
     public Integer peek(int i) {
         return queue.get(i);
     }

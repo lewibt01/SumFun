@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 //model Imports
+import model.GridModel;
 import model.QueueModel;
 
 public class QueueView extends JPanel implements Observer {
@@ -181,7 +182,12 @@ public class QueueView extends JPanel implements Observer {
     private class HintListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            GridModel gm = gridLink.getRegisteredGridModel();
+            try {
+                gridLink.highlightTile(gm.hint(queueMod.peek()));
+            } catch (NullPointerException ex) {
 
+            }
         }
     }
 
