@@ -33,18 +33,17 @@ public class TimedGameModel extends GameModel {
         }
 
     }
-    public boolean getTimesUp(){
+
+    public boolean getTimesUp() {
         return timesUp;
     }
 
-    public int getSeconds(){
+    public int getSeconds() {
         return seconds;
     }
 
-    private void setTimesUp(boolean timeUp){
-     this.timesUp = timeUp;
-     setChanged();
-     notifyObservers();
+    private void setTimesUp(boolean timeUp) {
+        this.timesUp = timeUp;
     }
 
     /**
@@ -63,23 +62,25 @@ public class TimedGameModel extends GameModel {
             if (seconds < 0) {
                 seconds = 0;
                 setTimesUp(true);
-                getMessage();
+                //getMessage();
+                notifyObservers(getTimesUp()); // Updates to tell Timerview to stop game
+                timer.stop();
             }
             //System.out.println("Timer at:" + getTimer());
             setChanged();
-            notifyObservers();
+            notifyObservers(timesUp);
         }
     }
 
-    public void reset(int minutes) {
-        seconds = 60 * minutes;
-        System.out.println("Starting timer...");
+    public void reset(float minutes) {
+        seconds = (int) (60 * minutes);
+        timesUp = false;
         timer.setRepeats(true);
         if (startTimer()) {
-            System.out.println("Actually starting timer!");
+            System.out.println("Starting timer!");
         }
         setChanged();
-        notifyObservers();
+        notifyObservers(timesUp);
     }
 
     /**
@@ -97,7 +98,6 @@ public class TimedGameModel extends GameModel {
     }
 
     public String getMessage() {
-        //TODO
         return "Your time has run out!!";
     }
 }

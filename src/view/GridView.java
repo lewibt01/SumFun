@@ -162,7 +162,9 @@ public class GridView extends JPanel implements Observer {
                     (boardButtons[row][col].getText().equals("8"))
                     ||
                     (boardButtons[row][col].getText().equals("9"))) {
-                gridMod.removeSame(Integer.parseInt(boardButtons[row][col].getText()));
+                if (queueLink.canRemoveNumber()) {
+                    gridMod.removeSame(Integer.parseInt(boardButtons[row][col].getText()));
+                }
                 //checkbox functionality goes here
 
             } else if ((boardButtons[row][col].getText().equals("")) || (boardButtons[row][col].getText().equals(" "))) {

@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -44,6 +45,10 @@ public class TimerView extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o.getClass().getSimpleName().equals("TimedGameModel")) {
+            if ((boolean)arg){
+                JOptionPane.showMessageDialog(this,timedModel.getMessage());
+            }
+
             timerTextField.setText(timedModel.getTimer());
         }
     }

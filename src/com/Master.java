@@ -1,6 +1,7 @@
 package com;
 
 //import java files
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -22,9 +23,13 @@ import view.TheGui;
 
 /**
  * This class will build the initial title menu for the game
- *
  */
 public class Master extends JFrame {
+    private boolean timedMode = false;
+
+    public boolean isTimedMode() {
+        return timedMode;
+    }
 
     public Master() {
         super();
@@ -109,6 +114,11 @@ public class Master extends JFrame {
         //grab updated grid and queue
         gridModel.forceUpdate();
         queueModel.forceUpdate();
+        if (timedMode) {
+            TimedGameModel timedGameModel = new TimedGameModel();
+            gui.addTimer(timedGameModel);
+            timedGameModel.reset(1);
+        }
         //set gui to visible
         gui.getTheFrame().setVisible(true);
     }
@@ -122,6 +132,7 @@ public class Master extends JFrame {
 
     private class UntimedButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            timedMode = false;
             //used for referencing the build of the Users interface
             GridModel gridModel = new GridModel();
             QueueModel queueModel = new QueueModel();
@@ -145,6 +156,7 @@ public class Master extends JFrame {
 
     private class TimedButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            timedMode = true;
             TimedGameModel timedGameModel = new TimedGameModel();
 
             TheGui gui = new TheGui();

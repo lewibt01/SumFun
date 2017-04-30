@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 //Grid Model used to make the grid of the game board
 public class GridModel extends Observable {
+    private static final int NUMBER_OF_HINTS = 3;
     private TileModel[][] grid;
     private int val = 0;
     private int numberMoves;
@@ -199,7 +200,7 @@ public class GridModel extends Observable {
                 t.setNumber(0);
             }
             // use score counter to determine points earned from move
-            if (tempScore >= 3) {
+            if (tempScore >= NUMBER_OF_HINTS) {
                 scoreTot += tempScore * 10;
                 System.out.println("temp score: " + tempScore);
                 System.out.println("total score: " + scoreTot);
@@ -240,7 +241,7 @@ public class GridModel extends Observable {
 
     public Position hint(int theNumber) {
         Position pos;
-        if (hintCounter < 3) {
+        if (hintCounter < NUMBER_OF_HINTS) {
             Map<Position, Integer> collectiveScores = new HashMap<>();
             for (int i = 0; i < rowMax; i++) {
                 for (int j = 0; j < colMax; j++) {
@@ -262,7 +263,7 @@ public class GridModel extends Observable {
                         }
                         //use score counter to determine points earned from each iteration
                         //then store those values in a new tile and then in a hashmap
-                        if ((tempScore >= 3) && (!grid[i][j].getBool())) {
+                        if ((tempScore >= NUMBER_OF_HINTS) && (!grid[i][j].getBool())) {
                             tempScore = tempScore * 10;
                             collectiveScores.put(new Position(i, j), tempScore);
                         }
@@ -289,7 +290,7 @@ public class GridModel extends Observable {
             if (hintScore == 0) {
                 JOptionPane.showMessageDialog(null,
                         "There are no moves that will add to your points. \n"
-                                + "You have " + (3 - hintCounter) + " hints remaining.");
+                                + "You have " + (NUMBER_OF_HINTS - hintCounter) + " hints remaining.");
                 return null;
             }
             hintCounter++;
@@ -300,7 +301,7 @@ public class GridModel extends Observable {
     }
 
     //helper function for hint to highlight the tile
-    public void highlightTile(Position pos) {
+    public void highlightTile(Position pos) throws NullPointerException {
         grid[pos.getRow()][pos.getCol()].setColor(Color.CYAN);
         forceUpdate();
     }

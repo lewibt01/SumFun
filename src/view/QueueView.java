@@ -26,8 +26,13 @@ public class QueueView extends JPanel implements Observer {
     private JButton shuffleJButton;
     private JButton hintJButton;
     private JButton removeJButton;
+    private boolean canRemoveNumber = false;
+    private boolean numberRemoved = false;
 
-    //will be used to show the queue
+    /**
+     * Will be used to show the queue and buttons
+     */
+
     QueueView() {
         super();
         //font used for the shuffle panel
@@ -109,14 +114,14 @@ public class QueueView extends JPanel implements Observer {
     //grab data from the model to update what is seen on the view
     @SuppressWarnings("unchecked")
     public void update(Observable o, Object arg) {
-        ArrayList<Integer> queueModel = (ArrayList<Integer>)arg;
-        for (int i = 0; i < 5 && i<queueMod.size(); i++) {
-                display[i].setText(queueModel.get(i) + "");
-                display[i].setBackground(Color.CYAN);
-                display[i].setForeground(Color.BLACK);
-                if(queueModel.get(i) <= -1){
-                    display[i].setText(" ");
-                }
+        ArrayList<Integer> queueModel = (ArrayList<Integer>) arg;
+        for (int i = 0; i < 5 && i < queueMod.size(); i++) {
+            display[i].setText(queueModel.get(i) + "");
+            display[i].setBackground(Color.CYAN);
+            display[i].setForeground(Color.BLACK);
+            if (queueModel.get(i) <= -1) {
+                display[i].setText(" ");
+            }
         }
 
     }
@@ -124,14 +129,20 @@ public class QueueView extends JPanel implements Observer {
     JButton getShuffleJButton() {
         return shuffleJButton;
     }
-    JButton getHintJButton(){
+
+    JButton getHintJButton() {
         return hintJButton;
     }
-    JButton getRemoveJButton(){
+
+    JButton getRemoveJButton() {
         return removeJButton;
     }
 
-    void registerGridView(GridView g){
+    public boolean canRemoveNumber() {
+        return canRemoveNumber;
+    }
+
+    void registerGridView(GridView g) {
         gridLink = g;
     }
 
@@ -143,7 +154,7 @@ public class QueueView extends JPanel implements Observer {
         queueMod = q;
     }
 
-    QueueModel getRegisteredQueueModel(){
+    QueueModel getRegisteredQueueModel() {
         return queueMod;
     }
 
@@ -200,7 +211,12 @@ public class QueueView extends JPanel implements Observer {
     private class RemoveListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if (numberRemoved && !canRemoveNumber) {
+                canRemoveNumber = false;
+            } else {
+                canRemoveNumber = true;
+                numberRemoved = false;  // Maybe set this somewhere else
+            }
         }
     }
 
