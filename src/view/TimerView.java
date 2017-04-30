@@ -32,13 +32,12 @@ public class TimerView extends JPanel implements Observer {
         add(timerTextField);
 
     }
+    public JTextField getTimerTextField(){
+        return timerTextField;
+    }
 
    TimedGameModel getRegisteredTimeModel() {
         return timedModel;
-    }
-
-    void registerTimeModel(TimedGameModel timedGameModel){
-        timedModel = timedGameModel;
     }
 
 
@@ -48,7 +47,7 @@ public class TimerView extends JPanel implements Observer {
             timerTextField.setText(timedModel.getTimer());
         }
     }
-    public void addObserver(Observable o) {
+    void addObserver(Observable o) {
         o.addObserver(this);
     }
 }

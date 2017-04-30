@@ -26,7 +26,6 @@ public class QueueView extends JPanel implements Observer {
     private JButton shuffleJButton;
     private JButton hintJButton;
     private JButton removeJButton;
-    private JButton exitJButton;
 
     //will be used to show the queue
     QueueView() {
@@ -38,7 +37,7 @@ public class QueueView extends JPanel implements Observer {
         shuffleJButton = new JButton("Shuffle");
         hintJButton = new JButton("Hint");
         removeJButton = new JButton("Remove a Number from the Board");
-        exitJButton = new JButton("Exit the game");
+        JButton exitJButton = new JButton("Exit the game");
         display = new JButton[5];
         queueMod = new QueueModel();
 
@@ -61,6 +60,11 @@ public class QueueView extends JPanel implements Observer {
         removeJButton.setFont(font);
         shuffleJButton.setFont(font);
         exitJButton.setFont(font);
+        //add opaque to buttons for mac users
+        hintJButton.setOpaque(true);
+        removeJButton.setOpaque(true);
+        shuffleJButton.setOpaque(true);
+        exitJButton.setOpaque(true);
         //add Colors to the respective buttons
         hintJButton.setBackground(Color.BLUE);
         hintJButton.setForeground(Color.WHITE);
@@ -76,9 +80,10 @@ public class QueueView extends JPanel implements Observer {
         shufflePanel.add(exitJButton);
         add(shufflePanel);
         for (int i = 0; i < 5; i++) {
-            //int randomVal = ThreadLocalRandom.current().nextInt(0, 10);
+
             display[i] = new JButton();
-            //display[i].setText(randomVal+"");
+            //allow for mac users to see color
+            display[i].setOpaque(true);
             //initially set to false so that user cannot interact with the queue
             display[i].setFont(queueFont);
             display[i].setEnabled(false);
@@ -116,13 +121,13 @@ public class QueueView extends JPanel implements Observer {
 
     }
 
-    public JButton getShuffleJButton() {
+    JButton getShuffleJButton() {
         return shuffleJButton;
     }
-    public JButton getHintJButton(){
+    JButton getHintJButton(){
         return hintJButton;
     }
-    public JButton getRemoveJButton(){
+    JButton getRemoveJButton(){
         return removeJButton;
     }
 
@@ -186,7 +191,7 @@ public class QueueView extends JPanel implements Observer {
             try {
                 gm.highlightTile(gm.hint(queueMod.peek()));
             } catch (NullPointerException ex) {
-
+                ex.printStackTrace();
             }
         }
     }

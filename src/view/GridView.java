@@ -9,17 +9,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 //class imports
 import static java.awt.Color.cyan;
+
 import model.GridModel;
 import model.TileModel;
 
 public class GridView extends JPanel implements Observer {
-
+    private JPopupMenu popup;
+    private JMenuItem menuItem;
     private JButton[][] boardButtons;
     private GridModel gridMod;
     private QueueView queueLink;//start with no linked queue
@@ -31,6 +30,9 @@ public class GridView extends JPanel implements Observer {
         super();
         Font font = new Font("SansSerif", Font.BOLD, 18);
         TileModel cellData;
+        popup = new JPopupMenu();
+        menuItem = new JMenuItem("Remove All Like Numbers!");
+        popup.add(menuItem);
         gridMod = new GridModel();
         int maxRow = gridMod.getMaxRow();
         int maxCol = gridMod.getMaxCol();
@@ -45,9 +47,11 @@ public class GridView extends JPanel implements Observer {
             for (int j = 0; j < maxCol; j++) {
                 cellData = gridMod.getGrid()[i][j];
                 boardButtons[i][j] = new JButton();
+                boardButtons[i][j].setOpaque(true);
                 boardButtons[i][j].setFont(font);
                 boardButtons[i][j].setText(cellData.getInt() + "");
                 boardButtons[i][j].addMouseListener(new ButtonListener(i, j));
+                menuItem.addMouseListener(new ButtonListener(i, j));
                 /*TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
                 GameController.ValueImportTransferHandler handle = new GameController.ValueImportTransferHandler();
                 handle.canImport(support);
@@ -102,6 +106,7 @@ public class GridView extends JPanel implements Observer {
     public void registerGridModel(GridModel g) {
         gridMod = g;
     }
+
     public GridModel getRegisteredGridModel() {
         return gridMod;
     }
@@ -110,10 +115,13 @@ public class GridView extends JPanel implements Observer {
     void registerScoreView(CurrentScoreView c) {
         scoreLink = c;
     }
+
     //grab the timers view to user in the controller
-    void registerTimerView(TimerView t){
+    void registerTimerView(TimerView t) {
         timerView = t;
     }
+
+
     //this listener will let the user know what tile their cursor is on
     private class ButtonListener extends MouseAdapter implements MouseListener {
         int row;
@@ -134,25 +142,6 @@ public class GridView extends JPanel implements Observer {
             buttonPress.setBackground(Color.WHITE);
         }
 
-        /*
-                public void mouseClicked(MouseEvent e) {
-                    if (boardButtons[row][col].getText().equals("")) {
-                        System.out.println("This is unoccupied");
-                        gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
-
-                        //TileModel[] neighbors;
-                        //neighbors = gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col]));
-
-                        gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
-                        //decrement # of moves
-                        //currScoreMod.decrMoves();
-                    }
-
-                    //gridMod.setTileValue(row,col,queueLink.getRegisteredQueueModel().dequeue());
-                    //System.out.println(queueLink.getDisplay()[0].getText() + ":" + boardButtons[row][col].getText() + ":" + row +","+col);
-
-                }
-        */
         public void mousePressed(MouseEvent e) {
             if ((boardButtons[row][col].getText().equals("0"))
                     ||
@@ -207,5 +196,6 @@ public class GridView extends JPanel implements Observer {
 
     }
 }
+
 
 

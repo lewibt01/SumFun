@@ -10,9 +10,12 @@ import javax.swing.Timer;
 public class TimedGameModel extends GameModel {
     private Timer timer = new Timer(1000, new TimerListener());
     private int seconds = 0;
+    private boolean timesUp;
 
     public TimedGameModel() {
         super();
+        //used as a flag to determine end of game
+        setTimesUp(false);
         timer.setRepeats(true);
     }
 
@@ -30,6 +33,19 @@ public class TimedGameModel extends GameModel {
         }
 
     }
+    public boolean getTimesUp(){
+        return timesUp;
+    }
+
+    public int getSeconds(){
+        return seconds;
+    }
+
+    private void setTimesUp(boolean timeUp){
+     this.timesUp = timeUp;
+     setChanged();
+     notifyObservers();
+    }
 
     /**
      * Fires once a second when timed game is active
@@ -45,6 +61,8 @@ public class TimedGameModel extends GameModel {
         public void actionPerformed(ActionEvent e) {
             seconds--;
             if (seconds < 0) {
+                seconds = 0;
+                setTimesUp(true);
                 getMessage();
             }
             //System.out.println("Timer at:" + getTimer());

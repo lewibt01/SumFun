@@ -43,16 +43,20 @@ public class Master extends JFrame {
         welcome.setFont(font);
         //un-timed button set
         untimedJb.setFont(fontButton);
+        untimedJb.setOpaque(true);
         untimedJb.setBackground(Color.GREEN);
         //exit button set
         exitJb.setFont(fontButton);
+        exitJb.setOpaque(true);
         exitJb.setBackground(Color.RED);
         exitJb.setForeground(Color.BLACK);
         //timed button set
         timedJb.setFont(fontButton);
+        timedJb.setOpaque(true);
         timedJb.setBackground(Color.YELLOW);
         //leader button set
         leaderJb.setFont(fontButton);
+        leaderJb.setOpaque(true);
         leaderJb.setBackground(Color.CYAN);
         //set title, size, layout etc for the frame
         setTitle("Sum Fun Main Menu");

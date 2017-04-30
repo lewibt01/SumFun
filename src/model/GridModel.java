@@ -6,10 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
-
 import javax.swing.JOptionPane;
 
-import static java.awt.Color.cyan;
 
 //Grid Model used to make the grid of the game board
 public class GridModel extends Observable {
@@ -217,8 +215,8 @@ public class GridModel extends Observable {
     public void removeHintColor() {
         for (int i = 0; i < rowMax; i++) {
             for (int j = 0; j < colMax; j++) {
-                if (grid[i][j].getColor() == Color.cyan) {
-                    grid[i][j].setColor(Color.green);
+                if (grid[i][j].getColor() == Color.CYAN) {
+                    grid[i][j].setColor(Color.WHITE);
                 }
             }
         }
@@ -247,28 +245,28 @@ public class GridModel extends Observable {
             for (int i = 0; i < rowMax; i++) {
                 for (int j = 0; j < colMax; j++) {
                     //if (grid[i][j].getInt() == theNumber) {
-                        ArrayList<TileModel> neighbors = getNeighbors(getTilePosition(grid[i][j]));
-                        int result = 0;
-                        int tempScore = 0;
-                        //get sum of neighbors
+                    ArrayList<TileModel> neighbors = getNeighbors(getTilePosition(grid[i][j]));
+                    int result = 0;
+                    int tempScore = 0;
+                    //get sum of neighbors
+                    for (TileModel t : neighbors) {
+                        result = result + t.getInt();
+                    }
+                    //test for score logic
+                    if (result % 10 == theNumber) {
                         for (TileModel t : neighbors) {
-                            result = result + t.getInt();
-                        }
-                        //test for score logic
-                        if (result % 10 == theNumber) {
-                            for (TileModel t : neighbors) {
-                                // if the tile is currently occupied, increment score
-                                if (t.getBool()) {
-                                    tempScore++;
-                                }
-                            }
-                            //use score counter to determine points earned from each iteration
-                            //then store those values in a new tile and then in a hashmap
-                            if ((tempScore >= 3) && (!grid[i][j].getBool())) {
-                                tempScore = tempScore * 10;
-                                collectiveScores.put(new Position(i, j), tempScore);
+                            // if the tile is currently occupied, increment score
+                            if (t.getBool()) {
+                                tempScore++;
                             }
                         }
+                        //use score counter to determine points earned from each iteration
+                        //then store those values in a new tile and then in a hashmap
+                        if ((tempScore >= 3) && (!grid[i][j].getBool())) {
+                            tempScore = tempScore * 10;
+                            collectiveScores.put(new Position(i, j), tempScore);
+                        }
+                    }
                     //}
                 }
             }
@@ -276,13 +274,14 @@ public class GridModel extends Observable {
             //if two scores are the same, it will recommend the first (greedy algorithm)
             //pos will default to tile (0,0) ; however, this should never happen.
             //      -it is in here to satisfy the compiler
-            pos = new Position(0,0);
+            pos = new Position(0, 0);
             int hintScore = 0;
             for (Map.Entry<Position, Integer> entry : collectiveScores.entrySet()) {
                 if ((entry.getValue() > hintScore)) {
                     hintScore = entry.getValue();
                     pos = new Position(entry.getKey().getRow(), entry.getKey().getCol());
-                    System.out.println("HINT: \n    row: "+pos.getRow() + " col: "+pos.getCol());
+                    System.out.println("HINT: \n    row: " + pos.getRow() + " col: " + pos.getCol());
+                    grid[pos.getRow()][pos.getCol()].setColor(Color.CYAN);
                 }
             }
             //this checks if there are no moves that return a score and alerts the player
@@ -290,7 +289,7 @@ public class GridModel extends Observable {
             if (hintScore == 0) {
                 JOptionPane.showMessageDialog(null,
                         "There are no moves that will add to your points. \n"
-                + "You have " + (3-hintCounter) + " hints remaining.");
+                                + "You have " + (3 - hintCounter) + " hints remaining.");
                 return null;
             }
             hintCounter++;
@@ -302,7 +301,8 @@ public class GridModel extends Observable {
 
     //helper function for hint to highlight the tile
     public void highlightTile(Position pos) {
-        grid[pos.getRow()][pos.getCol()].setColor(cyan);
+        grid[pos.getRow()][pos.getCol()].setColor(Color.CYAN);
+        forceUpdate();
     }
 
 
@@ -378,6 +378,7 @@ public class GridModel extends Observable {
             return col;
         }
     }
+
     //initializes the grid
     public void resetGrid() {
         scoreTot = 0;

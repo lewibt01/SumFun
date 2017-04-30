@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Observable;
@@ -20,53 +21,53 @@ public class LeaderboardModel extends Observable implements Serializable {
     private static LeaderboardModel singletonLink = new LeaderboardModel();
     private ArrayList<LeaderboardEntry> entries = new ArrayList<>();
 
-    private LeaderboardModel(){
+    private LeaderboardModel() {
         singletonLink = this;
         try {
             //save();
             load();
             forceUpdate();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     //returns an instance of this singleton
-    public static LeaderboardModel getInstance(){
+    public static LeaderboardModel getInstance() {
         return singletonLink;
     }
 
-    public void save(){
+    public void save() {
         try {
             BufferedWriter buffWriter = new BufferedWriter(new FileWriter(leaderFile));
 
             //write each element to its own line
-            for(LeaderboardEntry el: entries){
-                buffWriter.write(el.toString()+"\n");
+            for (LeaderboardEntry el : entries) {
+                buffWriter.write(el.toString() + "\n");
             }
             buffWriter.flush();
             buffWriter.close();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
 
         }
         forceUpdate();
     }
 
-    public void load(){
+    public void load() {
         ArrayList<String> tmp = new ArrayList<>();
-        try{
+        try {
             BufferedReader buffReader = new BufferedReader(new FileReader(leaderFile));
-            LeaderboardEntry localEntries[];
+            LeaderboardEntry[] localEntries;
             String currentLine;
             //read & store all the lines of the text file for ease of parsing
-            do{
+            do {
                 currentLine = buffReader.readLine();
                 //only add the line if there is text in it
-                if(currentLine!=null) {
+                if (currentLine != null) {
                     tmp.add(currentLine);
                 }
-            }while ((currentLine) != null);
+            } while ((currentLine) != null);
 
             buffReader.close();
 
@@ -75,46 +76,44 @@ public class LeaderboardModel extends Observable implements Serializable {
 
             //add local entries to the static entries
             entries.clear();
-            for(LeaderboardEntry el:localEntries){
-                entries.add(el);
-            }
-        }catch(Exception ex){
+            entries.addAll(Arrays.asList(localEntries));
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         forceUpdate();
     }
 
-    private LeaderboardEntry[] parseFileText(ArrayList<String> lines){
+    private LeaderboardEntry[] parseFileText(ArrayList<String> lines) {
         ArrayList<LeaderboardEntry> decodedEntries = new ArrayList<>();
-        LeaderboardEntry localEntries[] = new LeaderboardEntry[LIST_LENGTH];
+        LeaderboardEntry[] localEntries = new LeaderboardEntry[LIST_LENGTH];
         String tmpString;
-        String elements[][] = new String[LIST_LENGTH][];//2D Array to store serialized elements
+        String[][] elements = new String[LIST_LENGTH][];//2D Array to store serialized elements
 
         //trim the serialized class name & brackets away from the string
-        for(int i=0;i<lines.size();i++){
-            tmpString=lines.get(i).substring(lines.get(i).indexOf("[")+1,lines.get(i).indexOf("]"));
+        for (int i = 0; i < lines.size(); i++) {
+            tmpString = lines.get(i).substring(lines.get(i).indexOf("[") + 1, lines.get(i).indexOf("]"));
             elements[i] = tmpString.split(",");
         }
 
         //split the variables apart for each line and assign the values to their respective data container
-        for(int i=0;i<lines.size();i++){
+        for (int i = 0; i < lines.size(); i++) {
             //5=username, 4=time, 3=score
             //  only grab the useful characters, trim the rest away with substring()
             String localUsername = elements[i][5].substring(9);
             int localScore = Integer.parseInt(elements[i][3].substring(6));
             int localTime = Integer.parseInt(elements[i][4].substring(5));
 
-            decodedEntries.add(new LeaderboardEntry(localUsername,localScore,localTime));
+            decodedEntries.add(new LeaderboardEntry(localUsername, localScore, localTime));
 
         }
 
         return decodedEntries.toArray(localEntries);
     }
 
-    private void sort(){
+    private void sort() {
         //only sort if there are elements to be sorted
-        if(entries.size()>0) {
-            Collections.sort(entries, Collections.reverseOrder());
+        if (entries.size() > 0) {
+            entries.sort(Collections.reverseOrder());
         }
     }
 
@@ -122,12 +121,12 @@ public class LeaderboardModel extends Observable implements Serializable {
         return entries.get(pos).getIsFilled();
     }
 
-    public void addEntry(LeaderboardEntry entry){
+    public void addEntry(LeaderboardEntry entry) {
         entries.add(entry);
         forceUpdate();
     }
 
-    public LeaderboardEntry getEntry(int index){
+    public LeaderboardEntry getEntry(int index) {
         forceUpdate();
         return entries.get(index);
     }
@@ -141,11 +140,11 @@ public class LeaderboardModel extends Observable implements Serializable {
         return entries.get(pos).getScore();
     }
 
-    public String getDate(int pos){
+    public String getDate(int pos) {
         return entries.get(pos).getDateString();
     }
 
-    public void setDate(int pos){
+    public void setDate(int pos) {
         entries.get(pos).setDate(Calendar.getInstance().getTime());
         forceUpdate();
     }
@@ -164,7 +163,7 @@ public class LeaderboardModel extends Observable implements Serializable {
         forceUpdate();
     }
 
-    public int getSize(){
+    public int getSize() {
         return entries.size();
     }
 
