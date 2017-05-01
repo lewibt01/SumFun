@@ -16,8 +16,6 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 //import models and view classes
 import model.GameModel;
-import model.GridModel;
-import model.QueueModel;
 import model.TimedGameModel;
 import view.LeaderboardView;
 import view.TheGui;
@@ -183,7 +181,7 @@ public class Master extends JFrame {
             gameModel.getQueueModel().forceUpdate();
             // Timing stuff
             gui.addTimer((TimedGameModel) gameModel);
-            ((TimedGameModel) gameModel).reset((float) 5);
+            ((TimedGameModel) gameModel).resetTimer((float) 5);
             //set gui to visible and the current frame to false to "close"
             gui.getTheFrame().setVisible(true);
             //setVisible(false);

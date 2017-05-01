@@ -75,7 +75,7 @@ public class TimedGameModel extends GameModel {
         }
     }
 
-    public void reset(float minutes) {
+    public void resetTimer(float minutes) {
         seconds = (int) (60 * minutes);
         timesUp = false;
         timer.setRepeats(true);

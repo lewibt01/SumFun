@@ -52,6 +52,8 @@ public class TimerView extends JPanel implements Observer {
                         "Game Over!", JOptionPane.YES_NO_OPTION);
                 if (option == 0) {
                     timedModel.resetGame();
+                    timedModel.resetTimer((float)5);
+                    timerTextField.setText(timedModel.getTimer());
                 }
             }
 
