@@ -13,13 +13,16 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 //model Imports
 import model.GridModel;
 import model.QueueModel;
 
 public class QueueView extends JPanel implements Observer {
+    private QueueView thisLink = this;
     private JButton[] display;
     private QueueModel queueMod;//link to registered queue model
     private GridView gridLink;//start with no registered grid
@@ -222,7 +225,9 @@ public class QueueView extends JPanel implements Observer {
 
     private class ExitListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+            JFrame ancestor = (JFrame) SwingUtilities.getWindowAncestor(thisLink);
+            ancestor.dispose();
+            //System.exit(0);
         }
     }
 
