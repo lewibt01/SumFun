@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 //model Imports
+import datacontainers.SoundEffect;
 import model.GridModel;
 import model.QueueModel;
 
@@ -179,6 +180,8 @@ public class QueueView extends JPanel implements Observer {
         }
 
         public void mouseClicked(MouseEvent e) {
+            SoundEffect longBeep = new SoundEffect("soundFiles/LongBeep.wav");
+            longBeep.play();
             if (display[0] == e.getSource()) {
                 System.out.println("You clicked on the queue");
 
