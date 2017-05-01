@@ -33,6 +33,9 @@ public class TimedGameModel extends GameModel {
         }
 
     }
+    public void stopTimer(){
+        timer.stop();
+    }
 
     public boolean getTimesUp() {
         return timesUp;

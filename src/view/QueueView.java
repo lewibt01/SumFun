@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Queue;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,7 +37,7 @@ public class QueueView extends JPanel implements Observer {
      * Will be used to show the queue and buttons
      */
 
-    QueueView() {
+    QueueView(QueueModel queueModel) {
         super();
         //font used for the shuffle panel
         Font font = new Font("SansSerif", Font.BOLD, 14);
@@ -47,7 +48,7 @@ public class QueueView extends JPanel implements Observer {
         removeJButton = new JButton("Remove a Number from the Board");
         JButton exitJButton = new JButton("Exit the game");
         display = new JButton[5];
-        queueMod = new QueueModel();
+        queueMod = queueModel;
 
 
         this.setLayout(new GridLayout(6, 1, 0, 0));
@@ -218,6 +219,7 @@ public class QueueView extends JPanel implements Observer {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (numberRemoved && !canRemoveNumber) {
+                removeJButton.setEnabled(false);
                 canRemoveNumber = false;
             } else {
                 canRemoveNumber = true;

@@ -1,6 +1,7 @@
 package view;
 
 //imports
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.Observable;
@@ -9,7 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import model.GameModel;
 import model.GridModel;
+import model.QueueModel;
 import model.TimedGameModel;
 
 public class TheGui implements Observer {
@@ -17,6 +20,7 @@ public class TheGui implements Observer {
     private JFrame theFrame;
     private GridView gridView;
     private QueueView queueView;
+    private QueueModel queueModel;
     private CurrentScoreView currentScoreView;
     private GridModel gridModel;
     private final JPanel sidePanel;
@@ -24,7 +28,7 @@ public class TheGui implements Observer {
     //make an array of buttons then in the update method update all of the values to the tile array
 
     //constructor
-    public TheGui() {
+    public TheGui(GameModel gameModel) {
         super();
         //build frame
         theFrame = new JFrame();
@@ -35,12 +39,13 @@ public class TheGui implements Observer {
         theFrame.setSize(1600, 900);
         theFrame.setLayout(new BorderLayout());
         theFrame.setLocationRelativeTo(null);
-        gridModel = new GridModel();
-        gridView = new GridView();
-        //timerPanel = new TimerView();
-        gridView.registerGridModel(gridModel);
+
+        gridModel = gameModel.getGridModel();
+        gridView = new GridView(gridModel);
+
         theFrame.add(gridView, BorderLayout.CENTER);
-        queueView = new QueueView();
+        queueModel = gameModel.getQueueModel();
+        queueView = new QueueView(queueModel);
         currentScoreView = new CurrentScoreView();
 
         //register the views to each other...

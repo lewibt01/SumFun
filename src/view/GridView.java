@@ -31,17 +31,17 @@ public class GridView extends JPanel implements Observer {
     private CurrentScoreView scoreLink;
     private TheGui guiReg;
 
-    GridView() {
+    GridView(GridModel gridModel) {
         super();
         Font font = new Font("SansSerif", Font.BOLD, 18);
         TileModel cellData;
         popup = new JPopupMenu();
         menuItem = new JMenuItem("Remove All Like Numbers!");
         popup.add(menuItem);
-        gridMod = new GridModel();
+        gridMod = gridModel;
         int maxRow = gridMod.getMaxRow();
         int maxCol = gridMod.getMaxCol();
-        //gridMod = new GridModel();
+
         boardButtons = new JButton[maxRow][maxCol];
 
         GridLayout grid = new GridLayout(9, 9, 0, 0);

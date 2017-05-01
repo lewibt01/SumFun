@@ -33,7 +33,8 @@ public class TimerView extends JPanel implements Observer {
         add(timerTextField);
 
     }
-    public JTextField getTimerTextField(){
+
+    public JTextField getTimerTextField() {
         return timerTextField;
     }
 
@@ -45,13 +46,19 @@ public class TimerView extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o.getClass().getSimpleName().equals("TimedGameModel")) {
-            if ((boolean)arg){
-                JOptionPane.showMessageDialog(this,timedModel.getMessage());
+            if ((boolean) arg) {
+                int option = JOptionPane.showConfirmDialog(null, "Score: " +
+                                timedModel.getGridModel().getCurrentScore() + " Would you like to start a new game?",
+                        "Game Over!", JOptionPane.YES_NO_OPTION);
+                if (option == 0) {
+                    timedModel.resetGame();
+                }
             }
 
             timerTextField.setText(timedModel.getTimer());
         }
     }
+
     void addObserver(Observable o) {
         o.addObserver(this);
     }

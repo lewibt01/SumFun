@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 //import models and view classes
+import model.GameModel;
 import model.GridModel;
 import model.QueueModel;
 import model.TimedGameModel;
@@ -25,6 +26,7 @@ import view.TheGui;
  * This class will build the initial title menu for the game
  */
 public class Master extends JFrame {
+    private GameModel gameModel = null;
     private boolean timedMode = false;
 
     public boolean isTimedMode() {
@@ -96,28 +98,35 @@ public class Master extends JFrame {
         m.setVisible(true);
     }
 
-    // will be used to restart a game board
+    /**
+     * will be used to restart a game board
+     */
     public void restartGame() {
         //used for referencing the build of the Users interface
-        GridModel gridModel = new GridModel();
-        QueueModel queueModel = new QueueModel();
-        TheGui gui = new TheGui();
-        //add observers to the views
-        gui.getGridView().addObserver(gridModel);
-        gui.getGridView().registerGridModel(gridModel);
-        //tie models to their respective views
-        gui.getQueueView().addObserver(queueModel);
-        gui.getQueueView().registerQueueModel(queueModel);
-        //tie current score model to it's view
-        gui.getCurrentScoreView().addObserver(gridModel);
-        gui.getCurrentScoreView().registerScoreModel(gridModel);
-        //grab updated grid and queue
-        gridModel.forceUpdate();
-        queueModel.forceUpdate();
         if (timedMode) {
-            TimedGameModel timedGameModel = new TimedGameModel();
-            gui.addTimer(timedGameModel);
-            timedGameModel.reset(5);
+            gameModel = new TimedGameModel();
+
+            gameModel.reset(5);
+        } else {
+            GameModel gameModel = new GameModel();
+        }
+        gameModel.resetGame();
+        TheGui gui = new TheGui(gameModel);
+
+        //add observers to the views
+        gui.getGridView().addObserver(gameModel.getGridModel());
+        gui.getGridView().registerGridModel(gameModel.getGridModel());
+        //tie models to their respective views
+        gui.getQueueView().addObserver(gameModel.getQueueModel());
+        gui.getQueueView().registerQueueModel(gameModel.getQueueModel());
+        //tie current score model to it's view
+        gui.getCurrentScoreView().addObserver(gameModel.getGridModel());
+        gui.getCurrentScoreView().registerScoreModel(gameModel.getGridModel());
+        gameModel.getGridModel().forceUpdate();
+        gameModel.getQueueModel().forceUpdate();
+        // Timing stuff
+        if (timedMode) {
+            gui.addTimer((TimedGameModel) gameModel);
         }
         //set gui to visible
         gui.getTheFrame().setVisible(true);
@@ -133,23 +142,23 @@ public class Master extends JFrame {
     private class UntimedButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             timedMode = false;
-            //used for referencing the build of the Users interface
-            GridModel gridModel = new GridModel();
-            QueueModel queueModel = new QueueModel();
-            TheGui gui = new TheGui();
+            GameModel gameModel = new GameModel();
+
+            TheGui gui = new TheGui(gameModel);
+
             //add observers to the views
-            gui.getGridView().addObserver(gridModel);
-            gui.getGridView().registerGridModel(gridModel);
+            gui.getGridView().addObserver(gameModel.getGridModel());
+            gui.getGridView().registerGridModel(gameModel.getGridModel());
             //tie models to their respective views
-            gui.getQueueView().addObserver(queueModel);
-            gui.getQueueView().registerQueueModel(queueModel);
+            gui.getQueueView().addObserver(gameModel.getQueueModel());
+            gui.getQueueView().registerQueueModel(gameModel.getQueueModel());
             //tie current score model to it's view
-            gui.getCurrentScoreView().addObserver(gridModel);
-            gui.getCurrentScoreView().registerScoreModel(gridModel);
-            //grab updated grid and queue
-            gridModel.forceUpdate();
-            queueModel.forceUpdate();
-            //set gui to visible
+            gui.getCurrentScoreView().addObserver(gameModel.getGridModel());
+            gui.getCurrentScoreView().registerScoreModel(gameModel.getGridModel());
+            gameModel.getGridModel().forceUpdate();
+            gameModel.getQueueModel().forceUpdate();
+
+            //set gui to visible and the current frame to false to "close"
             gui.getTheFrame().setVisible(true);
         }
     }
@@ -157,23 +166,24 @@ public class Master extends JFrame {
     private class TimedButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             timedMode = true;
-            TimedGameModel timedGameModel = new TimedGameModel();
+            GameModel gameModel = new TimedGameModel();
 
-            TheGui gui = new TheGui();
+            TheGui gui = new TheGui(gameModel);
+
             //add observers to the views
-            gui.getGridView().addObserver(timedGameModel.getGridModel());
-            gui.getGridView().registerGridModel(timedGameModel.getGridModel());
+            gui.getGridView().addObserver(gameModel.getGridModel());
+            gui.getGridView().registerGridModel(gameModel.getGridModel());
             //tie models to their respective views
-            gui.getQueueView().addObserver(timedGameModel.getQueueModel());
-            gui.getQueueView().registerQueueModel(timedGameModel.getQueueModel());
+            gui.getQueueView().addObserver(gameModel.getQueueModel());
+            gui.getQueueView().registerQueueModel(gameModel.getQueueModel());
             //tie current score model to it's view
-            gui.getCurrentScoreView().addObserver(timedGameModel.getGridModel());
-            gui.getCurrentScoreView().registerScoreModel(timedGameModel.getGridModel());
-            timedGameModel.getGridModel().forceUpdate();
-            timedGameModel.getQueueModel().forceUpdate();
+            gui.getCurrentScoreView().addObserver(gameModel.getGridModel());
+            gui.getCurrentScoreView().registerScoreModel(gameModel.getGridModel());
+            gameModel.getGridModel().forceUpdate();
+            gameModel.getQueueModel().forceUpdate();
             // Timing stuff
-            gui.addTimer(timedGameModel);
-            timedGameModel.reset(5);
+            gui.addTimer((TimedGameModel) gameModel);
+            ((TimedGameModel) gameModel).reset((float) 5);
             //set gui to visible and the current frame to false to "close"
             gui.getTheFrame().setVisible(true);
             //setVisible(false);
