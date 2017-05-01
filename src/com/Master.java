@@ -117,7 +117,7 @@ public class Master extends JFrame {
         if (timedMode) {
             TimedGameModel timedGameModel = new TimedGameModel();
             gui.addTimer(timedGameModel);
-            timedGameModel.reset(1);
+            timedGameModel.reset(5);
         }
         //set gui to visible
         gui.getTheFrame().setVisible(true);
@@ -160,7 +160,6 @@ public class Master extends JFrame {
             TimedGameModel timedGameModel = new TimedGameModel();
 
             TheGui gui = new TheGui();
-
             //add observers to the views
             gui.getGridView().addObserver(timedGameModel.getGridModel());
             gui.getGridView().registerGridModel(timedGameModel.getGridModel());

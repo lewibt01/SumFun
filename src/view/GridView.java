@@ -9,7 +9,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 //class imports
 import static java.awt.Color.cyan;
 
@@ -107,7 +112,7 @@ public class GridView extends JPanel implements Observer {
         gridMod = g;
     }
 
-    public GridModel getRegisteredGridModel() {
+    GridModel getRegisteredGridModel() {
         return gridMod;
     }
 
@@ -164,6 +169,7 @@ public class GridView extends JPanel implements Observer {
                     (boardButtons[row][col].getText().equals("9"))) {
                 if (queueLink.canRemoveNumber()) {
                     gridMod.removeSame(Integer.parseInt(boardButtons[row][col].getText()));
+                    queueLink.getRemoveJButton().setEnabled(false);
                 }
                 //checkbox functionality goes here
 

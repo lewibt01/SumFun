@@ -90,7 +90,6 @@ public class QueueModel extends Observable {
     }
 
     public void setHasShuffled(boolean flag) {
-
         hasShuffled = flag;
         setChanged();
         notifyObservers(queue);

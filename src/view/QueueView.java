@@ -199,13 +199,16 @@ public class QueueView extends JPanel implements Observer {
 
     //method used to activate hints in gridModel via button click
     private class HintListener implements ActionListener {
-        @Override
+       //count used to determine number of hints
         public void actionPerformed(ActionEvent e) {
             GridModel gm = gridLink.getRegisteredGridModel();
             try {
+
                 gm.highlightTile(gm.hint(queueMod.peek()));
+
             } catch (NullPointerException ex) {
-                ex.printStackTrace();
+                hintJButton.setEnabled(false);
+//                ex.printStackTrace();
             }
         }
     }
@@ -218,6 +221,7 @@ public class QueueView extends JPanel implements Observer {
                 canRemoveNumber = false;
             } else {
                 canRemoveNumber = true;
+
                 numberRemoved = false;  // Maybe set this somewhere else
             }
         }

@@ -38,7 +38,7 @@ public class TimerView extends JPanel implements Observer {
     }
 
    TimedGameModel getRegisteredTimeModel() {
-        return timedModel;
+        return this.timedModel;
     }
 
 
