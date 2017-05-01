@@ -141,7 +141,7 @@ public class QueueView extends JPanel implements Observer {
         return removeJButton;
     }
 
-    public boolean canRemoveNumber() {
+    boolean canRemoveNumber() {
         return canRemoveNumber;
     }
 

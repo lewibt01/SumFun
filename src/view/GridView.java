@@ -116,7 +116,7 @@ public class GridView extends JPanel implements Observer {
         return gridMod;
     }
 
-    //grab the scoresview to use in the controller
+    //grab the scoreView to use in the controller
     void registerScoreView(CurrentScoreView c) {
         scoreLink = c;
     }
