@@ -111,16 +111,31 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry>,Serializab
     }
 
     public int compareTo(LeaderboardEntry entry){
-        //if less than...
-        if (this.score < entry.getScore()) {
-            return -1;
+        //check for sameness of type
+        if(!isTimed && !entry.isTimed) {
+            //accruing more points is beneficial to leader board placement
+            //if less than...
+            if (this.score < entry.getScore()) {
+                return -1;
+            }
+            //if greater than...
+            if (this.score > entry.getScore()) {
+                return 1;
+            }
         }
-        //if greater than...
-        if (this.score > entry.getScore()) {
-            return 1;
+        if(isTimed && entry.isTimed){
+            //spending more time is detrimental to leader board placement
+            //if the player took more time...
+            if(this.time > entry.getTime()){
+                return -1;
+            }
+            //if the player took less time...
+            if(this.time < entry.getTime()){
+                return 1;
+            }
         }
 
-        //otherwise it must be equal....
+        //otherwise it must be equal...
         return 0;
     }
 

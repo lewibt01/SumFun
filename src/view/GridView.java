@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 //class imports
+import datacontainers.SoundEffect;
 import static java.awt.Color.cyan;
 
 import model.GridModel;
@@ -148,6 +149,11 @@ public class GridView extends JPanel implements Observer {
         }
 
         public void mousePressed(MouseEvent e) {
+            SoundEffect click = new SoundEffect("soundFiles/Click.wav");
+            SoundEffect beep = new SoundEffect("soundFiles/Beep.wav");
+            SoundEffect longBeep = new SoundEffect("soundFiles/LongBeep.wav");
+            SoundEffect warble = new SoundEffect("soundFiles/Warble.wav");
+
             if ((boardButtons[row][col].getText().equals("0"))
                     ||
                     (boardButtons[row][col].getText().equals("1"))
@@ -168,12 +174,15 @@ public class GridView extends JPanel implements Observer {
                     ||
                     (boardButtons[row][col].getText().equals("9"))) {
                 if (queueLink.canRemoveNumber()) {
+                    warble.play();
                     gridMod.removeSame(Integer.parseInt(boardButtons[row][col].getText()));
                     queueLink.getRemoveJButton().setEnabled(false);
                 }
+                longBeep.play();
                 //checkbox functionality goes here
 
             } else if ((boardButtons[row][col].getText().equals("")) || (boardButtons[row][col].getText().equals(" "))) {
+                click.play();
                 System.out.println("clicked on empty");
                 gridMod.setTileValue(row, col, queueLink.getRegisteredQueueModel().dequeue());
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);

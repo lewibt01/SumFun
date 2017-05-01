@@ -163,6 +163,10 @@ public class LeaderboardModel extends Observable implements Serializable {
         forceUpdate();
     }
 
+    public boolean isTimed(int index){
+        return (entries.get(index).getTime() != 0);
+    }
+
     public int getSize() {
         return entries.size();
     }

@@ -1,9 +1,12 @@
 package model;
 
+import datacontainers.SoundEffect;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
 import java.util.Random;
+
+
 
 //will populate the values needed into the view
 public class QueueModel extends Observable {
@@ -36,6 +39,8 @@ public class QueueModel extends Observable {
 
     //randomly reshuffle the elements of the queue
     public void shuffle() {
+        SoundEffect revWarble = new SoundEffect("soundFiles/ReverseWarble.wav");
+        revWarble.play();
         Collections.shuffle(this.getQueue());
         //tell everybody we updated the queue
         this.setChanged();

@@ -1,5 +1,6 @@
 package model;
 
+import datacontainers.SoundEffect;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +8,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JOptionPane;
+
+
 
 
 //Grid Model used to make the grid of the game board
@@ -240,6 +243,8 @@ public class GridModel extends Observable {
     }
 
     public Position hint(int theNumber) {
+        SoundEffect lowBeep = new SoundEffect("soundFiles/LowBeep.wav");
+        lowBeep.play();
         Position pos;
         if (hintCounter < NUMBER_OF_HINTS) {
             Map<Position, Integer> collectiveScores = new HashMap<>();
