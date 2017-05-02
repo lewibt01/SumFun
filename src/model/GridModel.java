@@ -190,7 +190,7 @@ public class GridModel extends Observable {
             tile.setBoolean(false);
             tile.setNumber(0);
             System.out.println("computation successful!");
-            scoreTot = getIntScore();
+            scoreTot = Integer.parseInt(this.getCurrentScore());
             for (TileModel t : neighbors) {
                 // if the tile is currently occupied, increment score
                 if (t.getBool()) {

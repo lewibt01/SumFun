@@ -16,7 +16,7 @@ public class QueueModel extends Observable {
         reset();
     }
 
-    private ArrayList<Integer> getQueue() {
+    public ArrayList<Integer> getQueue() {
         return queue;
     }
 
@@ -48,7 +48,7 @@ public class QueueModel extends Observable {
     }
 
     //push a value into the queue
-    private void enqueue(Integer i) {
+    public void enqueue(Integer i) {
         queue.add(i);
         setChanged();
         notifyObservers(queue);
