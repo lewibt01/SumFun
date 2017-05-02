@@ -19,9 +19,9 @@ public class TimedGameModelTest {
     @org.junit.Test
     public void timerTest() throws Exception {
         assertEquals(" 5:00", timedGameModel.getTimer());
-        timedGameModel.reset(4);
+        timedGameModel.resetTimer(4);
         assertEquals(" 4:00", timedGameModel.getTimer());
-        timedGameModel.reset(1);
+        timedGameModel.resetTimer(1);
         assertEquals(" 1:00", timedGameModel.getTimer());
 
 
