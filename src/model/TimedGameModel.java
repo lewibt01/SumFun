@@ -65,7 +65,6 @@ public class TimedGameModel extends GameModel {
             if (seconds < 0) {
                 seconds = 0;
                 setTimesUp(true);
-                //getMessage();
                 notifyObservers(getTimesUp()); // Updates to tell Timerview to stop game
                 timer.stop();
             }

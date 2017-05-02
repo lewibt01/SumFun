@@ -17,7 +17,7 @@ import model.LeaderboardModel;
 
 public class LeaderboardView extends JFrame implements Observer {
     private Font font;
-    private JLabel[] timeRank;
+    private JLabel[] timedRank;
     private JLabel[] rank; //where the leader board entries will be displayed as JLabels
     private LeaderboardModel leaderboard = LeaderboardModel.getInstance();
 
@@ -27,7 +27,7 @@ public class LeaderboardView extends JFrame implements Observer {
         JPanel untimedPanel = new JPanel();
         leaderboard.addObserver(this);
         rank = new JLabel[10];
-        timeRank = new JLabel[10];
+        timedRank = new JLabel[10];
 
         //GUI variables
         font = new Font("SansSerif", Font.BOLD, 24);
@@ -47,13 +47,13 @@ public class LeaderboardView extends JFrame implements Observer {
             rank[i].setFont(font);
             rank[i].setHorizontalAlignment(SwingConstants.CENTER);
             rank[i].setText("<placeholder>");
-            timeRank[i] = new JLabel();
-            timeRank[i].setFont(font);
-            timeRank[i].setHorizontalAlignment(SwingConstants.CENTER);
-            timeRank[i].setText("<Timed placeholder>");
+            timedRank[i] = new JLabel();
+            timedRank[i].setFont(font);
+            timedRank[i].setHorizontalAlignment(SwingConstants.CENTER);
+            timedRank[i].setText("<Timed placeholder>");
 
             untimedPanel.add(rank[i]);//add the label to the panel...
-            timedPanel.add(timeRank[i]);
+            timedPanel.add(timedRank[i]);
         }
 
         /*
@@ -74,11 +74,12 @@ public class LeaderboardView extends JFrame implements Observer {
     }
 
     //ask for a user's name to be added to the leader board
-    public void displayMessage() {
+    public void displayUntimedMessage(int score) {
         try {
             String message = JOptionPane.showInputDialog("Please enter your name to be added to the list of high scores!");
             LeaderboardEntry tmp = new LeaderboardEntry();
             tmp.setUserName(message);
+            tmp.setScore(score);
             tmp.setIsFilled(true);
             leaderboard.save();
         } catch (Exception ex) {
@@ -95,17 +96,33 @@ public class LeaderboardView extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         LeaderboardModel tmp = (LeaderboardModel) arg;
-        //used to keep track of where rank is to account for the 0 + 1 in the grid view
-        int count = 1;
-        for (int i = 0; i < 10 && i < tmp.getSize(); i++) {
-            rank[i].setText("Rank: " + count
-                    + "   Name:     "
-                    + tmp.getUserName(i)
-                    + "     Score:     " + tmp.getScore(i));
-            rank[i].setHorizontalAlignment(SwingConstants.CENTER);
-            rank[i].setFont(font);
 
+        int count = 1;//externalized incrementer to avoid issues with the grid view
+        int length = LeaderboardModel.LIST_LENGTH;//the number of leader board entries of each type to be displayed
+
+        //find up to 10 of each type of entry, continuing to search for the opposite type even
+        //  if we already have <LIST_LENGTH> of the other
+        for (int i = 0; i < length && i<tmp.getSize();i++) {
+                rank[i].setText("Rank: " + count
+                        + ", Name: " + tmp.getUserName(i)
+                        + ", Score: " + tmp.getScore(i));
+                rank[i].setHorizontalAlignment(SwingConstants.LEFT);
+                rank[i].setFont(font);
+
+            /*
+            if(tmp.isTimed(i) && j<length){
+                timedRank[j].setText("Rank: " + count
+                        + "\tName:\t" + tmp.getUserName(i)
+                        + "\tScore:\t" + tmp.getScore(i));
+
+                timedRank[j].setHorizontalAlignment(SwingConstants.RIGHT);
+                timedRank[j].setFont(font);
+                j++;//found a timed entry
+
+            }
+            */
             count++;
         }
+
     }
 }

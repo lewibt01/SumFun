@@ -20,8 +20,7 @@ public class TimerView extends JPanel implements Observer {
 
     TimerView(TimedGameModel timedGameModel) {
         Font font = new Font("SansSerif", Font.BOLD, 18);
-        JLabel timerLabel;
-        timedModel = timedGameModel;
+        this.timedModel = timedGameModel;
         GridLayout grid = new GridLayout(1, 1, 0, 0);
         this.setLayout(grid);
 
@@ -34,7 +33,7 @@ public class TimerView extends JPanel implements Observer {
 
     }
 
-    public JTextField getTimerTextField() {
+    JTextField getTimerTextField() {
         return timerTextField;
     }
 
@@ -46,7 +45,7 @@ public class TimerView extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o.getClass().getSimpleName().equals("TimedGameModel")) {
-            if ((boolean) arg) {
+            if ((boolean) arg || timedModel.getGridModel().getIntMoves() <= 0 || timedModel.getGridModel().countFilledTiles() > 80) {
                 int option = JOptionPane.showConfirmDialog(null, "Score: " +
                                 timedModel.getGridModel().getCurrentScore() + " Would you like to start a new game?",
                         "Game Over!", JOptionPane.YES_NO_OPTION);

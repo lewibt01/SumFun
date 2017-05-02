@@ -1,6 +1,6 @@
 package view;
 //imports
-
+import datacontainers.SoundEffect;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -16,8 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 //class imports
-import static java.awt.Color.cyan;
-
 import model.GridModel;
 import model.TileModel;
 
@@ -127,6 +125,7 @@ public class GridView extends JPanel implements Observer {
     }
 
 
+
     //this listener will let the user know what tile their cursor is on
     private class ButtonListener extends MouseAdapter implements MouseListener {
         int row;
@@ -148,6 +147,15 @@ public class GridView extends JPanel implements Observer {
         }
 
         public void mousePressed(MouseEvent e) {
+            SoundEffect click = new SoundEffect("/soundFiles/Click.wav");
+            SoundEffect beep = new SoundEffect("/soundFiles/Beep.wav");
+            SoundEffect longBeep = new SoundEffect("/soundFiles/LongBeep.wav");
+            SoundEffect warble = new SoundEffect("/soundFiles/Warble.wav");
+            if(gridMod.countFilledTiles() <= 0){
+                System.out.println("You win");
+                LeaderboardView view = new LeaderboardView();
+                view.setVisible(true);
+            }
             if ((boardButtons[row][col].getText().equals("0"))
                     ||
                     (boardButtons[row][col].getText().equals("1"))
@@ -171,9 +179,11 @@ public class GridView extends JPanel implements Observer {
                     gridMod.removeSame(Integer.parseInt(boardButtons[row][col].getText()));
                     queueLink.getRemoveJButton().setEnabled(false);
                 }
+                longBeep.play();
                 //checkbox functionality goes here
 
             } else if ((boardButtons[row][col].getText().equals("")) || (boardButtons[row][col].getText().equals(" "))) {
+                click.play();
                 System.out.println("clicked on empty");
                 gridMod.setTileValue(row, col, queueLink.getRegisteredQueueModel().dequeue());
                 gridMod.performCalc(gridMod.getNeighbors(gridMod.getTilePosition(gridMod.getGrid()[row][col])), gridMod.getGrid()[row][col]);
@@ -191,8 +201,6 @@ public class GridView extends JPanel implements Observer {
                         queueLink.getRemoveJButton().setEnabled(true);
                         queueLink.getRegisteredQueueModel().reset();
                         queueLink.getShuffleJButton().setEnabled(true);
-                        //sends 5 minutes to the timer
-                        timerView.getRegisteredTimeModel().reset(5);
                     } else {
                         //closes program
                         System.exit(0);

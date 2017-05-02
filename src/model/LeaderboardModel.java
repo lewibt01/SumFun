@@ -104,7 +104,6 @@ public class LeaderboardModel extends Observable implements Serializable {
             int localTime = Integer.parseInt(elements[i][4].substring(5));
 
             decodedEntries.add(new LeaderboardEntry(localUsername, localScore, localTime));
-
         }
 
         return decodedEntries.toArray(localEntries);
@@ -161,6 +160,10 @@ public class LeaderboardModel extends Observable implements Serializable {
     public void setUserName(String name, int pos) {
         entries.get(pos).setUserName(name);
         forceUpdate();
+    }
+
+    public boolean isTimed(int index){
+        return (entries.get(index).getTime() != 0);
     }
 
     public int getSize() {
