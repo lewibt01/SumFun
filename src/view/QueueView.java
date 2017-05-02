@@ -212,15 +212,17 @@ public class QueueView extends JPanel implements Observer {
 
             } catch (NullPointerException ex) {
                 hintJButton.setEnabled(false);
-//                ex.printStackTrace();
+                //ex.printStackTrace();
             }
         }
     }
 
     //method used to activate remove all tile method via button click
     private class RemoveListener implements ActionListener {
+        SoundEffect revWarble = new SoundEffect("soundFiles/ReverseWarble.wav");
         @Override
         public void actionPerformed(ActionEvent e) {
+            revWarble.play();
             if (numberRemoved && !canRemoveNumber) {
                 removeJButton.setEnabled(false);
                 canRemoveNumber = false;

@@ -174,7 +174,6 @@ public class GridView extends JPanel implements Observer {
                     ||
                     (boardButtons[row][col].getText().equals("9"))) {
                 if (queueLink.canRemoveNumber()) {
-                    warble.play();
                     gridMod.removeSame(Integer.parseInt(boardButtons[row][col].getText()));
                     queueLink.getRemoveJButton().setEnabled(false);
                 }
