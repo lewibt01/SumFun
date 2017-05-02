@@ -151,8 +151,10 @@ public class GridView extends JPanel implements Observer {
             SoundEffect beep = new SoundEffect("/soundFiles/Beep.wav");
             SoundEffect longBeep = new SoundEffect("/soundFiles/LongBeep.wav");
             SoundEffect warble = new SoundEffect("/soundFiles/Warble.wav");
-            if(gridMod.countFilledTiles() == 0){
+            if(gridMod.countFilledTiles() <= 0){
                 System.out.println("You win");
+                LeaderboardView view = new LeaderboardView();
+                view.setVisible(true);
             }
             if ((boardButtons[row][col].getText().equals("0"))
                     ||
