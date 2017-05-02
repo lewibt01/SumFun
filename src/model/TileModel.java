@@ -30,14 +30,14 @@ public class TileModel extends Observable {
     }
 
     //will be used to create numbers
-    public void setNumber(int number) {
+    void setNumber(int number) {
         this.value = number;
         setChanged();
         notifyObservers();
     }
 
     //will change background color of tile
-    public void setColor(Color colorSet) {
+    void setColor(Color colorSet) {
         this.color = colorSet;
         setChanged();
         notifyObservers();

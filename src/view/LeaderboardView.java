@@ -56,17 +56,6 @@ public class LeaderboardView extends JFrame implements Observer {
             timedPanel.add(timedRank[i]);
         }
 
-        /*
-        //add dummy entries to the
-        for (int i = 0; i < LeaderboardModel.LIST_LENGTH; i++) {
-            leaderboard.addEntry(new LeaderboardEntry("testName  ", i, 0));
-        }
-
-        leaderboard.setUserName("Bob", 1);
-        leaderboard.setScore(1, 1100);
-
-        leaderboard.save();
-        */
         this.add(untimedPanel);
         this.add(timedPanel);
         leaderboard.load();

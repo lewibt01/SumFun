@@ -1,11 +1,11 @@
 package model;
 
 import datacontainers.SoundEffect;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
 import java.util.Random;
-
 
 
 //will populate the values needed into the view

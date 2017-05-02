@@ -16,6 +16,7 @@ public class CurrentScoreView extends JPanel implements Observer {
     private JTextField scoreTextField;
     private JTextField movesRemaining;
     private GridModel currentScore;//link to registered score model
+
     CurrentScoreView() {
         currentScore = new GridModel();
         Font font = new Font("SansSerif", Font.BOLD, 20);
@@ -74,7 +75,7 @@ public class CurrentScoreView extends JPanel implements Observer {
         currentScore = cs;
     }
 
-    public GridModel getRegisteredScoreModel() {
+    private GridModel getRegisteredScoreModel() {
         return currentScore;
     }
 }

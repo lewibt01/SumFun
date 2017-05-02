@@ -1,13 +1,12 @@
 package datacontainers;
-
-import view.GridView;
-
+//imports
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
-
+import view.GridView;
+//class is used to make sound for game
 public class SoundEffect {
     private AudioClip soundClip;
 

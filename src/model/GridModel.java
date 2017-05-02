@@ -207,7 +207,7 @@ public class GridModel extends Observable {
     }
 
     //helper method which removes the color from the previous hint
-    public void removeHintColor() {
+    private void removeHintColor() {
         for (int i = 0; i < rowMax; i++) {
             for (int j = 0; j < colMax; j++) {
                 if (grid[i][j].getColor() == Color.CYAN) {
@@ -367,11 +367,11 @@ public class GridModel extends Observable {
             this.col = c;
         }
 
-        public int getRow() {
+        int getRow() {
             return row;
         }
 
-        public int getCol() {
+        int getCol() {
             return col;
         }
     }

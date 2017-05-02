@@ -20,8 +20,6 @@ import model.GridModel;
 import model.TileModel;
 
 public class GridView extends JPanel implements Observer {
-    private JPopupMenu popup;
-    private JMenuItem menuItem;
     private JButton[][] boardButtons;
     private GridModel gridMod;
     private QueueView queueLink;//start with no linked queue
@@ -33,9 +31,6 @@ public class GridView extends JPanel implements Observer {
         super();
         Font font = new Font("SansSerif", Font.BOLD, 18);
         TileModel cellData;
-        popup = new JPopupMenu();
-        menuItem = new JMenuItem("Remove All Like Numbers!");
-        popup.add(menuItem);
         gridMod = gridModel;
         int maxRow = gridMod.getMaxRow();
         int maxCol = gridMod.getMaxCol();
@@ -54,7 +49,6 @@ public class GridView extends JPanel implements Observer {
                 boardButtons[i][j].setFont(font);
                 boardButtons[i][j].setText(cellData.getInt() + "");
                 boardButtons[i][j].addMouseListener(new ButtonListener(i, j));
-                menuItem.addMouseListener(new ButtonListener(i, j));
                 /*TransferHandler.TransferSupport support = new TransferHandler.TransferSupport(boardButtons[i][j], new StringSelection(boardButtons[i][j].getText()));
                 GameController.ValueImportTransferHandler handle = new GameController.ValueImportTransferHandler();
                 handle.canImport(support);
@@ -151,9 +145,10 @@ public class GridView extends JPanel implements Observer {
             SoundEffect beep = new SoundEffect("/soundFiles/Beep.wav");
             SoundEffect longBeep = new SoundEffect("/soundFiles/LongBeep.wav");
             SoundEffect warble = new SoundEffect("/soundFiles/Warble.wav");
-            if(gridMod.countFilledTiles() <= 0){
+            if(gridMod.countFilledTiles() <= 49){
                 System.out.println("You win");
                 LeaderboardView view = new LeaderboardView();
+                view.displayUntimedMessage(Integer.parseInt(gridMod.getCurrentScore()));
                 view.setVisible(true);
             }
             if ((boardButtons[row][col].getText().equals("0"))

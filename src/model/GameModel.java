@@ -31,7 +31,4 @@ public class GameModel extends Observable {
         queueModel.forceUpdate();
 
     }
-
-    public void reset(int i) {
-    }
 }

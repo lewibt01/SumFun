@@ -107,7 +107,6 @@ public class Master extends JFrame {
         if (timedMode) {
             gameModel = new TimedGameModel();
 
-            gameModel.reset(5);
         } else {
             GameModel gameModel = new GameModel();
         }
