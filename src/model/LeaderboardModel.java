@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,8 @@ import java.util.Observable;
 public class LeaderboardModel extends Observable implements Serializable {
     public static final int LIST_LENGTH = 10;
     private static final File leaderFile = new File("LeaderBoard.txt");
+    public static final String filename = "/LeaderBoard.txt";
+
     private static LeaderboardModel singletonLink = new LeaderboardModel();
     private ArrayList<LeaderboardEntry> entries = new ArrayList<>();
 
@@ -25,6 +28,7 @@ public class LeaderboardModel extends Observable implements Serializable {
         singletonLink = this;
         try {
             //save();
+
             load();
             forceUpdate();
         } catch (Exception ex) {
@@ -57,7 +61,7 @@ public class LeaderboardModel extends Observable implements Serializable {
     public void load() {
         ArrayList<String> tmp = new ArrayList<>();
         try {
-            BufferedReader buffReader = new BufferedReader(new FileReader(leaderFile));
+            BufferedReader buffReader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filename)));
             LeaderboardEntry[] localEntries;
             String currentLine;
             //read & store all the lines of the text file for ease of parsing
