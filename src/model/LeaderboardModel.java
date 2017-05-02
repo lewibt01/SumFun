@@ -7,7 +7,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +17,7 @@ import java.util.Observable;
 
 public class LeaderboardModel extends Observable implements Serializable {
     public static final int LIST_LENGTH = 10;//
-    private static final File leaderFile = new File("/LeaderBoard.txt");
+    private static final File leaderFile = new File("LeaderBoard.txt");
 
     private static LeaderboardModel singletonLink = new LeaderboardModel();
     private ArrayList<LeaderboardEntry> entries = new ArrayList<>();
