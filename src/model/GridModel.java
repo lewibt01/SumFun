@@ -1,6 +1,7 @@
 package model;
 
 import datacontainers.SoundEffect;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +9,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JOptionPane;
-
-
 
 
 //Grid Model used to make the grid of the game board
@@ -129,14 +128,6 @@ public class GridModel extends Observable {
             neighbors.add(grid[pos.getRow() + 1][pos.getCol() + 1]);
             // }
         }
-        // for testing purposes
-/*
-        for (TileModel tile : neighbors) {
-            System.out.println("value: " + tile.getInt());
-            Position pos2 = this.getTilePosition(tile);
-            System.out.println("    row: " + pos2.getRow() + " col: " + pos2.getCol());
-        }
-*/
         return neighbors;
     }
 
@@ -243,7 +234,7 @@ public class GridModel extends Observable {
     }
 
     public Position hint(int theNumber) {
-        SoundEffect lowBeep = new SoundEffect("soundFiles/LowBeep.wav");
+        SoundEffect lowBeep = new SoundEffect("/soundFiles/LowBeep.wav");
         lowBeep.play();
         Position pos;
         if (hintCounter < NUMBER_OF_HINTS) {

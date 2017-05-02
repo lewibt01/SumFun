@@ -1,6 +1,6 @@
 package com;
-
 //import java files
+import datacontainers.SoundEffect;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,10 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 //import models and view classes
-import datacontainers.SoundEffect;
+import model.GameModel;
 import model.GridModel;
 import model.QueueModel;
-import model.GameModel;
 import model.TimedGameModel;
 import view.LeaderboardView;
 import view.TheGui;

@@ -39,7 +39,7 @@ public class QueueModel extends Observable {
 
     //randomly reshuffle the elements of the queue
     public void shuffle() {
-        SoundEffect revWarble = new SoundEffect("soundFiles/ReverseWarble.wav");
+        SoundEffect revWarble = new SoundEffect("/soundFiles/ReverseWarble.wav");
         revWarble.play();
         Collections.shuffle(this.getQueue());
         //tell everybody we updated the queue

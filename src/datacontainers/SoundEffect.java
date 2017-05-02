@@ -1,5 +1,7 @@
 package datacontainers;
 
+import view.GridView;
+
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.File;
@@ -21,7 +23,9 @@ public class SoundEffect {
 
     public SoundEffect(String inputPath){
         try{
-            URL path = Paths.get(inputPath).toUri().toURL();
+            System.out.println(inputPath);
+            URL path = GridView.class.getResource(inputPath);
+            System.out.println(path);
             soundClip = Applet.newAudioClip(path);
         }catch(Exception ex){
             System.err.println("soundFile URL error");
