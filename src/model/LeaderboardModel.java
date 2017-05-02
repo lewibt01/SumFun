@@ -16,7 +16,7 @@ import java.util.Observable;
 
 
 public class LeaderboardModel extends Observable implements Serializable {
-    public static final int LIST_LENGTH = 10;
+    public static final int LIST_LENGTH = 10;//
     private static final File leaderFile = new File("LeaderBoard.txt");
     private static LeaderboardModel singletonLink = new LeaderboardModel();
     private ArrayList<LeaderboardEntry> entries = new ArrayList<>();
