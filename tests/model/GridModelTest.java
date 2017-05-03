@@ -8,9 +8,20 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.Test;
 
 public class GridModelTest {
+    private GridModel gridModel;
+    private ArrayList<TileModel> tileModels;
+
+    @Before
+    public void setUp() throws Exception {
+        // Create models used in tests
+        gridModel = new GridModel();
+        tileModels = new ArrayList<>(8);
+    }
+
     @Test
     public void getNeighbors() throws Exception {
         System.out.println("getNeighbors test");
@@ -57,49 +68,43 @@ public class GridModelTest {
         assertEquals(40,  Integer.parseInt(gm.getCurrentScore()));
         System.out.println("performCalc test successful\n");
     }
-
-/*
+    /**
+     * Tests one performCalc with no match
+     *
+     * @throws Exception If test fails.
+     */
     @Test
-    public void removeHintColor() throws Exception {
-        System.out.println("removeHintColor test");
-        GridModel gm = new GridModel();
-        gm.getGrid()[5][5].setColor(Color.CYAN);
-        gm.removeHintColor();
-*/
-/*
-        for (int i = 0; i < gm.getMaxRow(); i++) {
-            for (int j = 0; j < gm.getMaxCol(); j++) {
-                if (gm.getGrid()[i][j].getColor() == Color.CYAN) {
-                    gm.getGrid()[i][j].setColor(Color.GREEN);
-                }
-            }
-        }
-*//*
+    public void testOneNeighborCalc() throws Exception {
 
-        assertEquals(Color.WHITE, gm.getGrid()[5][5].getColor());
-        System.out.println("removeHintColor test successful\n");
+        // Fill neighbors list with empty TileModels
+        for (int j = 0; j < 8; j++) {
+            TileModel model = new TileModel();
+            model.setNumber(0);
+            tileModels.add(model);
+
+        }
+        System.out.println(tileModels.toString());
+        // Make ONE neighbor filled
+        tileModels.get(0).setNumber(1);
+        tileModels.get(0).setBoolean(true);
+        // Make our tile
+        TileModel myTile = new TileModel();
+        myTile.setNumber(2);
+        myTile.setBoolean(true);
+
+        assertTrue(myTile.getBool());
+
+        // TEST METHOD
+        gridModel.performCalc(tileModels, myTile);
+        // TEST
+
+        // Still should be true
+        assertTrue(myTile.getBool());
+        assertEquals(50, gridModel.getIntMoves());
+        assertEquals("0", gridModel.getCurrentScore());
+
+
     }
 
-    @Test
-    public void removeSame() throws Exception {
-        System.out.println("removeSame test");
-        GridModel gm = new GridModel();
-        //gm.getGrid()[5][5].setColor(Color.CYAN);
-        gm.removeSame(5);
-        int count = 0;
-        for (int i = 0; i < gm.getMaxRow(); i++) {
-            for (int j = 0; j < gm.getMaxCol(); j++) {
-                if (gm.getGrid()[i][j].getInt() == 5) {
-                    count++;
-                }
-            }
-        }
-        if (count == 0) {
-            assertEquals(Color.WHITE, gm.getGrid()[5][5].getColor());
-            System.out.println("removeSame test successful\n");
-        } else {
-            System.out.println("removeSame failure");
-        }
-    }
-*/
+
 }
