@@ -203,14 +203,16 @@ public class QueueView extends JPanel implements Observer {
 	// method used to activate hints in gridModel via button click
 	private class HintListener implements ActionListener {
 		// count used to determine number of hints
+		int count = 0;
 		public void actionPerformed(ActionEvent e) {
 			GridModel gm = gridLink.getRegisteredGridModel();
 			try {
-
 				gm.highlightTile(gm.hint(queueMod.peek()));
-
+				count++;
             } catch (NullPointerException ex) {
-                hintJButton.setEnabled(false);
+                if(count >= 3){
+                	hintJButton.setEnabled(false);
+				}
                 //ex.printStackTrace();
             }
         }
